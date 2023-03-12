@@ -3,7 +3,8 @@
 // Author :            Cade R. Naylor
 // Creation Date :     March 5, 2023
 //
-// Brief Description : Creates test functions for the control test
+// Brief Description : Creates test functions for the control test. Handles movement
+                        and scope.
 *****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ public class TestControls : MonoBehaviour
     Vector2 movement;
     Vector2 scopePos;
     [SerializeField] private GameObject scope;
-    [SerializeField] private int scopeRange = 100;
+    private int scopeRange = 100;
 
     //called just before start
     private void Awake()
@@ -24,7 +25,7 @@ public class TestControls : MonoBehaviour
         controls = new PlayerActions();
 
         
-        //Movement- Right Stick. Should always be active
+        //Movement- Left Stick
 
         controls.Player1Actions.Movement.performed += contx => movement =
         contx.ReadValue<Vector2>();
@@ -32,7 +33,7 @@ public class TestControls : MonoBehaviour
         Vector2.zero;
 
 
-        //Scope Movement- Left Stick. Can swap with Camera Movement 
+        //Scope Movement- Right Stick
 
         controls.Player1Actions.MoveScope.performed += contx => scopePos =
         contx.ReadValue<Vector2>();
@@ -49,33 +50,47 @@ public class TestControls : MonoBehaviour
         Vector2 newScopePos;
         Vector2 movementVelocity = new Vector2(movement.x, movement.y) * 5 *
             Time.deltaTime;
-        Vector2 playerBind;
         //Translate is a movement function
         transform.Translate(movementVelocity, Space.Self);
-        playerBind = transform.position;
-        if (transform.position.x > 8.4f)
-        {
-            playerBind.x = 8.4f;
-        }
-        if (transform.position.x < -8.4f)
-        {
-            playerBind.x = -8.4f;
-        }
-        if (transform.position.y > 4.5f)
-        {
-            playerBind.y = 4.5f;
-        }
-        if (transform.position.y < -4.5f)
-        {
-            playerBind.y = -4.5f;
-        }
-        transform.position = playerBind;
 
+        //Clamp the player's position to stay on screen
+        transform.position=ClampPlayer(playerPos);
 
-        newScopePos.x = playerPos.x+(scopePos.x * scopeRange * Time.deltaTime);
+        //Set the scope's position to the new value while ensuring it revolves
+        //around the player
+        newScopePos.x = playerPos.x + (scopePos.x * scopeRange * Time.deltaTime);
         newScopePos.y = playerPos.y + (scopePos.y * scopeRange * Time.deltaTime);
 
         scope.transform.position = newScopePos;
+    }
+
+
+    /// <summary>
+    /// Clamps the player's position to remain onscreen
+    /// </summary>
+    /// <param name="pos">The player's position</param>
+    /// <returns>The clamped player position</returns>
+    private Vector2 ClampPlayer(Vector2 pos)
+    {
+        Vector2 playerBind = pos;
+
+        if (pos.x > 8.4f)
+        {
+            playerBind.x = 8.4f;
+        }
+        if (pos.x < -8.4f)
+        {
+            playerBind.x = -8.4f;
+        }
+        if (pos.y > 4.5f)
+        {
+            playerBind.y = 4.5f;
+        }
+        if (pos.y < -4.5f)
+        {
+            playerBind.y = -4.5f;
+        }
+        return playerBind;
     }
 
     private void OnEnable()
