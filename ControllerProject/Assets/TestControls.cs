@@ -49,13 +49,33 @@ public class TestControls : MonoBehaviour
         Vector2 newScopePos;
         Vector2 movementVelocity = new Vector2(movement.x, movement.y) * 5 *
             Time.deltaTime;
-
+        Vector2 playerBind;
         //Translate is a movement function
         transform.Translate(movementVelocity, Space.Self);
+        playerBind = transform.position;
+        if (transform.position.x > 8.4f)
+        {
+            playerBind.x = 8.4f;
+        }
+        if (transform.position.x < -8.4f)
+        {
+            playerBind.x = -8.4f;
+        }
+        if (transform.position.y > 4.5f)
+        {
+            playerBind.y = 4.5f;
+        }
+        if (transform.position.y < -4.5f)
+        {
+            playerBind.y = -4.5f;
+        }
+        transform.position = playerBind;
 
-        newScopePos = new Vector2(scopePos.x, scopePos.y) * 5 * Time.deltaTime;
 
-        scope.transform.Translate(newScopePos, Space.Self);
+        newScopePos.x = playerPos.x+(scopePos.x * scopeRange * Time.deltaTime);
+        newScopePos.y = playerPos.y + (scopePos.y * scopeRange * Time.deltaTime);
+
+        scope.transform.position = newScopePos;
     }
 
     private void OnEnable()
