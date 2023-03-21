@@ -26,17 +26,19 @@ public class TestControls : MonoBehaviour
 
         
         //Movement- Left Stick
-
+        //Reads in input from the Left Stick and saves it to a temporary variable
         controls.Player1Actions.Movement.performed += contx => movement =
         contx.ReadValue<Vector2>();
+        //When the Left Stick is not being pressed, set the temp variable to 0
         controls.Player1Actions.Movement.canceled += contx => movement = 
         Vector2.zero;
 
 
         //Scope Movement- Right Stick
-
+        //Reads in input from the Right Stick and saves it to a temporary variable
         controls.Player1Actions.MoveScope.performed += contx => scopePos =
         contx.ReadValue<Vector2>();
+        //When the Right Stick is not being pressed, set the temp variable to 0
         controls.Player1Actions.MoveScope.canceled += contx => scopePos =
         Vector2.zero;
     }
@@ -46,18 +48,24 @@ public class TestControls : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+        //Create a 
         Vector2 playerPos = transform.position;
         Vector2 newScopePos;
         Vector2 movementVelocity = new Vector2(movement.x, movement.y) * 5 *
             Time.deltaTime;
+        Quaternion scopeAngle;
+        float fAngle;
         //Translate is a movement function
         transform.Translate(movementVelocity, Space.Self);
 
         //Clamp the player's position to stay on screen
-        transform.position=ClampPlayer(playerPos);
+        ClampPlayer(transform.position);
 
         //Set the scope's position to the new value while ensuring it revolves
         //around the player
+
+        fAngle = Mathf.Tan(scopePos.y / scopePos.x);
+
         newScopePos.x = playerPos.x + (scopePos.x * scopeRange * Time.deltaTime);
         newScopePos.y = playerPos.y + (scopePos.y * scopeRange * Time.deltaTime);
 
@@ -69,8 +77,7 @@ public class TestControls : MonoBehaviour
     /// Clamps the player's position to remain onscreen
     /// </summary>
     /// <param name="pos">The player's position</param>
-    /// <returns>The clamped player position</returns>
-    private Vector2 ClampPlayer(Vector2 pos)
+    private void ClampPlayer(Vector2 pos)
     {
         Vector2 playerBind = pos;
 
@@ -90,7 +97,7 @@ public class TestControls : MonoBehaviour
         {
             playerBind.y = -4.5f;
         }
-        return playerBind;
+        transform.position = playerBind;
     }
 
     private void OnEnable()
