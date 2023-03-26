@@ -12,12 +12,21 @@ public class CharacterData : ScriptableObject
     [SerializeField]
     private CharacterType character;
     [SerializeField]
-    private int health;
+    private int maxHealth;
     [SerializeField]
     private int demonicPossession;
+    [SerializeField]
+    private int health;
+    [SerializeField]
+    private int tempHealth;
+    [SerializeField]
+    private int itemsBought;
 
-    public string CharacterName { get => characterName; set => characterName = value; }
+
+    public string CharacterName { get => characterName; set => characterName = 
+            value; }
     public CharacterType Character { get => character; set => character = value; }
     public int Health { get => health; set => health = value; }
-    public int DemonicPossession { get => demonicPossession; set => demonicPossession = value; }
+
+
 }
