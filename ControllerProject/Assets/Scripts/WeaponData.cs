@@ -19,9 +19,13 @@ public class WeaponData : ScriptableObject
     private int dmg;
     [SerializeField]
     private int chargeDmg;
+    [SerializeField]
+    private int chargeCD;
 
     public string WeaponName { get => weaponName; set => weaponName = value; }
     public WeaponID Weapon { get => weapon; set => weapon = value; }
     public WeaponTypeID WeaponType { get => weaponType; set => weaponType = value; }
     public int Dmg { get => dmg; set => dmg = value; }
+    public int ChargeDmg { get => chargeDmg; set => chargeDmg = value; }
+    public int ChargeCD { get => chargeCD; set => chargeCD = value; }
 }

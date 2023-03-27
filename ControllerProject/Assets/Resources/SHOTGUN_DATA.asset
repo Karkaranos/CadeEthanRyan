@@ -16,3 +16,5 @@ MonoBehaviour:
   weapon: 1
   weaponType: 0
   dmg: 2
+  chargeDmg: 4
+  chargeCD: 5

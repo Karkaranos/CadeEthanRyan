@@ -53,6 +53,24 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuickAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""54bad6b6-bf3f-4cc4-bbfa-6b64b6d36326"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ImpactAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""bdf1c3f6-83cb-46e4-81c1-f4333a1fc31f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +106,28 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""SwitchWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24557ccf-669e-4bee-8253-331f53aede51"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90d691d7-53aa-48d6-a6f9-436dfef444d5"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ImpactAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -99,6 +139,8 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Player1Actions_Movement = m_Player1Actions.FindAction("Movement", throwIfNotFound: true);
         m_Player1Actions_MoveScope = m_Player1Actions.FindAction("MoveScope", throwIfNotFound: true);
         m_Player1Actions_SwitchWeapon = m_Player1Actions.FindAction("SwitchWeapon", throwIfNotFound: true);
+        m_Player1Actions_QuickAttack = m_Player1Actions.FindAction("QuickAttack", throwIfNotFound: true);
+        m_Player1Actions_ImpactAttack = m_Player1Actions.FindAction("ImpactAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,6 +203,8 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player1Actions_Movement;
     private readonly InputAction m_Player1Actions_MoveScope;
     private readonly InputAction m_Player1Actions_SwitchWeapon;
+    private readonly InputAction m_Player1Actions_QuickAttack;
+    private readonly InputAction m_Player1Actions_ImpactAttack;
     public struct Player1ActionsActions
     {
         private @PlayerActions m_Wrapper;
@@ -168,6 +212,8 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player1Actions_Movement;
         public InputAction @MoveScope => m_Wrapper.m_Player1Actions_MoveScope;
         public InputAction @SwitchWeapon => m_Wrapper.m_Player1Actions_SwitchWeapon;
+        public InputAction @QuickAttack => m_Wrapper.m_Player1Actions_QuickAttack;
+        public InputAction @ImpactAttack => m_Wrapper.m_Player1Actions_ImpactAttack;
         public InputActionMap Get() { return m_Wrapper.m_Player1Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -186,6 +232,12 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @SwitchWeapon.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchWeapon;
                 @SwitchWeapon.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchWeapon;
                 @SwitchWeapon.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchWeapon;
+                @QuickAttack.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnQuickAttack;
+                @QuickAttack.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnQuickAttack;
+                @QuickAttack.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnQuickAttack;
+                @ImpactAttack.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnImpactAttack;
+                @ImpactAttack.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnImpactAttack;
+                @ImpactAttack.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnImpactAttack;
             }
             m_Wrapper.m_Player1ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -199,6 +251,12 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @SwitchWeapon.started += instance.OnSwitchWeapon;
                 @SwitchWeapon.performed += instance.OnSwitchWeapon;
                 @SwitchWeapon.canceled += instance.OnSwitchWeapon;
+                @QuickAttack.started += instance.OnQuickAttack;
+                @QuickAttack.performed += instance.OnQuickAttack;
+                @QuickAttack.canceled += instance.OnQuickAttack;
+                @ImpactAttack.started += instance.OnImpactAttack;
+                @ImpactAttack.performed += instance.OnImpactAttack;
+                @ImpactAttack.canceled += instance.OnImpactAttack;
             }
         }
     }
@@ -208,5 +266,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnMoveScope(InputAction.CallbackContext context);
         void OnSwitchWeapon(InputAction.CallbackContext context);
+        void OnQuickAttack(InputAction.CallbackContext context);
+        void OnImpactAttack(InputAction.CallbackContext context);
     }
 }
