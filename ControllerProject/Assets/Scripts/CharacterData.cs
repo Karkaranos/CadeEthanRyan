@@ -15,6 +15,8 @@ public class CharacterData : ScriptableObject
     private int health;
     [SerializeField]
     private int demonicPossession;
+    [SerializeField]
+    private int critDmgPercent;
 
     public string CharacterName { get => characterName; set => characterName = value; }
     public CharacterType Character { get => character; set => character = value; }

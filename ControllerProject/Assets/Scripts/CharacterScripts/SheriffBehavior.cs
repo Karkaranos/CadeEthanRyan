@@ -1,36 +1,29 @@
-/*****************************************************************************
-// File Name :         TestControls.cs
-// Author :            Cade R. Naylor
-// Creation Date :     March 5, 2023
-//
-// Brief Description : Creates test functions for the control test. Handles movement
-                        and scope.
-*****************************************************************************/
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestControls : MonoBehaviour
-{
-    //Create an instance of input
+public class SheriffBehavior : MonoBehaviour
+{//Create an instance of input
     PlayerActions controls;
     Vector2 movement;
     Vector2 scopePos;
     [SerializeField] private GameObject scope;
     private int scopeRange = 100;
+    [SerializeField] private WeaponData weapon;
 
     //called just before start
     private void Awake()
     {
         controls = new PlayerActions();
 
-        
+
         //Movement- Left Stick
         //Reads in input from the Left Stick and saves it to a temporary variable
         controls.Player1Actions.Movement.performed += contx => movement =
         contx.ReadValue<Vector2>();
         //When the Left Stick is not being pressed, set the temp variable to 0
-        controls.Player1Actions.Movement.canceled += contx => movement = 
+        controls.Player1Actions.Movement.canceled += contx => movement =
         Vector2.zero;
 
 
@@ -41,6 +34,37 @@ public class TestControls : MonoBehaviour
         //When the Right Stick is not being pressed, set the temp variable to 0
         controls.Player1Actions.MoveScope.canceled += contx => scopePos =
         Vector2.zero;
+
+        //Weapon Switching - Left Trigger
+        controls.Player1Actions.SwitchWeapon.performed += contx => SwitchWeapon();
+
+
+    }
+
+    /// <summary>
+    /// Switches the WeaponData the player is currently using
+    /// </summary>
+    private void SwitchWeapon()
+    {
+        string fileName = "";
+        if (weapon.Weapon == WeaponData.WeaponID.REVOLVER)
+        {
+            fileName = "SHOTGUN_DATA";
+            print("Weapon switched to Shotgun");
+        }
+        else if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
+        {
+
+            fileName = "REVOLVER_DATA";
+            print("Weapon switched to Revolver");
+            //fileName = "PISTOL_DATA";
+            //print("Weapon switched to Pistol");
+        }
+        /*else
+        {
+            fileName = "REVOLVER_DATA";
+        }*/
+        weapon = Resources.Load<WeaponData>(fileName);
     }
 
     /// <summary>
@@ -48,7 +72,7 @@ public class TestControls : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        //Create a 
+        //Create a reference to the player's position
         Vector2 playerPos = transform.position;
         Vector2 newScopePos;
         Vector2 movementVelocity = new Vector2(movement.x, movement.y) * 5 *

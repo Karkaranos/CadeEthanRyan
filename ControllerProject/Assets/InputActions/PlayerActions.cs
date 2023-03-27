@@ -44,6 +44,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwitchWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""71063ce3-672c-4559-965e-f6b7773f6c5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""MoveScope"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82f05dcc-332a-49f3-9900-ac9e67a5a61d"",
+                    ""path"": ""<XInputController>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Player1Actions = asset.FindActionMap("Player1Actions", throwIfNotFound: true);
         m_Player1Actions_Movement = m_Player1Actions.FindAction("Movement", throwIfNotFound: true);
         m_Player1Actions_MoveScope = m_Player1Actions.FindAction("MoveScope", throwIfNotFound: true);
+        m_Player1Actions_SwitchWeapon = m_Player1Actions.FindAction("SwitchWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,12 +160,14 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private IPlayer1ActionsActions m_Player1ActionsActionsCallbackInterface;
     private readonly InputAction m_Player1Actions_Movement;
     private readonly InputAction m_Player1Actions_MoveScope;
+    private readonly InputAction m_Player1Actions_SwitchWeapon;
     public struct Player1ActionsActions
     {
         private @PlayerActions m_Wrapper;
         public Player1ActionsActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player1Actions_Movement;
         public InputAction @MoveScope => m_Wrapper.m_Player1Actions_MoveScope;
+        public InputAction @SwitchWeapon => m_Wrapper.m_Player1Actions_SwitchWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Player1Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -160,6 +183,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @MoveScope.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnMoveScope;
                 @MoveScope.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnMoveScope;
                 @MoveScope.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnMoveScope;
+                @SwitchWeapon.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchWeapon;
+                @SwitchWeapon.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchWeapon;
+                @SwitchWeapon.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchWeapon;
             }
             m_Wrapper.m_Player1ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -170,6 +196,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @MoveScope.started += instance.OnMoveScope;
                 @MoveScope.performed += instance.OnMoveScope;
                 @MoveScope.canceled += instance.OnMoveScope;
+                @SwitchWeapon.started += instance.OnSwitchWeapon;
+                @SwitchWeapon.performed += instance.OnSwitchWeapon;
+                @SwitchWeapon.canceled += instance.OnSwitchWeapon;
             }
         }
     }
@@ -178,5 +207,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnMoveScope(InputAction.CallbackContext context);
+        void OnSwitchWeapon(InputAction.CallbackContext context);
     }
 }
