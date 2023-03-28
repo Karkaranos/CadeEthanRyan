@@ -16,6 +16,8 @@ public class CharacterData : ScriptableObject
     [SerializeField]
     private int demonicPossession;
     [SerializeField]
+    private int critDmgPercent;
+    [SerializeField]
     private int health;
     [SerializeField]
     private int tempHealth;
