@@ -93,6 +93,8 @@ public class SheriffBehavior : MonoBehaviour
         Vector2 movementVelocity = new Vector2(movement.x, movement.y) * 5 *
             Time.deltaTime;
         float fAngle;
+        float scopeDistance;
+
         //Translate is a movement function
         transform.Translate(movementVelocity, Space.Self);
 
@@ -102,7 +104,9 @@ public class SheriffBehavior : MonoBehaviour
         //Set the scope's position to the new value while ensuring it revolves
         //around the player
 
-        fAngle = Mathf.Tan(scopePos.y / scopePos.x);
+        fAngle = Mathf.Atan(scopePos.y / scopePos.x);
+        print(fAngle);
+        scopeDistance = Mathf.Sqrt((Mathf.Pow(scopePos.x, 2)) + (Mathf.Pow(scopePos.y, 2)));
 
         newScopePos.x = playerPos.x + (scopePos.x * scopeRange * Time.deltaTime);
         newScopePos.y = playerPos.y + (scopePos.y * scopeRange * Time.deltaTime);
