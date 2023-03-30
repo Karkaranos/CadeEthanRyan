@@ -11,6 +11,8 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject scope;
     private int scopeRange = 100;
     [SerializeField] private WeaponData weapon;
+    [SerializeField] private GameObject sheriff;
+    [SerializeField] private GameObject gun;
 
     //called just before start
     private void Awake()
@@ -66,12 +68,14 @@ public class SheriffBehavior : MonoBehaviour
         {
             fileName = "SHOTGUN_DATA";
             print("Weapon switched to Shotgun");
+            gun.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
         }
         else if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
         {
 
             fileName = "REVOLVER_DATA";
             print("Weapon switched to Revolver");
+            gun.GetComponent<Renderer>().material.color = new Color(255, 255, 255);
             //fileName = "PISTOL_DATA";
             //print("Weapon switched to Pistol");
         }
@@ -87,6 +91,7 @@ public class SheriffBehavior : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+        SheriffArt sherArt = GetComponent<SheriffArt>();
         //Create a reference to the player's position
         Vector2 playerPos = transform.position;
         Vector2 newScopePos;
@@ -117,30 +122,10 @@ public class SheriffBehavior : MonoBehaviour
 
         scope.transform.position = newScopePos;
 
+        SheriffArt sherA = sheriff.GetComponent<SheriffArt>();
 
-        if (movementVelocity.x > 0.05 && movementVelocity.x < 1)
-        {
-            GetComponent<Renderer>().material.color = new Color(255, 0, 0);
-            playerRot.z = 0f;
-            
-        }
-        else if (movementVelocity.x < -0.05 && movementVelocity.x > -1)
-        {
-            GetComponent<Renderer>().material.color = new Color(255, 255, 0);
-            playerRot.z = 180f;
-        }
-        else  if (movementVelocity.y > 0 && movementVelocity.y < 1)
-        {
-            GetComponent<Renderer>().material.color = new Color(0, 0, 255);
-            playerRot.z = 90f;
-        }
-        else if (movementVelocity.y < 0 && movementVelocity. y > -1)
-        {
-            GetComponent<Renderer>().material.color = new Color(0, 255, 255);
-            playerRot.z = 270f;
-        }
-
-        transform.rotation = playerRot;
+        //Sets the animation based on the direction the player is walking in
+        sherA.SetDirection(movementVelocity, playerRot);
 
     }
 
