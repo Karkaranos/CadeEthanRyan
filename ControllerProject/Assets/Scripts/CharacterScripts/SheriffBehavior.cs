@@ -94,6 +94,7 @@ public class SheriffBehavior : MonoBehaviour
             Time.deltaTime;
         float fAngle;
         float scopeDistance;
+        Quaternion playerRot = transform.rotation;
 
         //Translate is a movement function
         transform.Translate(movementVelocity, Space.Self);
@@ -105,14 +106,44 @@ public class SheriffBehavior : MonoBehaviour
         //around the player
 
         fAngle = Mathf.Atan(scopePos.y / scopePos.x);
-        print(fAngle);
-        scopeDistance = Mathf.Sqrt((Mathf.Pow(scopePos.x, 2)) + (Mathf.Pow(scopePos.y, 2)));
+        scopeDistance = Mathf.Sqrt((Mathf.Pow(scopePos.x, 2)) + 
+            (Mathf.Pow(scopePos.y, 2)));
 
-        newScopePos.x = playerPos.x + (scopePos.x * scopeRange * Time.deltaTime);
-        newScopePos.y = playerPos.y + (scopePos.y * scopeRange * Time.deltaTime);
+
+        newScopePos.x = playerPos.x + (scopePos.x * scopeDistance * scopeRange * 
+            Time.deltaTime);
+        newScopePos.y = playerPos.y + (scopePos.y * scopeDistance * scopeRange *
+            Time.deltaTime);
 
         scope.transform.position = newScopePos;
+
+
+        if (movementVelocity.x > 0.05 && movementVelocity.x < 1)
+        {
+            GetComponent<Renderer>().material.color = new Color(255, 0, 0);
+            playerRot.z = 0f;
+            
+        }
+        else if (movementVelocity.x < -0.05 && movementVelocity.x > -1)
+        {
+            GetComponent<Renderer>().material.color = new Color(255, 255, 0);
+            playerRot.z = 180f;
+        }
+        else  if (movementVelocity.y > 0 && movementVelocity.y < 1)
+        {
+            GetComponent<Renderer>().material.color = new Color(0, 0, 255);
+            playerRot.z = 90f;
+        }
+        else if (movementVelocity.y < 0 && movementVelocity. y > -1)
+        {
+            GetComponent<Renderer>().material.color = new Color(0, 255, 255);
+            playerRot.z = 270f;
+        }
+
+        transform.rotation = playerRot;
+
     }
+
 
 
     /// <summary>
