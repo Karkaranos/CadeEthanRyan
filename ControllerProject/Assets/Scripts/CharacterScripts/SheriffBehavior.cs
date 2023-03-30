@@ -11,6 +11,8 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject scope;
     private int scopeRange = 100;
     [SerializeField] private WeaponData weapon;
+    [SerializeField] private GameObject sheriff;
+    [SerializeField] private GameObject gun;
 
     //called just before start
     private void Awake()
@@ -66,12 +68,14 @@ public class SheriffBehavior : MonoBehaviour
         {
             fileName = "SHOTGUN_DATA";
             print("Weapon switched to Shotgun");
+            gun.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
         }
         else if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
         {
 
             fileName = "REVOLVER_DATA";
             print("Weapon switched to Revolver");
+            gun.GetComponent<Renderer>().material.color = new Color(255, 255, 255);
             //fileName = "PISTOL_DATA";
             //print("Weapon switched to Pistol");
         }
@@ -87,6 +91,7 @@ public class SheriffBehavior : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+        SheriffArt sherArt = GetComponent<SheriffArt>();
         //Create a reference to the player's position
         Vector2 playerPos = transform.position;
         Vector2 newScopePos;
@@ -94,6 +99,7 @@ public class SheriffBehavior : MonoBehaviour
             Time.deltaTime;
         float fAngle;
         float scopeDistance;
+        Quaternion playerRot = transform.rotation;
 
         //Translate is a movement function
         transform.Translate(movementVelocity, Space.Self);
@@ -105,14 +111,24 @@ public class SheriffBehavior : MonoBehaviour
         //around the player
 
         fAngle = Mathf.Atan(scopePos.y / scopePos.x);
-        print(fAngle);
-        scopeDistance = Mathf.Sqrt((Mathf.Pow(scopePos.x, 2)) + (Mathf.Pow(scopePos.y, 2)));
+        scopeDistance = Mathf.Sqrt((Mathf.Pow(scopePos.x, 2)) + 
+            (Mathf.Pow(scopePos.y, 2)));
 
-        newScopePos.x = playerPos.x + (scopePos.x * scopeRange * Time.deltaTime);
-        newScopePos.y = playerPos.y + (scopePos.y * scopeRange * Time.deltaTime);
+
+        newScopePos.x = playerPos.x + (scopePos.x * scopeDistance * scopeRange * 
+            Time.deltaTime);
+        newScopePos.y = playerPos.y + (scopePos.y * scopeDistance * scopeRange *
+            Time.deltaTime);
 
         scope.transform.position = newScopePos;
+
+        SheriffArt sherA = sheriff.GetComponent<SheriffArt>();
+
+        //Sets the animation based on the direction the player is walking in
+        sherA.SetDirection(movementVelocity, playerRot);
+
     }
+
 
 
     /// <summary>
