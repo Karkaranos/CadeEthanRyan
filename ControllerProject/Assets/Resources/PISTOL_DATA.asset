@@ -19,5 +19,4 @@ MonoBehaviour:
   chargeDmg: 6
   chargeCD: 5
   standardCD: 0
-  ammo: 0
-  sprite: {fileID: 7621529378051402705, guid: 11b9261013b101841a5a62c84cff289d, type: 3}
+  ammo: 10

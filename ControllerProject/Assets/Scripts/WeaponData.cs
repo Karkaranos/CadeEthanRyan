@@ -26,8 +26,6 @@ public class WeaponData : ScriptableObject
     private int standardCD;
     [SerializeField]
     private int ammo;
-    [SerializeField]
-    private GameObject sprite;
 
     public string WeaponName { get => weaponName; set => weaponName = value; }
     public WeaponID Weapon { get => weapon; set => weapon = value; }
