@@ -13,6 +13,7 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private WeaponData weapon;
     [SerializeField] private GameObject sheriff;
     [SerializeField] private GameObject gun;
+    private bool chgAtkAvailable = true;
 
     //called just before start
     private void Awake()
@@ -49,8 +50,23 @@ public class SheriffBehavior : MonoBehaviour
 
     private void chargeAtk()
     {
-        print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage.");
-        //Set a cooldown timer until this attack can be used again
+        if (chgAtkAvailable)
+        {
+            print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage.");
+            chgAtkAvailable = false;
+            StartCoroutine(WeaponCoolDown());
+        }
+        else
+        {
+            print(weapon.Weapon + " is on cooldown.");
+        }
+
+    }
+
+    IEnumerator WeaponCoolDown()
+    {
+        yield return new WaitForSeconds(weapon.ChargeCD);
+        chgAtkAvailable = true;
     }
 
     private void quickAtk()
@@ -72,17 +88,16 @@ public class SheriffBehavior : MonoBehaviour
         }
         else if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
         {
-
+            fileName = "PISTOL_DATA";
+            print("Weapon switched to Pistol");
+            gun.GetComponent<Renderer>().material.color = new Color(.5f, .5f, .5f);
+        }
+        else if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
+        {
             fileName = "REVOLVER_DATA";
             print("Weapon switched to Revolver");
             gun.GetComponent<Renderer>().material.color = new Color(255, 255, 255);
-            //fileName = "PISTOL_DATA";
-            //print("Weapon switched to Pistol");
         }
-        /*else
-        {
-            fileName = "REVOLVER_DATA";
-        }*/
         weapon = Resources.Load<WeaponData>(fileName);
     }
 
