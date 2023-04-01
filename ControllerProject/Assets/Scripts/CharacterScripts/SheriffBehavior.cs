@@ -18,12 +18,16 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject scope;
     private int scopeRange = 100;
     [SerializeField] private WeaponData weapon;
+    private SpriteRenderer gunImage;
     [SerializeField] private GameObject gun;
     private bool chgAtkAvailable = true;
     private bool atkAvailable = true;
 
     //Other Variables
     [SerializeField] private GameObject sheriff;
+    [SerializeField] private Sprite revolver;
+    [SerializeField] private Sprite shotgun;
+    [SerializeField] private Sprite pistol;
 
     #endregion
 
@@ -38,6 +42,8 @@ public class SheriffBehavior : MonoBehaviour
     {
         controls = new PlayerActions();
 
+        gunImage = gun.GetComponent<SpriteRenderer>();
+        gunImage.sprite = revolver;
 
         //Movement - Left Stick
         //Reads in input from the Left Stick and saves it to a temporary variable
@@ -165,25 +171,27 @@ public class SheriffBehavior : MonoBehaviour
         {
             fileName = "SHOTGUN_DATA";
             print("Weapon switched to Shotgun");
-            gun.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
+            gunImage.sprite = shotgun;
         }
         else if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
         {
             fileName = "PISTOL_DATA";
             print("Weapon switched to Pistol");
-            gun.GetComponent<Renderer>().material.color = new Color(.5f, .5f, .5f);
+            gunImage.sprite = pistol;
         }
         else if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
         {
             fileName = "REVOLVER_DATA";
             print("Weapon switched to Revolver");
-            gun.GetComponent<Renderer>().material.color = new Color(255, 255, 255);
+            gunImage.sprite = revolver;
         }
         weapon = Resources.Load<WeaponData>(fileName);
 
         //Reset the attack cooldowns
         chgAtkAvailable = true;
         atkAvailable = true;
+
+
     }
 
     #endregion
