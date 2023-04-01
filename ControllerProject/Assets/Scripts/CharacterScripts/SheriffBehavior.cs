@@ -22,29 +22,29 @@ public class SheriffBehavior : MonoBehaviour
 
         //Movement - Left Stick
         //Reads in input from the Left Stick and saves it to a temporary variable
-        controls.Player1Actions.Movement.performed += contx => movement =
+        controls.Player2Actions.Movement.performed += contx => movement =
         contx.ReadValue<Vector2>();
         //When the Left Stick is not being pressed, set the temp variable to 0
-        controls.Player1Actions.Movement.canceled += contx => movement =
+        controls.Player2Actions.Movement.canceled += contx => movement =
         Vector2.zero;
 
 
         //Scope Movement - Right Stick
         //Reads in input from the Right Stick and saves it to a temporary variable
-        controls.Player1Actions.MoveScope.performed += contx => scopePos =
+        controls.Player2Actions.MoveScope.performed += contx => scopePos =
         contx.ReadValue<Vector2>();
         //When the Right Stick is not being pressed, set the temp variable to 0
         controls.Player1Actions.MoveScope.canceled += contx => scopePos =
         Vector2.zero;
 
         //Weapon Switching - Left Trigger
-        controls.Player1Actions.SwitchWeapon.performed += contx => SwitchWeapon();
+        controls.Player2Actions.SwitchWeapon.performed += contx => SwitchWeapon();
 
         //Quick Attack - A button
-        controls.Player1Actions.QuickAttack.performed += contx => quickAtk();
+        controls.Player2Actions.QuickAttack.performed += contx => quickAtk();
 
         //Charged Attack - B Button
-        controls.Player1Actions.ImpactAttack.performed += contx => chargeAtk();
+        controls.Player2Actions.ImpactAttack.performed += contx => chargeAtk();
     }
 
     private void chargeAtk()
