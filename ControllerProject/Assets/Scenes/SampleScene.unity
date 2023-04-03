@@ -920,6 +920,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: {fileID: 231806297}
   weapon: {fileID: 11400000, guid: ef21717a0cbbbb94e8f53adbfe18c068, type: 2}
+  sheriff: {fileID: 0}
+  gun: {fileID: 0}
 --- !u!4 &1482605489
 Transform:
   m_ObjectHideFlags: 0
