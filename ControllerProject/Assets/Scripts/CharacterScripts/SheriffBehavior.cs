@@ -4,21 +4,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SheriffBehavior : MonoBehaviour
-{//Create an instance of input
+{
+    #region Variables
+
+    //Create an instance of input
     PlayerActions controls;
+
+    //Temporary Variables
     Vector2 movement;
     Vector2 scopePos;
+
+    //Variables for Attacks
     [SerializeField] private GameObject scope;
     private int scopeRange = 100;
     [SerializeField] private WeaponData weapon;
-    [SerializeField] private GameObject sheriff;
+    private SpriteRenderer gunImage;
     [SerializeField] private GameObject gun;
+    private bool chgAtkAvailable = true;
+    private bool atkAvailable = true;
 
-    //called just before start
+    //Other Variables
+    [SerializeField] private GameObject sheriff;
+    [SerializeField] private Sprite revolver;
+    [SerializeField] private Sprite shotgun;
+    [SerializeField] private Sprite pistol;
+
+    #endregion
+
+    #region Functions
+
+    //Sets up control references
+    #region Set Up
+    /// <summary>
+    /// Awake is called before start. Gets references to Player Controls.
+    /// </summary>
     private void Awake()
     {
         controls = new PlayerActions();
 
+        gunImage = gun.GetComponent<SpriteRenderer>();
+        gunImage.sprite = revolver;
 
         //Movement - Left Stick
         //Reads in input from the Left Stick and saves it to a temporary variable
@@ -47,16 +72,94 @@ public class SheriffBehavior : MonoBehaviour
         controls.Player1Actions.ImpactAttack.performed += contx => chargeAtk();
     }
 
-    private void chargeAtk()
+    private void OnEnable()
     {
-        print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage.");
-        //Set a cooldown timer until this attack can be used again
+        //Turn on Action Maps; Implicitly called
+        controls.Player1Actions.Enable();
     }
 
+    private void OnDisable()
+    {
+        //Turn off action maps
+        controls.Player1Actions.Disable();
+    }
+    #endregion Set Up
+
+    //Handles player attacks and switching weapons
+    #region Attacks and Weapons
+    /// <summary>
+    /// Attacks using the player's Charged Attack, if available
+    /// </summary>
+    private void chargeAtk()
+    {
+        if (weapon.Ammo == 0)
+        {
+            print("Out of Ammo");
+        }
+        else
+        {
+            if (chgAtkAvailable && weapon)
+            {
+                //Attack, then start the cooldown timer
+                print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
+                chgAtkAvailable = false;
+                StartCoroutine(ChargeWeaponCoolDown());
+                weapon.Ammo--;
+            }
+            else
+            {
+                print(weapon.Weapon + " is on cooldown.");
+            }
+        }
+    }
+
+    /// <summary>
+    /// The cooldown timer for a charged attack
+    /// </summary>
+    /// <returns>How long before charged attack can occur again</returns>
+    IEnumerator ChargeWeaponCoolDown()
+    {
+        yield return new WaitForSeconds(weapon.ChargeCD);
+        chgAtkAvailable = true;
+    }
+
+
+    /// <summary>
+    /// Attacks using the player's standard attack, if available
+    /// </summary>
     private void quickAtk()
     {
-        print(weapon.Weapon + " deals " + weapon.Dmg + " damage.");
+        if (weapon.Ammo == 0)
+        {
+            print("Out of Ammo");
+        }
+        else
+        {
+            if (atkAvailable && weapon)
+            {
+                //Attack, then start the cooldown timer
+                print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
+                atkAvailable = false;
+                StartCoroutine(WeaponCoolDown());
+                weapon.Ammo--;
+            }
+            else
+            {
+                print(weapon.Weapon + " is on cooldown.");
+            }
+        }
     }
+
+    /// <summary>
+    /// The cooldown timer for an attack
+    /// </summary>
+    /// <returns>How long before attack can occur again</returns>
+    IEnumerator WeaponCoolDown()
+    {
+        yield return new WaitForSeconds(weapon.StandardCD);
+        atkAvailable = true;
+    }
+
 
     /// <summary>
     /// Switches the WeaponData the player is currently using
@@ -68,23 +171,33 @@ public class SheriffBehavior : MonoBehaviour
         {
             fileName = "SHOTGUN_DATA";
             print("Weapon switched to Shotgun");
-            gun.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
+            gunImage.sprite = shotgun;
         }
         else if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
         {
-
-            fileName = "REVOLVER_DATA";
-            print("Weapon switched to Revolver");
-            gun.GetComponent<Renderer>().material.color = new Color(255, 255, 255);
-            //fileName = "PISTOL_DATA";
-            //print("Weapon switched to Pistol");
+            fileName = "PISTOL_DATA";
+            print("Weapon switched to Pistol");
+            gunImage.sprite = pistol;
         }
-        /*else
+        else if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
         {
             fileName = "REVOLVER_DATA";
-        }*/
+            print("Weapon switched to Revolver");
+            gunImage.sprite = revolver;
+        }
         weapon = Resources.Load<WeaponData>(fileName);
+
+        //Reset the attack cooldowns
+        chgAtkAvailable = true;
+        atkAvailable = true;
+
+
     }
+
+    #endregion
+
+    //Handles player and scope movement
+    #region Movement
 
     /// <summary>
     /// Handles player and scope movement
@@ -158,16 +271,6 @@ public class SheriffBehavior : MonoBehaviour
         transform.position = playerBind;
     }
 
-    private void OnEnable()
-    {
-        //Turn on Action Maps; Implicitly called
-        controls.Player1Actions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        //Turn off action maps
-        controls.Player1Actions.Disable();
-    }
-
+    #endregion
+    #endregion Functions
 }
