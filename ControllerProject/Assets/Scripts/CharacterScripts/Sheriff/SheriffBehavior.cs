@@ -10,13 +10,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SheriffBehavior : MonoBehaviour
 {
     #region Variables
 
     //Create an instance of input
-    PlayerActions controls;
+    InputActionAsset inputAsset;
+    InputActionMap inputMap;
+
+    //Create a reference for each inputAction
+    InputAction playerMovement;
+    InputAction scopeMovement;
+    InputAction quickAttack;
+    InputAction chargeAttack;
+    InputAction switchWeapon;
 
     //Temporary Variables
     Vector2 movement;
@@ -48,48 +57,51 @@ public class SheriffBehavior : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        controls = new PlayerActions();
+        inputAsset = this.GetComponent<PlayerInput>().actions;
+        inputMap = inputAsset.FindActionMap("Player1Actions");
+        playerMovement = inputMap.FindAction("Movement");
+        scopeMovement = inputMap.FindAction("MoveScope");
+        switchWeapon = inputMap.FindAction("SwitchWeapon");
+        quickAttack = inputMap.FindAction("QuickAttack");
+        chargeAttack = inputMap.FindAction("ImpactAttack");
+
 
         gunImage = gun.GetComponent<SpriteRenderer>();
         gunImage.sprite = revolver;
 
         //Movement - Left Stick
         //Reads in input from the Left Stick and saves it to a temporary variable
-        controls.Player1Actions.Movement.performed += contx => movement =
-        contx.ReadValue<Vector2>();
+        playerMovement.performed += contx => movement = contx.ReadValue<Vector2>();
         //When the Left Stick is not being pressed, set the temp variable to 0
-        controls.Player1Actions.Movement.canceled += contx => movement =
-        Vector2.zero;
+        playerMovement.canceled += contx => movement = Vector2.zero;
 
 
         //Scope Movement - Right Stick
         //Reads in input from the Right Stick and saves it to a temporary variable
-        controls.Player1Actions.MoveScope.performed += contx => scopePos =
-        contx.ReadValue<Vector2>();
+        scopeMovement.performed += contx => scopePos = contx.ReadValue<Vector2>();
         //When the Right Stick is not being pressed, set the temp variable to 0
-        controls.Player1Actions.MoveScope.canceled += contx => scopePos =
-        Vector2.zero;
+        scopeMovement.canceled += contx => scopePos = Vector2.zero;
 
         //Weapon Switching - Left Trigger
-        controls.Player1Actions.SwitchWeapon.performed += contx => SwitchWeapon();
+        switchWeapon.performed += contx => SwitchWeapon();
 
         //Quick Attack - A button
-        controls.Player1Actions.QuickAttack.performed += contx => quickAtk();
+        quickAttack.performed += contx => quickAtk();
 
         //Charged Attack - B Button
-        controls.Player1Actions.ImpactAttack.performed += contx => chargeAtk();
+        chargeAttack.performed += contx => chargeAtk();
     }
 
     private void OnEnable()
     {
         //Turn on Action Maps; Implicitly called
-        controls.Player1Actions.Enable();
+        inputMap.Enable();
     }
 
     private void OnDisable()
     {
         //Turn off action maps
-        controls.Player1Actions.Disable();
+        inputMap.Disable();
     }
     #endregion Set Up
 
