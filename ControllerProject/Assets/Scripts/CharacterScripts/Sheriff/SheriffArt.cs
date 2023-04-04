@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name :         SheriffArt.cs
+// Author :            Cade R. Naylor
+// Creation Date :     March 30, 2023
+//
+// Brief Description : Changes the Sheriff's walk animation
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

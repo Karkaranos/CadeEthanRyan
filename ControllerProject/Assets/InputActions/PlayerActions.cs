@@ -130,114 +130,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Player2Actions"",
-            ""id"": ""5c9c3dfa-b214-48dc-a7fd-b223d8f3cecd"",
-            ""actions"": [
-                {
-                    ""name"": ""Movement"",
-                    ""type"": ""Value"",
-                    ""id"": ""e2e30b10-f53d-4766-97db-e8ce2d82a02a"",
-                    ""expectedControlType"": ""Stick"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""MoveScope"",
-                    ""type"": ""Value"",
-                    ""id"": ""76917262-597f-4afa-bcf9-737d4c8b4abd"",
-                    ""expectedControlType"": ""Stick"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""SwitchWeapon"",
-                    ""type"": ""Button"",
-                    ""id"": ""bda4ff50-acf7-4976-afeb-492d3c372b68"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""QuickAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""b3e4005d-6d01-4f16-a573-d7a4e752b0b0"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ImpactAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""efa8b6e7-c2c7-40ee-863a-813ee3280181"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""ab6b4cc4-3d3c-498f-a9fa-a1bc6ce6bfce"",
-                    ""path"": ""<XInputController>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dbfca3eb-01e0-4b7a-8306-d2e1de571957"",
-                    ""path"": ""<XInputController>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveScope"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1e5cb6a8-eddc-4b03-b7b6-10ad674fae69"",
-                    ""path"": ""<XInputController>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchWeapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4ca25bf3-677f-426f-b1a7-9e204148762e"",
-                    ""path"": ""<XInputController>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""QuickAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d31252e2-6e8d-425a-86ab-577b09d6448d"",
-                    ""path"": ""<XInputController>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ImpactAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": []
@@ -249,13 +141,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Player1Actions_SwitchWeapon = m_Player1Actions.FindAction("SwitchWeapon", throwIfNotFound: true);
         m_Player1Actions_QuickAttack = m_Player1Actions.FindAction("QuickAttack", throwIfNotFound: true);
         m_Player1Actions_ImpactAttack = m_Player1Actions.FindAction("ImpactAttack", throwIfNotFound: true);
-        // Player2Actions
-        m_Player2Actions = asset.FindActionMap("Player2Actions", throwIfNotFound: true);
-        m_Player2Actions_Movement = m_Player2Actions.FindAction("Movement", throwIfNotFound: true);
-        m_Player2Actions_MoveScope = m_Player2Actions.FindAction("MoveScope", throwIfNotFound: true);
-        m_Player2Actions_SwitchWeapon = m_Player2Actions.FindAction("SwitchWeapon", throwIfNotFound: true);
-        m_Player2Actions_QuickAttack = m_Player2Actions.FindAction("QuickAttack", throwIfNotFound: true);
-        m_Player2Actions_ImpactAttack = m_Player2Actions.FindAction("ImpactAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -376,80 +261,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         }
     }
     public Player1ActionsActions @Player1Actions => new Player1ActionsActions(this);
-
-    // Player2Actions
-    private readonly InputActionMap m_Player2Actions;
-    private IPlayer2ActionsActions m_Player2ActionsActionsCallbackInterface;
-    private readonly InputAction m_Player2Actions_Movement;
-    private readonly InputAction m_Player2Actions_MoveScope;
-    private readonly InputAction m_Player2Actions_SwitchWeapon;
-    private readonly InputAction m_Player2Actions_QuickAttack;
-    private readonly InputAction m_Player2Actions_ImpactAttack;
-    public struct Player2ActionsActions
-    {
-        private @PlayerActions m_Wrapper;
-        public Player2ActionsActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Player2Actions_Movement;
-        public InputAction @MoveScope => m_Wrapper.m_Player2Actions_MoveScope;
-        public InputAction @SwitchWeapon => m_Wrapper.m_Player2Actions_SwitchWeapon;
-        public InputAction @QuickAttack => m_Wrapper.m_Player2Actions_QuickAttack;
-        public InputAction @ImpactAttack => m_Wrapper.m_Player2Actions_ImpactAttack;
-        public InputActionMap Get() { return m_Wrapper.m_Player2Actions; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(Player2ActionsActions set) { return set.Get(); }
-        public void SetCallbacks(IPlayer2ActionsActions instance)
-        {
-            if (m_Wrapper.m_Player2ActionsActionsCallbackInterface != null)
-            {
-                @Movement.started -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnMovement;
-                @MoveScope.started -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnMoveScope;
-                @MoveScope.performed -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnMoveScope;
-                @MoveScope.canceled -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnMoveScope;
-                @SwitchWeapon.started -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnSwitchWeapon;
-                @SwitchWeapon.performed -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnSwitchWeapon;
-                @SwitchWeapon.canceled -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnSwitchWeapon;
-                @QuickAttack.started -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnQuickAttack;
-                @QuickAttack.performed -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnQuickAttack;
-                @QuickAttack.canceled -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnQuickAttack;
-                @ImpactAttack.started -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnImpactAttack;
-                @ImpactAttack.performed -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnImpactAttack;
-                @ImpactAttack.canceled -= m_Wrapper.m_Player2ActionsActionsCallbackInterface.OnImpactAttack;
-            }
-            m_Wrapper.m_Player2ActionsActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Movement.started += instance.OnMovement;
-                @Movement.performed += instance.OnMovement;
-                @Movement.canceled += instance.OnMovement;
-                @MoveScope.started += instance.OnMoveScope;
-                @MoveScope.performed += instance.OnMoveScope;
-                @MoveScope.canceled += instance.OnMoveScope;
-                @SwitchWeapon.started += instance.OnSwitchWeapon;
-                @SwitchWeapon.performed += instance.OnSwitchWeapon;
-                @SwitchWeapon.canceled += instance.OnSwitchWeapon;
-                @QuickAttack.started += instance.OnQuickAttack;
-                @QuickAttack.performed += instance.OnQuickAttack;
-                @QuickAttack.canceled += instance.OnQuickAttack;
-                @ImpactAttack.started += instance.OnImpactAttack;
-                @ImpactAttack.performed += instance.OnImpactAttack;
-                @ImpactAttack.canceled += instance.OnImpactAttack;
-            }
-        }
-    }
-    public Player2ActionsActions @Player2Actions => new Player2ActionsActions(this);
     public interface IPlayer1ActionsActions
-    {
-        void OnMovement(InputAction.CallbackContext context);
-        void OnMoveScope(InputAction.CallbackContext context);
-        void OnSwitchWeapon(InputAction.CallbackContext context);
-        void OnQuickAttack(InputAction.CallbackContext context);
-        void OnImpactAttack(InputAction.CallbackContext context);
-    }
-    public interface IPlayer2ActionsActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnMoveScope(InputAction.CallbackContext context);

@@ -20,7 +20,7 @@ public class TestControls : MonoBehaviour
     private int scopeRange = 100;
 
     //called just before start
-    private void Awake()
+    /*private void Awake()
     {
         controls = new PlayerActions();
 
@@ -109,6 +109,6 @@ public class TestControls : MonoBehaviour
     {
         //Turn off action maps
         controls.Player1Actions.Disable();
-    }
+    }*/
 
 }
