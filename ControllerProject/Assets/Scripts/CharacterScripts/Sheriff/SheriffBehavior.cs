@@ -1,3 +1,11 @@
+/*****************************************************************************
+// File Name :         SheriffBehavor.cs
+// Author :            Cade R. Naylor
+// Creation Date :     March 19, 2023
+//
+// Brief Description : Creates the Sheriff Behavior, links them to PlayerActions, 
+                        handles attacks, movement, power up/weapon switching
+*****************************************************************************/
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,18 +30,13 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject gun;
     private bool chgAtkAvailable = true;
     private bool atkAvailable = true;
-    [SerializeField] private GameObject atkPoint;
 
     //Other Variables
     [SerializeField] private GameObject sheriff;
     [SerializeField] private Sprite revolver;
     [SerializeField] private Sprite shotgun;
     [SerializeField] private Sprite pistol;
-    [SerializeField] private GameObject bullet;
 
-    //Power Up and Bullet Storage
-    private List<PowerUpData> currPowerUps;
-    private List<SheriffBulletBehavior> currBullets;
     #endregion
 
     #region Functions
@@ -107,7 +110,6 @@ public class SheriffBehavior : MonoBehaviour
             {
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
-                currBullets.Add(Instantiate(bullet, atkPoint.transform.position, Quaternion.identity).GetComponent<SheriffBulletBehavior>());
                 chgAtkAvailable = false;
                 StartCoroutine(ChargeWeaponCoolDown());
                 weapon.Ammo--;
@@ -145,7 +147,6 @@ public class SheriffBehavior : MonoBehaviour
             {
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
-                currBullets.Add(Instantiate(bullet, atkPoint.transform.position, Quaternion.identity).GetComponent<SheriffBulletBehavior>());
                 atkAvailable = false;
                 StartCoroutine(WeaponCoolDown());
                 weapon.Ammo--;

@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name :         WeaponData.cs
+// Author :            Cade R. Naylor
+// Creation Date :     March 21, 2023
+//
+// Brief Description : Creates Scriptable Objects for Weapons
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
