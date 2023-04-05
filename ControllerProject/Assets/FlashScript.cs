@@ -14,29 +14,25 @@ public class FlashScript : MonoBehaviour
     Color flash1 = new Color(255, 255, 255);
     Color flash2 = new Color(255, 0, 0);
     [SerializeField] float deathTimer = 5;
-    [SerializeField] float flashInterval =1;
+    [SerializeField] float flashInterval =.67f;
     int c = 0;
     int totalFlash = 0;
     // Start is called before the first frame update
-    void Start()
-    {
-        Flash();
-        StartCoroutine(Kaboom());
-    }
 
-    private IEnumerator Kaboom()
+
+    public IEnumerator Kaboom(float explodeCountdown)
     {
-        yield return new WaitForSeconds(deathTimer);
+        yield return new WaitForSeconds(explodeCountdown);
         Destroy(gameObject);
     }
-    private void Flash()
+    public void Flash()
     {
         GetComponent<Renderer>().material.color = flash1;
         c = 1;
         StartCoroutine(ExplodeFlash());
     }
 
-    private IEnumerator ExplodeFlash()
+    public IEnumerator ExplodeFlash()
     {
         for (; ; )
         {
