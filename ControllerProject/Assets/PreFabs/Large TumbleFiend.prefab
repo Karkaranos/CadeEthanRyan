@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 7304991497191279361}
   - component: {fileID: 1572543772854758797}
   - component: {fileID: 9008681822687779923}
-  - component: {fileID: 5170244479940596568}
+  - component: {fileID: 3912793385623242505}
   m_Layer: 0
   m_Name: Large TumbleFiend
-  m_TagString: Untagged
+  m_TagString: tumble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,8 +119,8 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!50 &5170244479940596568
+  m_Radius: 0.6
+--- !u!50 &3912793385623242505
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
