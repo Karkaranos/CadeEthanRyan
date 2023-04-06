@@ -1,21 +1,13 @@
-/*****************************************************************************
-// File Name :         KamicactusBehavior.cs
-// Author :            Cade R. Naylor
-// Creation Date :     April 3, 2023
-//
-// Brief Description : Kamicactus Enemy Type
-*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KamicactusBehavior : MonoBehaviour
+public class LargeTumbleFiendBehavior : MonoBehaviour
 {
     #region Variables
-
-    //General variables
-    [SerializeField] private float speed = 3f;
-    [SerializeField] private int cellsForDeath;
+    //TumbleFiend Specific variables
+    [SerializeField] private int smallerTumblesSpawned = 3;
+    [SerializeField] private GameObject smallTumble;
 
     //References to players and setting targets
     private int target;
@@ -24,16 +16,10 @@ public class KamicactusBehavior : MonoBehaviour
     //[SerializeField] GameObject player2;
     Vector3 offset;
 
-
-
-    //Variables for exploding
-    FlashScript explode;
-    private float ignitionToExplode = 5;
-    private bool explodeStarted = false;
-    [SerializeField] private int explosionSize = 3;
-    [SerializeField] GameObject explodeRange;
-
-    #endregion
+    //General variables
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private int cellsForDeath;
+    #endregion Variables
 
     #region Functions
     /// <summary>
@@ -42,6 +28,7 @@ public class KamicactusBehavior : MonoBehaviour
     /// </summary>
     void Start()
     {
+        player1 = GameObject.Find("Grayboxed Sheriff");
         target = 1;
         //target = Random.Range(1, 2);
         if (target == 1)
@@ -55,7 +42,6 @@ public class KamicactusBehavior : MonoBehaviour
         offset.x = 3;
         offset.y = 3;
         offset.y = 3;
-        explode = GetComponent<FlashScript>();
 
     }
 
@@ -74,7 +60,7 @@ public class KamicactusBehavior : MonoBehaviour
     /// <param name="target">The player the enemy is targeting</param>
     void TrackTargetPlayer(GameObject target)
     {
-        Vector2 targetPos=target.transform.position;
+        Vector2 targetPos = target.transform.position;
         Vector2 difference;
         Vector2 moveForce = Vector2.zero;
 
@@ -99,21 +85,23 @@ public class KamicactusBehavior : MonoBehaviour
         transform.Translate(moveForce, Space.Self);
     }
 
-    /// <summary>
-    /// Starts the exploding process when it collides with a player
-    /// </summary>
-    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "player")
+        if (collision.gameObject.tag == "bullet")
         {
-            if (!explodeStarted)
-            {
-                explode.Flash();
-                StartCoroutine(explode.Kaboom(ignitionToExplode));
-                explodeStarted = true;
-            }
+            OnDeath();
         }
     }
-    #endregion
+    public virtual void OnDeath()
+    {
+        Vector2 spawnPos = transform.position;
+        for (int i=-1; i<smallerTumblesSpawned-1; i++)
+        {
+            spawnPos.x += i;
+            Instantiate(smallTumble, spawnPos, transform.rotation);
+            spawnPos = transform.position;
+        }
+        Destroy(gameObject);
+    }
+    #endregion Functions
 }
