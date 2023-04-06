@@ -11,6 +11,7 @@ using UnityEngine;
 
 public class KamicactusBehavior : MonoBehaviour
 {
+    #region Variables
     private int target;
     private GameObject targetObject;
     [SerializeField] GameObject player1;
@@ -19,7 +20,12 @@ public class KamicactusBehavior : MonoBehaviour
     FlashScript explode;
     private float ignitionToExplode = 5;
     private bool explodeStarted = false;
+    [SerializeField] private int explosionSize = 3;
+    [SerializeField] GameObject explodeRange;
 
+    #endregion
+
+    #region Functions
     // Start is called before the first frame update
     void Start()
     {
@@ -80,4 +86,5 @@ public class KamicactusBehavior : MonoBehaviour
             }
         }
     }
+    #endregion
 }

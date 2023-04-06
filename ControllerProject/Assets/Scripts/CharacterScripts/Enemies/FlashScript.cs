@@ -16,7 +16,8 @@ public class FlashScript : MonoBehaviour
     [SerializeField] float deathTimer = 5;
     [SerializeField] float flashInterval =.67f;
     int c = 0;
-    int totalFlash = 0;
+
+
     // Start is called before the first frame update
 
 
@@ -24,6 +25,7 @@ public class FlashScript : MonoBehaviour
     {
         yield return new WaitForSeconds(explodeCountdown);
         Destroy(gameObject);
+
     }
     public void Flash()
     {
@@ -31,6 +33,8 @@ public class FlashScript : MonoBehaviour
         c = 1;
         StartCoroutine(ExplodeFlash());
     }
+
+
 
     public IEnumerator ExplodeFlash()
     {

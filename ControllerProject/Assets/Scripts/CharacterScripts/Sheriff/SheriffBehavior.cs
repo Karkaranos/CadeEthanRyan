@@ -292,5 +292,6 @@ public class SheriffBehavior : MonoBehaviour
     }
 
     #endregion
+
     #endregion Functions
 }
