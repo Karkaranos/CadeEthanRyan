@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name :         LargeTumbleFiendBehavior.cs
+// Author :            Cade R. Naylor
+// Creation Date :     April 3, 2023
+//
+// Brief Description : Handles attacks and death conditions for Large TumbleFiends
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +29,9 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     #endregion Variables
 
     #region Functions
+
+    //Sets up basic player information
+    #region SetUp
     /// <summary>
     /// Start is called before the first frame
     /// Sets enemy target and initial values for a couple variables
@@ -44,7 +54,10 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         offset.y = 3;
 
     }
+    #endregion SetUp
 
+    //Handles player tracking and movement
+    #region Movement
     /// <summary>
     /// Update is called once per frame
     /// Tracks the player
@@ -84,8 +97,14 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         }
         transform.Translate(moveForce, Space.Self);
     }
+    #endregion Movement
 
-
+    //Contains Death Condition and spawns smallers on death
+    #region Death
+    /// <summary>
+    /// Checks for collisions with triggers
+    /// </summary>
+    /// <param name="collision"> the object collided with</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "bullet")
@@ -94,10 +113,14 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
             print("Hit");
         }
     }
+
+    /// <summary>
+    /// Spawns smaller TumbleFiends on death
+    /// </summary>
     public virtual void OnDeath()
     {
         Vector2 spawnPos = transform.position;
-        for (int i=-1; i<smallerTumblesSpawned-1; i++)
+        for (int i = -1; i < smallerTumblesSpawned - 1; i++)
         {
             spawnPos.x = Random.Range(-1, 1);
             spawnPos.y = Random.Range(-1, 1);
@@ -106,5 +129,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         }
         Destroy(gameObject);
     }
+
+    #endregion Death
+
     #endregion Functions
 }

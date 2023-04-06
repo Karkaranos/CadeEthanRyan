@@ -299,6 +299,8 @@ public class SheriffBehavior : MonoBehaviour
     }
 
     #endregion
+
+    //Handles collisions with Enemies
     #region Collisions
 
     private void OnCollisionEnter2D(Collision2D collision)
