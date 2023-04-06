@@ -85,11 +85,13 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         transform.Translate(moveForce, Space.Self);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "bullet")
         {
             OnDeath();
+            print("Hit");
         }
     }
     public virtual void OnDeath()
@@ -97,7 +99,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         Vector2 spawnPos = transform.position;
         for (int i=-1; i<smallerTumblesSpawned-1; i++)
         {
-            spawnPos.x += i;
+            spawnPos.x = Random.Range(-1, 1);
+            spawnPos.y = Random.Range(-1, 1);
             Instantiate(smallTumble, spawnPos, transform.rotation);
             spawnPos = transform.position;
         }
