@@ -45,6 +45,8 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private Sprite revolver;
     [SerializeField] private Sprite shotgun;
     [SerializeField] private Sprite pistol;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject atkPoint;
 
     #endregion
 
@@ -122,6 +124,7 @@ public class SheriffBehavior : MonoBehaviour
             {
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
+                Instantiate(bullet, atkPoint.transform.position, Quaternion.identity);
                 chgAtkAvailable = false;
                 StartCoroutine(ChargeWeaponCoolDown());
                 weapon.Ammo--;
@@ -159,6 +162,7 @@ public class SheriffBehavior : MonoBehaviour
             {
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
+                Instantiate(bullet, atkPoint.transform.position, Quaternion.identity);
                 atkAvailable = false;
                 StartCoroutine(WeaponCoolDown());
                 weapon.Ammo--;
