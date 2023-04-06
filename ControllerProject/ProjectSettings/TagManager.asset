@@ -6,6 +6,7 @@ TagManager:
   tags:
   - player
   - explodey
+  - bullet
   layers:
   - Default
   - TransparentFX
