@@ -9,6 +9,7 @@ TagManager:
   - bullet
   - tumble
   - explosion
+  - Enemy
   layers:
   - Default
   - TransparentFX

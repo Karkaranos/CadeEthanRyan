@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3272210020796424632}
   m_Layer: 0
   m_Name: Small TumbleFiend
-  m_TagString: tumble
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
