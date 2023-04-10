@@ -71,6 +71,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchPowerup"",
+                    ""type"": ""Button"",
+                    ""id"": ""147d9d06-c5c7-4ca6-8b72-767af403c5c9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -128,6 +137,145 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""ImpactAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d937001-54ad-481c-bcdb-15b166344e61"",
+                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchPowerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Player1Actions1"",
+            ""id"": ""09a9661c-58cd-4bd1-afa7-deec735934cc"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""5a2ada02-d2ae-48d1-8425-e2cfd3c0f181"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveScope"",
+                    ""type"": ""Value"",
+                    ""id"": ""2dd2eaa7-57c9-44c0-8d74-571906bece4f"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwitchWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""07dd242c-4022-4fdf-a5df-929795d9f20b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuickAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""59cca2da-9dfb-4704-807f-02fd03044a6d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ImpactAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""3df252b7-b165-4284-b91b-9bf8814e39c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchPowerup"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa43646c-0dee-48dd-ac63-2b1e7838e805"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d4e421af-d51b-416d-aed4-70e7cb79223e"",
+                    ""path"": ""<XInputController>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""816fb8f1-11a9-47b1-8bd0-fa5e0d782514"",
+                    ""path"": ""<XInputController>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveScope"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0bad6d34-16f7-42c6-a196-d23213124f85"",
+                    ""path"": ""<XInputController>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d02e6ce-4627-4d00-a3be-5458f12105fe"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a1d57f0-a551-4f06-8d5d-83d8a22c39f0"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ImpactAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2634c6f7-e683-4b53-8e94-2454e442130f"",
+                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchPowerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -141,6 +289,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Player1Actions_SwitchWeapon = m_Player1Actions.FindAction("SwitchWeapon", throwIfNotFound: true);
         m_Player1Actions_QuickAttack = m_Player1Actions.FindAction("QuickAttack", throwIfNotFound: true);
         m_Player1Actions_ImpactAttack = m_Player1Actions.FindAction("ImpactAttack", throwIfNotFound: true);
+        m_Player1Actions_SwitchPowerup = m_Player1Actions.FindAction("SwitchPowerup", throwIfNotFound: true);
+        // Player1Actions1
+        m_Player1Actions1 = asset.FindActionMap("Player1Actions1", throwIfNotFound: true);
+        m_Player1Actions1_Movement = m_Player1Actions1.FindAction("Movement", throwIfNotFound: true);
+        m_Player1Actions1_MoveScope = m_Player1Actions1.FindAction("MoveScope", throwIfNotFound: true);
+        m_Player1Actions1_SwitchWeapon = m_Player1Actions1.FindAction("SwitchWeapon", throwIfNotFound: true);
+        m_Player1Actions1_QuickAttack = m_Player1Actions1.FindAction("QuickAttack", throwIfNotFound: true);
+        m_Player1Actions1_ImpactAttack = m_Player1Actions1.FindAction("ImpactAttack", throwIfNotFound: true);
+        m_Player1Actions1_SwitchPowerup = m_Player1Actions1.FindAction("SwitchPowerup", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,6 +362,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player1Actions_SwitchWeapon;
     private readonly InputAction m_Player1Actions_QuickAttack;
     private readonly InputAction m_Player1Actions_ImpactAttack;
+    private readonly InputAction m_Player1Actions_SwitchPowerup;
     public struct Player1ActionsActions
     {
         private @PlayerActions m_Wrapper;
@@ -214,6 +372,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @SwitchWeapon => m_Wrapper.m_Player1Actions_SwitchWeapon;
         public InputAction @QuickAttack => m_Wrapper.m_Player1Actions_QuickAttack;
         public InputAction @ImpactAttack => m_Wrapper.m_Player1Actions_ImpactAttack;
+        public InputAction @SwitchPowerup => m_Wrapper.m_Player1Actions_SwitchPowerup;
         public InputActionMap Get() { return m_Wrapper.m_Player1Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -238,6 +397,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @ImpactAttack.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnImpactAttack;
                 @ImpactAttack.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnImpactAttack;
                 @ImpactAttack.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnImpactAttack;
+                @SwitchPowerup.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchPowerup;
+                @SwitchPowerup.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchPowerup;
+                @SwitchPowerup.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchPowerup;
             }
             m_Wrapper.m_Player1ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -257,10 +419,86 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @ImpactAttack.started += instance.OnImpactAttack;
                 @ImpactAttack.performed += instance.OnImpactAttack;
                 @ImpactAttack.canceled += instance.OnImpactAttack;
+                @SwitchPowerup.started += instance.OnSwitchPowerup;
+                @SwitchPowerup.performed += instance.OnSwitchPowerup;
+                @SwitchPowerup.canceled += instance.OnSwitchPowerup;
             }
         }
     }
     public Player1ActionsActions @Player1Actions => new Player1ActionsActions(this);
+
+    // Player1Actions1
+    private readonly InputActionMap m_Player1Actions1;
+    private IPlayer1Actions1Actions m_Player1Actions1ActionsCallbackInterface;
+    private readonly InputAction m_Player1Actions1_Movement;
+    private readonly InputAction m_Player1Actions1_MoveScope;
+    private readonly InputAction m_Player1Actions1_SwitchWeapon;
+    private readonly InputAction m_Player1Actions1_QuickAttack;
+    private readonly InputAction m_Player1Actions1_ImpactAttack;
+    private readonly InputAction m_Player1Actions1_SwitchPowerup;
+    public struct Player1Actions1Actions
+    {
+        private @PlayerActions m_Wrapper;
+        public Player1Actions1Actions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Player1Actions1_Movement;
+        public InputAction @MoveScope => m_Wrapper.m_Player1Actions1_MoveScope;
+        public InputAction @SwitchWeapon => m_Wrapper.m_Player1Actions1_SwitchWeapon;
+        public InputAction @QuickAttack => m_Wrapper.m_Player1Actions1_QuickAttack;
+        public InputAction @ImpactAttack => m_Wrapper.m_Player1Actions1_ImpactAttack;
+        public InputAction @SwitchPowerup => m_Wrapper.m_Player1Actions1_SwitchPowerup;
+        public InputActionMap Get() { return m_Wrapper.m_Player1Actions1; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(Player1Actions1Actions set) { return set.Get(); }
+        public void SetCallbacks(IPlayer1Actions1Actions instance)
+        {
+            if (m_Wrapper.m_Player1Actions1ActionsCallbackInterface != null)
+            {
+                @Movement.started -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnMovement;
+                @MoveScope.started -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnMoveScope;
+                @MoveScope.performed -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnMoveScope;
+                @MoveScope.canceled -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnMoveScope;
+                @SwitchWeapon.started -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnSwitchWeapon;
+                @SwitchWeapon.performed -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnSwitchWeapon;
+                @SwitchWeapon.canceled -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnSwitchWeapon;
+                @QuickAttack.started -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnQuickAttack;
+                @QuickAttack.performed -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnQuickAttack;
+                @QuickAttack.canceled -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnQuickAttack;
+                @ImpactAttack.started -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnImpactAttack;
+                @ImpactAttack.performed -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnImpactAttack;
+                @ImpactAttack.canceled -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnImpactAttack;
+                @SwitchPowerup.started -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnSwitchPowerup;
+                @SwitchPowerup.performed -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnSwitchPowerup;
+                @SwitchPowerup.canceled -= m_Wrapper.m_Player1Actions1ActionsCallbackInterface.OnSwitchPowerup;
+            }
+            m_Wrapper.m_Player1Actions1ActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @MoveScope.started += instance.OnMoveScope;
+                @MoveScope.performed += instance.OnMoveScope;
+                @MoveScope.canceled += instance.OnMoveScope;
+                @SwitchWeapon.started += instance.OnSwitchWeapon;
+                @SwitchWeapon.performed += instance.OnSwitchWeapon;
+                @SwitchWeapon.canceled += instance.OnSwitchWeapon;
+                @QuickAttack.started += instance.OnQuickAttack;
+                @QuickAttack.performed += instance.OnQuickAttack;
+                @QuickAttack.canceled += instance.OnQuickAttack;
+                @ImpactAttack.started += instance.OnImpactAttack;
+                @ImpactAttack.performed += instance.OnImpactAttack;
+                @ImpactAttack.canceled += instance.OnImpactAttack;
+                @SwitchPowerup.started += instance.OnSwitchPowerup;
+                @SwitchPowerup.performed += instance.OnSwitchPowerup;
+                @SwitchPowerup.canceled += instance.OnSwitchPowerup;
+            }
+        }
+    }
+    public Player1Actions1Actions @Player1Actions1 => new Player1Actions1Actions(this);
     public interface IPlayer1ActionsActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -268,5 +506,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnSwitchWeapon(InputAction.CallbackContext context);
         void OnQuickAttack(InputAction.CallbackContext context);
         void OnImpactAttack(InputAction.CallbackContext context);
+        void OnSwitchPowerup(InputAction.CallbackContext context);
+    }
+    public interface IPlayer1Actions1Actions
+    {
+        void OnMovement(InputAction.CallbackContext context);
+        void OnMoveScope(InputAction.CallbackContext context);
+        void OnSwitchWeapon(InputAction.CallbackContext context);
+        void OnQuickAttack(InputAction.CallbackContext context);
+        void OnImpactAttack(InputAction.CallbackContext context);
+        void OnSwitchPowerup(InputAction.CallbackContext context);
     }
 }
