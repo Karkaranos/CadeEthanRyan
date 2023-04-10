@@ -15,7 +15,9 @@ public class FlashScript : MonoBehaviour
     Color flash2 = new Color(255, 0, 0);
     [SerializeField] float deathTimer = 5;
     [SerializeField] float flashInterval =.67f;
+    [SerializeField] GameObject explode;
     int c = 0;
+    private GameObject destroyMe;
 
 
     // Start is called before the first frame update
@@ -24,7 +26,11 @@ public class FlashScript : MonoBehaviour
     public IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
+        destroyMe = Instantiate(explode, transform.position, transform.rotation);
+        yield return new WaitForSeconds(.1f);
+        Destroy(destroyMe);
         Destroy(gameObject);
+
 
     }
     public void Flash()

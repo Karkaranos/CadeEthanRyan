@@ -39,13 +39,16 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject gun;
     private bool chgAtkAvailable = true;
     private bool atkAvailable = true;
+    public float scopeDistance;
 
     //Other Variables
     [SerializeField] private GameObject sheriff;
     [SerializeField] private Sprite revolver;
     [SerializeField] private Sprite shotgun;
     [SerializeField] private Sprite pistol;
-
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject atkPoint;
+    [SerializeField] private int playerhealth=100;
     #endregion
 
     #region Functions
@@ -122,6 +125,7 @@ public class SheriffBehavior : MonoBehaviour
             {
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
+                Instantiate(bullet, transform.position, Quaternion.identity);
                 chgAtkAvailable = false;
                 StartCoroutine(ChargeWeaponCoolDown());
                 weapon.Ammo--;
@@ -159,6 +163,7 @@ public class SheriffBehavior : MonoBehaviour
             {
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
+                Instantiate(bullet, transform.position, Quaternion.identity);
                 atkAvailable = false;
                 StartCoroutine(WeaponCoolDown());
                 weapon.Ammo--;
@@ -260,6 +265,8 @@ public class SheriffBehavior : MonoBehaviour
         //Sets the animation based on the direction the player is walking in
         sherA.SetDirection(movementVelocity, playerRot);
 
+        scopeDistance=Mathf.Sqrt(Mathf.Pow(newScopePos.x-playerPos.x,2)+Mathf.Pow(newScopePos.y-playerPos.y,2));
+
     }
 
 
@@ -292,6 +299,28 @@ public class SheriffBehavior : MonoBehaviour
     }
 
     #endregion
+
+    //Handles collisions with Enemies
+    #region Collisions
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "tumble")
+        {
+            //take tumble damage!
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "explosion")
+        {
+            //Take explosion Damage
+        }
+    }
+
+    #endregion Collisions
+
 
     #endregion Functions
 }
