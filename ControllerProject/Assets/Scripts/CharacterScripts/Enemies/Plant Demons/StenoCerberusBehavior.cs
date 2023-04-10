@@ -21,7 +21,7 @@ public class StenoCerberusBehavior : MonoBehaviour
     [SerializeField] private GameObject atkPoint2;
     [SerializeField] private GameObject atkPoint3;
     private int attackingHead;
-    List<GameObject> spikesShot = new List<GameObject>(); 
+    List<GameObject> spikesShot = new List<GameObject>();
     private int ignitionToExplode = 5;
 
     //References to players and setting targets
@@ -57,23 +57,33 @@ public class StenoCerberusBehavior : MonoBehaviour
     /// <returns>How often spikes spawn</returns>
     IEnumerator FireSpikes()
     {
+        GameObject objectSpawned;
         for(; ; )
         {
             attackingHead = Random.Range(1, 4);
             if (attackingHead == 1)
             {
-                spikesShot.Add(Instantiate(spike, atkPoint1.transform.position,
+                objectSpawned= (Instantiate(spike, atkPoint1.transform.position,
                     Quaternion.identity));
+                spikesShot.Add(objectSpawned);
+                objectSpawned.GetComponent<CactusSpikeBehavior>().
+                    GetTarget(targetObject);
             }
             else if (attackingHead == 2)
             {
-                spikesShot.Add(Instantiate(spike, atkPoint2.transform.position,
+                objectSpawned = (Instantiate(spike, atkPoint2.transform.position,
                     Quaternion.identity));
+                spikesShot.Add(objectSpawned);
+                objectSpawned.GetComponent<CactusSpikeBehavior>().
+                    GetTarget(targetObject);
             }
             else
             {
-                spikesShot.Add(Instantiate(spike, atkPoint3.transform.position,
+                objectSpawned = (Instantiate(spike, atkPoint3.transform.position,
                     Quaternion.identity));
+                spikesShot.Add(objectSpawned);
+                objectSpawned.GetComponent<CactusSpikeBehavior>().
+                    GetTarget(targetObject);
             }
             yield return new WaitForSeconds(rateFired);
         }
@@ -116,10 +126,9 @@ public class StenoCerberusBehavior : MonoBehaviour
                 destroyMe = c;
                 Destroy(destroyMe);
             }
+            StartCoroutine(explode.Kaboom(ignitionToExplode));
+            Destroy(gameObject);
         }
-        explode.Flash();
-        StartCoroutine(explode.Kaboom(ignitionToExplode));
-        Destroy(gameObject);
     }
     #endregion Attacks and Death
 
