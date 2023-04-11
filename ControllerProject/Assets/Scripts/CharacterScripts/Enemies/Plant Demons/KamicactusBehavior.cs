@@ -46,6 +46,7 @@ public class KamicactusBehavior : MonoBehaviour
     /// </summary>
     void Start()
     {
+        player1 = GameObject.Find("Grayboxed Sheriff");
         target = 1;
         //target = Random.Range(1, 2);
         if (target == 1)
@@ -70,7 +71,7 @@ public class KamicactusBehavior : MonoBehaviour
     /// Update is called once per frame
     /// Tracks the player
     /// </summary>
-    void Update()
+    void FixedUpdate()
     {
         TrackTargetPlayer(targetObject);
     }
@@ -81,7 +82,7 @@ public class KamicactusBehavior : MonoBehaviour
     /// <param name="target">The player the enemy is targeting</param>
     void TrackTargetPlayer(GameObject target)
     {
-        Vector2 targetPos=target.transform.position;
+        Vector2 targetPos = target.transform.position;
         Vector2 difference;
         Vector2 moveForce = Vector2.zero;
 

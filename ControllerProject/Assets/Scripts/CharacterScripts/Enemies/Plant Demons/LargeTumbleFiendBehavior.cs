@@ -129,8 +129,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         Vector2 spawnPos = transform.position;
         for (int i = -1; i < smallerTumblesSpawned - 1; i++)
         {
-            spawnPos.x = Random.Range(-1, 1);
-            spawnPos.y = Random.Range(-1, 1);
+            spawnPos.x += Random.Range(-1, 1);
+            spawnPos.y += Random.Range(-1, 1);
             Instantiate(smallTumble, spawnPos, transform.rotation);
             spawnPos = transform.position;
         }
