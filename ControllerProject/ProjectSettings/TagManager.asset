@@ -11,6 +11,7 @@ TagManager:
   - explosion
   - Enemy
   - Spike
+  - World Objects
   layers:
   - Default
   - TransparentFX

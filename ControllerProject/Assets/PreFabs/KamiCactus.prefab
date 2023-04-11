@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5630606698234742367}
   - component: {fileID: 5630606698234742364}
   - component: {fileID: 5630606698234742365}
-  - component: {fileID: 1090642607864066805}
+  - component: {fileID: 2933045543855909914}
   m_Layer: 0
   m_Name: KamiCactus
   m_TagString: Enemy
@@ -139,7 +139,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.6
---- !u!50 &1090642607864066805
+--- !u!50 &2933045543855909914
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -159,4 +159,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
