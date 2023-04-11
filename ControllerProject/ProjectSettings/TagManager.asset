@@ -10,6 +10,7 @@ TagManager:
   - tumble
   - explosion
   - Enemy
+  - Spike
   layers:
   - Default
   - TransparentFX

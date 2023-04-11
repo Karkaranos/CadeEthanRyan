@@ -99,11 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf104cfbb324adb4db2b1b2ff0704fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smallerTumblesSpawned: 3
+  smallerTumblesSpawned: 0
   smallTumble: {fileID: 0}
   player1: {fileID: 0}
   speed: 3
   cellsForDeath: 0
+  health: 5
 --- !u!58 &7471730578854874295
 CircleCollider2D:
   m_ObjectHideFlags: 0
