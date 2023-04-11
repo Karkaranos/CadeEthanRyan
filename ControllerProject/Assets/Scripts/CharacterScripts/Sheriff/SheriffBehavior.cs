@@ -55,6 +55,7 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject atkPoint;
     private int playerhealth = 100;
     private bool weaponChanged = false;
+    private int weaponNumber=1;
 
     public int Playerhealth { get => playerhealth; set => playerhealth = value; }
 
@@ -62,6 +63,7 @@ public class SheriffBehavior : MonoBehaviour
 
     public bool Weaponchanged { get => weaponChanged; set => weaponChanged = value; }
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
+    public int WeaponNumber { get => weaponNumber; set => weaponNumber = value; }
     #endregion
 
 
@@ -225,18 +227,21 @@ public class SheriffBehavior : MonoBehaviour
             fileName = "SHOTGUN_DATA";
             print("Weapon switched to Shotgun");
             gunImage.sprite = shotgun;
+            weaponNumber = 2;
         }
         else if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
         {
             fileName = "PISTOL_DATA";
             print("Weapon switched to Pistol");
             gunImage.sprite = pistol;
+            weaponNumber = 3;
         }
         else if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
         {
             fileName = "REVOLVER_DATA";
             print("Weapon switched to Revolver");
             gunImage.sprite = revolver;
+            weaponNumber = 1;
         }
         weapon = Resources.Load<WeaponData>(fileName);
 

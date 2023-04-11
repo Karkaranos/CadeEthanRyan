@@ -15,7 +15,6 @@ public class Player1UIBehavior : MonoBehaviour
     [SerializeField] SheriffBehavior player1;
     [SerializeField] Slider healthBar;
     [SerializeField] Slider ammoBar;
-    private WeaponData weapon;
     [SerializeField] Sprite pistol;
     [SerializeField] Sprite revolver;
     [SerializeField] Sprite shotgun;
@@ -40,6 +39,19 @@ public class Player1UIBehavior : MonoBehaviour
         {
             playerMaxAmmo = player1.MaxAmmo;
             ammoBar.value = (player1.Ammo / playerMaxAmmo);
+        }
+        var img = currWeapon.GetComponent<Image>();
+        if (player1.WeaponNumber == 1)
+        {
+            img.sprite = revolver;
+        }
+        if (player1.WeaponNumber == 2)
+        {
+            img.sprite = shotgun;
+        }
+        if (player1.WeaponNumber == 3)
+        {
+            img.sprite = pistol;
         }
     }
 }
