@@ -1,21 +1,20 @@
 /*****************************************************************************
-// File Name :         KamicactusBehavior.cs
+// File Name :         LargeTumbleFiendBehavior.cs
 // Author :            Cade R. Naylor
 // Creation Date :     April 3, 2023
 //
-// Brief Description : Kamicactus Enemy Type
+// Brief Description : Handles attacks and death conditions for Large TumbleFiends
 *****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KamicactusBehavior : MonoBehaviour
+public class LargeTumbleFiendBehavior : MonoBehaviour
 {
     #region Variables
-
-    //General variables
-    [SerializeField] private float speed = 3f;
-    [SerializeField] private int cellsForDeath;
+    //TumbleFiend Specific variables
+    [SerializeField] private int smallerTumblesSpawned = 3;
+    [SerializeField] private GameObject smallTumble;
 
     //References to players and setting targets
     private int target;
@@ -24,24 +23,22 @@ public class KamicactusBehavior : MonoBehaviour
     //[SerializeField] GameObject player2;
     Vector3 offset;
 
-
-
-    //Variables for exploding
-    FlashScript explode;
-    private float ignitionToExplode = 5;
-    private bool explodeStarted = false;
-    [SerializeField] private int explosionSize = 3;
-    [SerializeField] GameObject explodeRange;
-
-    #endregion
+    //General variables
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private int cellsForDeath;
+    #endregion Variables
 
     #region Functions
+
+    //Sets up basic player information
+    #region SetUp
     /// <summary>
     /// Start is called before the first frame
     /// Sets enemy target and initial values for a couple variables
     /// </summary>
     void Start()
     {
+        player1 = GameObject.Find("Grayboxed Sheriff");
         target = 1;
         //target = Random.Range(1, 2);
         if (target == 1)
@@ -55,10 +52,12 @@ public class KamicactusBehavior : MonoBehaviour
         offset.x = 3;
         offset.y = 3;
         offset.y = 3;
-        explode = GetComponent<FlashScript>();
 
     }
+    #endregion SetUp
 
+    //Handles player tracking and movement
+    #region Movement
     /// <summary>
     /// Update is called once per frame
     /// Tracks the player
@@ -74,7 +73,7 @@ public class KamicactusBehavior : MonoBehaviour
     /// <param name="target">The player the enemy is targeting</param>
     void TrackTargetPlayer(GameObject target)
     {
-        Vector2 targetPos=target.transform.position;
+        Vector2 targetPos = target.transform.position;
         Vector2 difference;
         Vector2 moveForce = Vector2.zero;
 
@@ -98,22 +97,40 @@ public class KamicactusBehavior : MonoBehaviour
         }
         transform.Translate(moveForce, Space.Self);
     }
+    #endregion Movement
 
+    //Contains Death Condition and spawns smallers on death
+    #region Death
     /// <summary>
-    /// Starts the exploding process when it collides with a player
+    /// Checks for collisions with triggers
     /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision)
+    /// <param name="collision"> the object collided with</param>
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "player")
+        if (collision.gameObject.tag == "bullet")
         {
-            if (!explodeStarted)
-            {
-                explode.Flash();
-                StartCoroutine(explode.Kaboom(ignitionToExplode));
-                explodeStarted = true;
-            }
+            OnDeath();
+            print("Hit");
         }
     }
-    #endregion
+
+    /// <summary>
+    /// Spawns smaller TumbleFiends on death
+    /// </summary>
+    public virtual void OnDeath()
+    {
+        Vector2 spawnPos = transform.position;
+        for (int i = -1; i < smallerTumblesSpawned - 1; i++)
+        {
+            spawnPos.x = Random.Range(-1, 1);
+            spawnPos.y = Random.Range(-1, 1);
+            Instantiate(smallTumble, spawnPos, transform.rotation);
+            spawnPos = transform.position;
+        }
+        Destroy(gameObject);
+    }
+
+    #endregion Death
+
+    #endregion Functions
 }

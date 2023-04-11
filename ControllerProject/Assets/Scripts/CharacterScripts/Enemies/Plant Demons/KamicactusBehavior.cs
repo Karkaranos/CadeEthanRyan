@@ -1,13 +1,21 @@
+/*****************************************************************************
+// File Name :         KamicactusBehavior.cs
+// Author :            Cade R. Naylor
+// Creation Date :     April 3, 2023
+//
+// Brief Description : Kamicactus Enemy Type
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LargeTumbleFiendBehavior : MonoBehaviour
+public class KamicactusBehavior : MonoBehaviour
 {
     #region Variables
-    //TumbleFiend Specific variables
-    [SerializeField] private int smallerTumblesSpawned = 3;
-    [SerializeField] private GameObject smallTumble;
+
+    //General variables
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private int cellsForDeath;
 
     //References to players and setting targets
     private int target;
@@ -16,19 +24,27 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     //[SerializeField] GameObject player2;
     Vector3 offset;
 
-    //General variables
-    [SerializeField] private float speed = 3f;
-    [SerializeField] private int cellsForDeath;
-    #endregion Variables
+
+
+    //Variables for exploding
+    FlashScript explode;
+    private float ignitionToExplode = 5;
+    private bool explodeStarted = false;
+    [SerializeField] private int explosionSize = 3;
+    [SerializeField] GameObject explodeRange;
+
+    #endregion
 
     #region Functions
+
+    //Sets up basic function for the enemy
+    #region SetUp
     /// <summary>
     /// Start is called before the first frame
     /// Sets enemy target and initial values for a couple variables
     /// </summary>
     void Start()
     {
-        player1 = GameObject.Find("Grayboxed Sheriff");
         target = 1;
         //target = Random.Range(1, 2);
         if (target == 1)
@@ -42,9 +58,13 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         offset.x = 3;
         offset.y = 3;
         offset.y = 3;
+        explode = GetComponent<FlashScript>();
 
     }
+    #endregion SetUp
 
+    //Selects a target, moves towards it, and triggers its attack
+    #region Movement and Attack
     /// <summary>
     /// Update is called once per frame
     /// Tracks the player
@@ -60,7 +80,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     /// <param name="target">The player the enemy is targeting</param>
     void TrackTargetPlayer(GameObject target)
     {
-        Vector2 targetPos = target.transform.position;
+        Vector2 targetPos=target.transform.position;
         Vector2 difference;
         Vector2 moveForce = Vector2.zero;
 
@@ -85,23 +105,23 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         transform.Translate(moveForce, Space.Self);
     }
 
+    /// <summary>
+    /// Starts the exploding process when it collides with a player
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "bullet")
+        if(collision.gameObject.tag == "player")
         {
-            OnDeath();
+            if (!explodeStarted)
+            {
+                explode.Flash();
+                StartCoroutine(explode.Kaboom(ignitionToExplode));
+                explodeStarted = true;
+            }
         }
     }
-    public virtual void OnDeath()
-    {
-        Vector2 spawnPos = transform.position;
-        for (int i=-1; i<smallerTumblesSpawned-1; i++)
-        {
-            spawnPos.x += i;
-            Instantiate(smallTumble, spawnPos, transform.rotation);
-            spawnPos = transform.position;
-        }
-        Destroy(gameObject);
-    }
-    #endregion Functions
+    #endregion Movement and Attack
+
+    #endregion
 }
