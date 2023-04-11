@@ -292,7 +292,7 @@ public class SheriffBehavior : MonoBehaviour
         transform.Translate(movementVelocity, Space.Self);
 
         //Clamp the player's position to stay on screen
-        ClampPlayer(transform.position);
+        //ClampPlayer(transform.position);
 
         //Set the scope's position to the new value while ensuring it revolves
         //around the player

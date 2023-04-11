@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 2084815326070009845}
   m_Layer: 0
   m_Name: Grayboxed Sheriff
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,13 +409,13 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: ef21717a0cbbbb94e8f53adbfe18c068, type: 2}
   gun: {fileID: 8803561458639646723}
   scopeDistance: 0
+  dmgShot: 0
   sheriff: {fileID: 8803561458009023020}
   revolver: {fileID: 21300000, guid: b4574e8732f2bbd439b98b3b27392293, type: 3}
   shotgun: {fileID: 21300000, guid: b2cef79c7d194dc419cdc6f0ccb8e44b, type: 3}
   pistol: {fileID: 21300000, guid: 6f6a09d8864de884e9547fea4e5a48a0, type: 3}
   bullet: {fileID: 6654295249230590641, guid: 6e13fa98b814dc5419c4a97e987dbba5, type: 3}
   atkPoint: {fileID: 4171786032498521643}
-  playerhealth: 100
 --- !u!114 &8803561459048492055
 MonoBehaviour:
   m_ObjectHideFlags: 0
