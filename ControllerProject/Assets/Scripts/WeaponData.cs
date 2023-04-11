@@ -33,6 +33,8 @@ public class WeaponData : ScriptableObject
     private int standardCD;
     [SerializeField]
     private int ammo;
+    [SerializeField]
+    private int maxAmmo;
 
     public string WeaponName { get => weaponName; set => weaponName = value; }
     public WeaponID Weapon { get => weapon; set => weapon = value; }
@@ -42,5 +44,6 @@ public class WeaponData : ScriptableObject
     public int ChargeCD { get => chargeCD; set => chargeCD = value; }
     public int Ammo { get => ammo; set => ammo = value; }
     public int StandardCD { get => standardCD; set => standardCD = value; }
+    public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
     #endregion
 }

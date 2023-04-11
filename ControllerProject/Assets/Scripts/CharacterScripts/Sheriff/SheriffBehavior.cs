@@ -42,6 +42,8 @@ public class SheriffBehavior : MonoBehaviour
     private bool atkAvailable = true;
     public float scopeDistance;
     public float dmgShot;
+    private int ammo;
+    private int maxAmmo;
 
 
     //Other Variables
@@ -51,8 +53,17 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private Sprite pistol;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject atkPoint;
-    [SerializeField] private int playerhealth=100;
+    private int playerhealth = 100;
+    private bool weaponChanged = false;
+
+    public int Playerhealth { get => playerhealth; set => playerhealth = value; }
+
+    public int Ammo { get => ammo; set => ammo = value; }
+
+    public bool Weaponchanged { get => weaponChanged; set => weaponChanged = value; }
+    public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
     #endregion
+
 
     #region Functions
 
@@ -71,7 +82,8 @@ public class SheriffBehavior : MonoBehaviour
         quickAttack = inputMap.FindAction("QuickAttack");
         chargeAttack = inputMap.FindAction("ImpactAttack");
         switchPowerUp = inputMap.FindAction("SwitchPowerup");
-
+        Ammo = weapon.Ammo;
+        maxAmmo = weapon.MaxAmmo;
 
         gunImage = gun.GetComponent<SpriteRenderer>();
         gunImage.sprite = revolver;
@@ -100,6 +112,7 @@ public class SheriffBehavior : MonoBehaviour
 
         //Powerup Switching - Right Trigger
         switchPowerUp.performed += contx => SwitchPowerUp();
+
     }
 
     private void OnEnable()
@@ -139,6 +152,7 @@ public class SheriffBehavior : MonoBehaviour
                 chgAtkAvailable = false;
                 StartCoroutine(ChargeWeaponCoolDown());
                 weapon.Ammo--;
+                Ammo = weapon.Ammo;
             }
             else
             {
@@ -180,6 +194,7 @@ public class SheriffBehavior : MonoBehaviour
                 atkAvailable = false;
                 StartCoroutine(WeaponCoolDown());
                 weapon.Ammo--;
+                Ammo = weapon.Ammo;
             }
             else
             {
@@ -228,8 +243,16 @@ public class SheriffBehavior : MonoBehaviour
         //Reset the attack cooldowns
         chgAtkAvailable = true;
         atkAvailable = true;
+        weaponChanged = true;
+        maxAmmo = weapon.MaxAmmo;
+        StartCoroutine(weaponChange());
 
+    }
 
+    IEnumerator weaponChange()
+    {
+        yield return new WaitForSeconds(.1f);
+        weaponChanged = false;
     }
 
     /// <summary>
@@ -326,9 +349,10 @@ public class SheriffBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Large TumbleFiend(clone)")
+        if (collision.gameObject.name == "Large TumbleFiend(Clone)"|| collision.gameObject.name=="Large TumbleFiend")
         {
             //take large tumble damage
+            Playerhealth -= 5;
             print("Hit by Large Tumble");
         }
         if (collision.gameObject.name == "Small TumbleFiend(clone)")
