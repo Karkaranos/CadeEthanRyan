@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b74e48042920a1469fb1f333e6a7489, type: 3}
-  m_Name: PISTOL_DATA
+  m_Name: DYNAMITE_DATA
   m_EditorClassIdentifier: 
   weaponName: 
-  weapon: 2
-  weaponType: 0
-  dmg: 3
-  chargeDmg: 6
-  chargeCD: 5
+  weapon: 3
+  weaponType: 1
+  dmg: 0
+  chargeDmg: 0
+  chargeCD: 0
   standardCD: 0
-  ammo: 1000
+  ammo: 0

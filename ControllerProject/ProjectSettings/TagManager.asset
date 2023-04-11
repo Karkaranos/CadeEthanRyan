@@ -9,6 +9,8 @@ TagManager:
   - bullet
   - tumble
   - explosion
+  - Enemy
+  - Spike
   layers:
   - Default
   - TransparentFX

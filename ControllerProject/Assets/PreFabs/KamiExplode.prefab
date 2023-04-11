@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 534055122059679789}
   - component: {fileID: 1686333624839387547}
   m_Layer: 0
-  m_Name: ExplodeRange
+  m_Name: KamiExplode
   m_TagString: explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

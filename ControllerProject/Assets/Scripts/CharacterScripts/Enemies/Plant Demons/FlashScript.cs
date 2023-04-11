@@ -18,6 +18,12 @@ public class FlashScript : MonoBehaviour
     [SerializeField] GameObject explode;
     int c = 0;
     private GameObject destroyMe;
+    List<GameObject> spawnedSpikes = new List<GameObject>();
+    [SerializeField] private int numSpikesSpawned=12;
+    [SerializeField] GameObject explodeSpike;
+    float spawnAngle;
+    Vector2 direction;
+    Vector2 moveForce;
 
 
     // Start is called before the first frame update
@@ -28,6 +34,13 @@ public class FlashScript : MonoBehaviour
         yield return new WaitForSeconds(explodeCountdown);
         destroyMe = Instantiate(explode, transform.position, transform.rotation);
         yield return new WaitForSeconds(.1f);
+        for(int i = 0; i < numSpikesSpawned; i++)
+        {
+            spawnAngle += (360 / numSpikesSpawned);
+            spawnedSpikes.Add(Instantiate(explodeSpike, transform.position,
+                Quaternion.AngleAxis(spawnAngle, Vector3.forward)));
+
+        }
         Destroy(destroyMe);
         Destroy(gameObject);
 

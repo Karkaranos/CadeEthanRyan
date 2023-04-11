@@ -26,6 +26,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     //General variables
     [SerializeField] private float speed = 3f;
     [SerializeField] private int cellsForDeath;
+    [SerializeField] private float health = 3;
     #endregion Variables
 
     #region Functions
@@ -109,9 +110,15 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "bullet")
         {
-            OnDeath();
-            print("Hit");
+            SheriffBulletBehavior sbb =
+                collision.gameObject.GetComponent<SheriffBulletBehavior>();
+            health -= sbb.damageDealt;
+            if (health <= 0)
+            {
+                OnDeath();
+            }
         }
+
     }
 
     /// <summary>
@@ -122,8 +129,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         Vector2 spawnPos = transform.position;
         for (int i = -1; i < smallerTumblesSpawned - 1; i++)
         {
-            spawnPos.x = Random.Range(-1, 1);
-            spawnPos.y = Random.Range(-1, 1);
+            spawnPos.x += Random.Range(-1, 1);
+            spawnPos.y += Random.Range(-1, 1);
             Instantiate(smallTumble, spawnPos, transform.rotation);
             spawnPos = transform.position;
         }
