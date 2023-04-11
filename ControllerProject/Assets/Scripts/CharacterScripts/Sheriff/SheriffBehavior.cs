@@ -360,10 +360,11 @@ public class SheriffBehavior : MonoBehaviour
             Playerhealth -= 5;
             print("Hit by Large Tumble");
         }
-        if (collision.gameObject.name == "Small TumbleFiend(clone)")
+        if (collision.gameObject.name == "Small TumbleFiend(Clone)")
         {
             //take large tumble damage
             print("Hit by Small Tumble");
+            Playerhealth -= 3;
         }
     }
 
@@ -373,11 +374,13 @@ public class SheriffBehavior : MonoBehaviour
         {
             //Take explosion Damage
             print("Hit by Explosion");
+            Playerhealth -= 10;
         }
         if(collision.gameObject.tag == "Spike")
         {
             //Take turret damage
             print("Hit by Cactus Spike");
+            Playerhealth -= 1;
         }
     }
 
