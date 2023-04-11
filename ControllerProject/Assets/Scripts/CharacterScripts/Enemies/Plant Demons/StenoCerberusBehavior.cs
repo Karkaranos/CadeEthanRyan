@@ -31,6 +31,9 @@ public class StenoCerberusBehavior : MonoBehaviour
     //[SerializeField] GameObject player2;
     private int targetSwitchTimer;
 
+    //General Variables
+    [SerializeField] private float health;
+
     #endregion Variables
 
     #region Functions
@@ -120,14 +123,20 @@ public class StenoCerberusBehavior : MonoBehaviour
         FlashScript explode = GetComponent<FlashScript>();
         if(collision.gameObject.name == "Bullet(Clone)")
         {
-            GameObject destroyMe;
-            foreach(GameObject c in spikesShot)
+            SheriffBulletBehavior sbb = 
+                collision.gameObject.GetComponent<SheriffBulletBehavior>();
+            health-=sbb.damageDealt;
+            if (health <= 0)
             {
-                destroyMe = c;
-                Destroy(destroyMe);
+                GameObject destroyMe;
+                foreach (GameObject c in spikesShot)
+                {
+                    destroyMe = c;
+                    Destroy(destroyMe);
+                }
+                StartCoroutine(explode.Kaboom(ignitionToExplode));
+                Destroy(gameObject);
             }
-            StartCoroutine(explode.Kaboom(ignitionToExplode));
-            Destroy(gameObject);
         }
     }
     #endregion Attacks and Death

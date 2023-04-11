@@ -43,5 +43,21 @@ public class CactusSpikeBehavior : MonoBehaviour
 
     #endregion Attacks
 
-#endregion Functions
+    #region Collisions
+
+    /// <summary>
+    /// Handles interactions when colliding
+    /// </summary>
+    /// <param name="collision">The object collided with</param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag=="player" || collision.gameObject.tag == "bullet")
+        {
+
+            Destroy(gameObject);
+        }
+    }
+    #endregion Collisions
+
+    #endregion Functions
 }

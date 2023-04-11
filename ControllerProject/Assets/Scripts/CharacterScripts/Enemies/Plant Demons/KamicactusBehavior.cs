@@ -16,6 +16,7 @@ public class KamicactusBehavior : MonoBehaviour
     //General variables
     [SerializeField] private float speed = 3f;
     [SerializeField] private int cellsForDeath;
+    [SerializeField] private float health = 3;
 
     //References to players and setting targets
     private int target;
@@ -114,6 +115,26 @@ public class KamicactusBehavior : MonoBehaviour
         if(collision.gameObject.tag == "player")
         {
             if (!explodeStarted)
+            {
+                explode.Flash();
+                StartCoroutine(explode.Kaboom(ignitionToExplode));
+                explodeStarted = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Handles enemy life loss and death due to attacks
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.name == "Bullet(Clone)")
+        {
+            SheriffBulletBehavior sbb =
+                collision.gameObject.GetComponent<SheriffBulletBehavior>();
+            health -= sbb.damageDealt;
+            if (health <= 0 && !explodeStarted)
             {
                 explode.Flash();
                 StartCoroutine(explode.Kaboom(ignitionToExplode));

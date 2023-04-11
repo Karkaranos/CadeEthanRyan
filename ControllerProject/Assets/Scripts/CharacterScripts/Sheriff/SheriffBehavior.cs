@@ -41,6 +41,8 @@ public class SheriffBehavior : MonoBehaviour
     private bool chgAtkAvailable = true;
     private bool atkAvailable = true;
     public float scopeDistance;
+    public float dmgShot;
+
 
     //Other Variables
     [SerializeField] private GameObject sheriff;
@@ -128,9 +130,12 @@ public class SheriffBehavior : MonoBehaviour
         {
             if (chgAtkAvailable && weapon)
             {
+                GameObject temp;
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
-                Instantiate(bullet, transform.position, Quaternion.identity);
+                temp=Instantiate(bullet, transform.position, Quaternion.identity);
+                temp.GetComponent<SheriffBulletBehavior>().damageDealt = 
+                    weapon.ChargeDmg;
                 chgAtkAvailable = false;
                 StartCoroutine(ChargeWeaponCoolDown());
                 weapon.Ammo--;
@@ -166,9 +171,12 @@ public class SheriffBehavior : MonoBehaviour
         {
             if (atkAvailable && weapon)
             {
+                GameObject temp;
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
-                Instantiate(bullet, transform.position, Quaternion.identity);
+                temp = Instantiate(bullet, transform.position, Quaternion.identity);
+                temp.GetComponent<SheriffBulletBehavior>().damageDealt = 
+                    weapon.Dmg;
                 atkAvailable = false;
                 StartCoroutine(WeaponCoolDown());
                 weapon.Ammo--;
@@ -320,11 +328,13 @@ public class SheriffBehavior : MonoBehaviour
     {
         if (collision.gameObject.name == "Large TumbleFiend(clone)")
         {
-            //take large tumble damage!
+            //take large tumble damage
+            print("Hit by Large Tumble");
         }
         if (collision.gameObject.name == "Small TumbleFiend(clone)")
         {
-            //take large tumble damage!
+            //take large tumble damage
+            print("Hit by Small Tumble");
         }
     }
 
@@ -333,6 +343,12 @@ public class SheriffBehavior : MonoBehaviour
         if (collision.gameObject.tag == "explosion")
         {
             //Take explosion Damage
+            print("Hit by Explosion");
+        }
+        if(collision.gameObject.tag == "Spike")
+        {
+            //Take turret damage
+            print("Hit by Cactus Spike");
         }
     }
 

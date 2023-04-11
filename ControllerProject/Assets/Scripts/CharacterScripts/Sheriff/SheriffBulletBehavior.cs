@@ -18,6 +18,9 @@ public class SheriffBulletBehavior : MonoBehaviour
     private float speed = .05f;
     Vector2 moveForce = Vector2.zero;
 
+    //Storing the damage this deals
+    public float damageDealt;
+
     #endregion Variables
 
     #region Functions

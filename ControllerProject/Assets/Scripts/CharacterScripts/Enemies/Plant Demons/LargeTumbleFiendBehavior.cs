@@ -26,6 +26,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     //General variables
     [SerializeField] private float speed = 3f;
     [SerializeField] private int cellsForDeath;
+    [SerializeField] private float health = 3;
     #endregion Variables
 
     #region Functions
@@ -109,9 +110,15 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "bullet")
         {
-            OnDeath();
-            print("Hit");
+            SheriffBulletBehavior sbb =
+                collision.gameObject.GetComponent<SheriffBulletBehavior>();
+            health -= sbb.damageDealt;
+            if (health <= 0)
+            {
+                OnDeath();
+            }
         }
+
     }
 
     /// <summary>
