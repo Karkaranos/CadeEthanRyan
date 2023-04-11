@@ -1,9 +1,9 @@
 /*****************************************************************************
-// File Name :         SheriffBehavor.cs
+// File Name :         BanditBehavior.cs
 // Author :            Cade R. Naylor
-// Creation Date :     March 19, 2023
+// Creation Date :     April 8, 2023
 //
-// Brief Description : Creates the Sheriff Behavior, links them to PlayerActions, 
+// Brief Description : Creates the Bandit's Behavior, links them to PlayerActions, 
                         handles attacks, movement, power up/weapon switching
 *****************************************************************************/
 using System;
@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SheriffBehavior : MonoBehaviour
+public class BanditBehavior : MonoBehaviour
 {
     #region Variables
 
@@ -27,7 +27,7 @@ public class SheriffBehavior : MonoBehaviour
     InputAction chargeAttack;
     InputAction switchWeapon;
     InputAction switchPowerUp;
-    
+
     //Temporary Variables
     Vector2 movement;
     Vector2 scopePos;
@@ -36,26 +36,23 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject scope;
     private int scopeRange = 100;
     [SerializeField] private WeaponData weapon;
-    private SpriteRenderer gunImage;
-    [SerializeField] private GameObject gun;
+    private SpriteRenderer explodeImage;
+    [SerializeField] private GameObject arm;
     private bool chgAtkAvailable = true;
     private bool atkAvailable = true;
     public float scopeDistance;
-    public float dmgShot;
-
 
     //Other Variables
-    [SerializeField] private GameObject sheriff;
-    [SerializeField] private Sprite revolver;
-    [SerializeField] private Sprite shotgun;
-    [SerializeField] private Sprite pistol;
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bandit;
+    [SerializeField] private Sprite dynamite;
+    [SerializeField] private Sprite cocktails;
+    [SerializeField] private Sprite firecrackers;
+    [SerializeField] private GameObject playerExplosion;
     [SerializeField] private GameObject atkPoint;
-    [SerializeField] private int playerhealth=100;
+    [SerializeField] private int playerhealth = 100;
     #endregion
 
     #region Functions
-
     //Sets up control references
     #region Set Up
     /// <summary>
@@ -64,7 +61,7 @@ public class SheriffBehavior : MonoBehaviour
     private void Awake()
     {
         inputAsset = this.GetComponent<PlayerInput>().actions;
-        inputMap = inputAsset.FindActionMap("Player1Actions");
+        inputMap = inputAsset.FindActionMap("Player1Actions1");
         playerMovement = inputMap.FindAction("Movement");
         scopeMovement = inputMap.FindAction("MoveScope");
         switchWeapon = inputMap.FindAction("SwitchWeapon");
@@ -73,8 +70,8 @@ public class SheriffBehavior : MonoBehaviour
         switchPowerUp = inputMap.FindAction("SwitchPowerup");
 
 
-        gunImage = gun.GetComponent<SpriteRenderer>();
-        gunImage.sprite = revolver;
+        explodeImage = arm.GetComponent<SpriteRenderer>();
+        explodeImage.sprite = dynamite;
 
         //Movement - Left Stick
         //Reads in input from the Left Stick and saves it to a temporary variable
@@ -130,12 +127,8 @@ public class SheriffBehavior : MonoBehaviour
         {
             if (chgAtkAvailable && weapon)
             {
-                GameObject temp;
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
-                temp=Instantiate(bullet, transform.position, Quaternion.identity);
-                temp.GetComponent<SheriffBulletBehavior>().damageDealt = 
-                    weapon.ChargeDmg;
                 chgAtkAvailable = false;
                 StartCoroutine(ChargeWeaponCoolDown());
                 weapon.Ammo--;
@@ -171,12 +164,8 @@ public class SheriffBehavior : MonoBehaviour
         {
             if (atkAvailable && weapon)
             {
-                GameObject temp;
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
-                temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                temp.GetComponent<SheriffBulletBehavior>().damageDealt = 
-                    weapon.Dmg;
                 atkAvailable = false;
                 StartCoroutine(WeaponCoolDown());
                 weapon.Ammo--;
@@ -205,23 +194,23 @@ public class SheriffBehavior : MonoBehaviour
     private void SwitchWeapon()
     {
         string fileName = "";
-        if (weapon.Weapon == WeaponData.WeaponID.REVOLVER)
+        if (weapon.Weapon == WeaponData.WeaponID.DYNAMITE)
         {
-            fileName = "SHOTGUN_DATA";
-            print("Weapon switched to Shotgun");
-            gunImage.sprite = shotgun;
+            fileName = "COCKTAILS_DATA";
+            print("Weapon switched to Molotov Cocktails");
+            explodeImage.sprite = cocktails;
         }
-        else if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
+        else if (weapon.Weapon == WeaponData.WeaponID.COCKTAILS)
         {
-            fileName = "PISTOL_DATA";
-            print("Weapon switched to Pistol");
-            gunImage.sprite = pistol;
+            fileName = "FIRECRACKERS_DATA";
+            print("Weapon switched to Firecrackers");
+            explodeImage.sprite = firecrackers;
         }
-        else if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
+        else if (weapon.Weapon == WeaponData.WeaponID.FIRECRACKERS)
         {
-            fileName = "REVOLVER_DATA";
-            print("Weapon switched to Revolver");
-            gunImage.sprite = revolver;
+            fileName = "DYNAMITE_DATA";
+            print("Weapon switched to Dynamite");
+            explodeImage.sprite = dynamite;
         }
         weapon = Resources.Load<WeaponData>(fileName);
 
@@ -250,7 +239,7 @@ public class SheriffBehavior : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        SheriffArt sherArt = GetComponent<SheriffArt>();
+        BanditArt bandArt = GetComponent<BanditArt>();
         //Create a reference to the player's position
         Vector2 playerPos = transform.position;
         Vector2 newScopePos;
@@ -270,23 +259,23 @@ public class SheriffBehavior : MonoBehaviour
         //around the player
 
         fAngle = Mathf.Atan(scopePos.y / scopePos.x);
-        scopeDistance = Mathf.Sqrt((Mathf.Pow(scopePos.x, 2)) + 
+        scopeDistance = Mathf.Sqrt((Mathf.Pow(scopePos.x, 2)) +
             (Mathf.Pow(scopePos.y, 2)));
 
 
-        newScopePos.x = playerPos.x + (scopePos.x * scopeDistance * scopeRange * 
+        newScopePos.x = playerPos.x + (scopePos.x * scopeDistance * scopeRange *
             Time.deltaTime);
         newScopePos.y = playerPos.y + (scopePos.y * scopeDistance * scopeRange *
             Time.deltaTime);
 
         scope.transform.position = newScopePos;
 
-        SheriffArt sherA = sheriff.GetComponent<SheriffArt>();
+        BanditArt bandA = bandit.GetComponent<BanditArt>();
 
         //Sets the animation based on the direction the player is walking in
-        sherA.SetDirection(movementVelocity, playerRot);
+        bandA.SetDirection(movementVelocity, playerRot);
 
-        scopeDistance=Mathf.Sqrt(Mathf.Pow(newScopePos.x-playerPos.x,2)+Mathf.Pow(newScopePos.y-playerPos.y,2));
+        scopeDistance = Mathf.Sqrt(Mathf.Pow(newScopePos.x - playerPos.x, 2) + Mathf.Pow(newScopePos.y - playerPos.y, 2));
 
     }
 
@@ -328,13 +317,11 @@ public class SheriffBehavior : MonoBehaviour
     {
         if (collision.gameObject.name == "Large TumbleFiend(clone)")
         {
-            //take large tumble damage
-            print("Hit by Large Tumble");
+            //take large tumble damage!
         }
         if (collision.gameObject.name == "Small TumbleFiend(clone)")
         {
-            //take large tumble damage
-            print("Hit by Small Tumble");
+            //take large tumble damage!
         }
     }
 
@@ -343,17 +330,12 @@ public class SheriffBehavior : MonoBehaviour
         if (collision.gameObject.tag == "explosion")
         {
             //Take explosion Damage
-            print("Hit by Explosion");
-        }
-        if(collision.gameObject.tag == "Spike")
-        {
-            //Take turret damage
-            print("Hit by Cactus Spike");
         }
     }
 
     #endregion Collisions
 
 
-    #endregion Functions
+
+    #endregion
 }

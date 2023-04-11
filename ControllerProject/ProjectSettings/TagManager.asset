@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - player
+  - explodey
+  - bullet
+  - tumble
+  - explosion
+  - Enemy
+  - Spike
   layers:
   - Default
   - TransparentFX
