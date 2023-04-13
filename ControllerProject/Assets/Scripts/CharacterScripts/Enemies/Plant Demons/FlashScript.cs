@@ -40,9 +40,6 @@ public class FlashScript : MonoBehaviour
 
         }
         Destroy(destroyMe);
-        GameController gc = GameObject.Find("Game Controller").
-    GetComponent<GameController>();
-        gc.RemoveEnemy();
         Destroy(gameObject);
 
 

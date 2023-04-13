@@ -136,6 +136,9 @@ public class StenoCerberusBehavior : MonoBehaviour
                     Destroy(destroyMe);
                 }
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
+                GameController gc = GameObject.Find("Game Controller").
+                GetComponent<GameController>();
+                gc.RemoveEnemy();
                 Destroy(gameObject);
             }
         }

@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private int enemyCounter;
     private int wave=1;
     private int enemySpawnNum;
+    private bool wavePause = false;
 
     SheriffBehavior player1;
 
@@ -55,29 +57,37 @@ public class GameController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (enemyCounter == 0 && wave != 4)
+        if (enemyCounter == 0 && wave != 4 && !wavePause)
         {
-            wave++;
             StartCoroutine(WaveBreak());
-            if (wave == 2)
-            {
-                SpawnEnemies(wave2EnemiesSpawned);
-            }
-            if (wave == 3)
-            {
-                SpawnEnemies(wave3EnemiesSpawned);
-            }
-            if (wave == 4)
-            {
-                SpawnEnemies(wave4EnemiesSpawned);
-            }
+            wave++;
+        }
+
+        if (player1.Playerhealth <= 0)
+        {
+            SceneManager.LoadScene("Lose");
         }
 
     }
 
     IEnumerator WaveBreak()
     {
+        wavePause = true;
         yield return new WaitForSeconds(3f);
+        if (wave == 2)
+        {
+            SpawnEnemies(wave2EnemiesSpawned);
+        }
+        if (wave == 3)
+        {
+            SpawnEnemies(wave3EnemiesSpawned);
+        }
+        if (wave == 4)
+        {
+            SpawnEnemies(wave4EnemiesSpawned);
+        }
+        wavePause = false;
+
     }
     public void AddEnemy()
     {

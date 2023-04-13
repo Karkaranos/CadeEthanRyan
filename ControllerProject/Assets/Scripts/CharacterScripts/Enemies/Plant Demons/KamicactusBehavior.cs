@@ -138,12 +138,13 @@ public class KamicactusBehavior : MonoBehaviour
             health -= sbb.damageDealt;
             if (health <= 0 && !explodeStarted)
             {
+                GameController gc = GameObject.Find("Game Controller").
+                    GetComponent<GameController>();
+                explodeStarted = true;
+                gc.RemoveEnemy();
                 explode.Flash();
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
                 explodeStarted = true;
-                GameController gc = GameObject.Find("Game Controller").
-    GetComponent<GameController>();
-                gc.RemoveEnemy();
             }
         }
     }
