@@ -63,6 +63,7 @@ public class SheriffBulletBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
     /// <summary>
@@ -71,7 +72,7 @@ public class SheriffBulletBehavior : MonoBehaviour
     /// <param name="collision">The object collided with</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy"||collision.gameObject.tag=="World Objects")
         {
             Destroy(gameObject);
         }
