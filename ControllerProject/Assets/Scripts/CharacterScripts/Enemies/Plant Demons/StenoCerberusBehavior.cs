@@ -44,6 +44,7 @@ public class StenoCerberusBehavior : MonoBehaviour
     void Start()
     {
         target = 1;
+        player1 = GameObject.Find("Grayboxed Sheriff");
         targetObject = player1;
         StartCoroutine(FireSpikes());
         StartCoroutine(SwitchTarget());
@@ -58,12 +59,12 @@ public class StenoCerberusBehavior : MonoBehaviour
     IEnumerator FireSpikes()
     {
         GameObject objectSpawned;
-        for(; ; )
+        for (; ; )
         {
             attackingHead = Random.Range(1, 4);
             if (attackingHead == 1)
             {
-                objectSpawned= (Instantiate(spike, atkPoint1.transform.position,
+                objectSpawned = (Instantiate(spike, atkPoint1.transform.position,
                     Quaternion.identity));
                 spikesShot.Add(objectSpawned);
                 objectSpawned.GetComponent<CactusSpikeBehavior>().
@@ -118,11 +119,11 @@ public class StenoCerberusBehavior : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         FlashScript explode = GetComponent<FlashScript>();
-        if(collision.gameObject.name == "Bullet(Clone)")
+        if (collision.gameObject.name == "Bullet(Clone)")
         {
-            SheriffBulletBehavior sbb = 
+            SheriffBulletBehavior sbb =
                 collision.gameObject.GetComponent<SheriffBulletBehavior>();
-            health-=sbb.damageDealt;
+            health -= sbb.damageDealt;
             if (health <= 0)
             {
                 GameObject destroyMe;
@@ -134,6 +135,7 @@ public class StenoCerberusBehavior : MonoBehaviour
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
                 GameController gc = GameObject.Find("Game Controller").
                     GetComponent<GameController>();
+                gc.RemoveEnemy();
                 Destroy(gameObject);
             }
         }

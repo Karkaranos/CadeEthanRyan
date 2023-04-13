@@ -27,7 +27,7 @@ public class SheriffBehavior : MonoBehaviour
     InputAction chargeAttack;
     InputAction switchWeapon;
     InputAction switchPowerUp;
-    
+
     //Temporary Variables
     Vector2 movement;
     Vector2 scopePos;
@@ -53,9 +53,9 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private Sprite pistol;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject atkPoint;
-    private int playerhealth = 100;
+    private int playerhealth = 200;
     private bool weaponChanged = false;
-    private int weaponNumber=1;
+    private int weaponNumber = 1;
 
     public int Playerhealth { get => playerhealth; set => playerhealth = value; }
 
@@ -148,8 +148,8 @@ public class SheriffBehavior : MonoBehaviour
                 GameObject temp;
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
-                temp=Instantiate(bullet, transform.position, Quaternion.identity);
-                temp.GetComponent<SheriffBulletBehavior>().damageDealt = 
+                temp = Instantiate(bullet, transform.position, Quaternion.identity);
+                temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                     weapon.ChargeDmg;
                 chgAtkAvailable = false;
                 StartCoroutine(ChargeWeaponCoolDown());
@@ -191,7 +191,7 @@ public class SheriffBehavior : MonoBehaviour
                 //Attack, then start the cooldown timer
                 print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
                 temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                temp.GetComponent<SheriffBulletBehavior>().damageDealt = 
+                temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                     weapon.Dmg;
                 atkAvailable = false;
                 StartCoroutine(WeaponCoolDown());
@@ -292,17 +292,17 @@ public class SheriffBehavior : MonoBehaviour
         transform.Translate(movementVelocity, Space.Self);
 
         //Clamp the player's position to stay on screen
-        ClampPlayer(transform.position);
+        //ClampPlayer(transform.position);
 
         //Set the scope's position to the new value while ensuring it revolves
         //around the player
 
         fAngle = Mathf.Atan(scopePos.y / scopePos.x);
-        scopeDistance = Mathf.Sqrt((Mathf.Pow(scopePos.x, 2)) + 
+        scopeDistance = Mathf.Sqrt((Mathf.Pow(scopePos.x, 2)) +
             (Mathf.Pow(scopePos.y, 2)));
 
 
-        newScopePos.x = playerPos.x + (scopePos.x * scopeDistance * scopeRange * 
+        newScopePos.x = playerPos.x + (scopePos.x * scopeDistance * scopeRange *
             Time.deltaTime);
         newScopePos.y = playerPos.y + (scopePos.y * scopeDistance * scopeRange *
             Time.deltaTime);
@@ -314,7 +314,7 @@ public class SheriffBehavior : MonoBehaviour
         //Sets the animation based on the direction the player is walking in
         sherA.SetDirection(movementVelocity, playerRot);
 
-        scopeDistance=Mathf.Sqrt(Mathf.Pow(newScopePos.x-playerPos.x,2)+Mathf.Pow(newScopePos.y-playerPos.y,2));
+        scopeDistance = Mathf.Sqrt(Mathf.Pow(newScopePos.x - playerPos.x, 2) + Mathf.Pow(newScopePos.y - playerPos.y, 2));
 
     }
 
@@ -354,7 +354,7 @@ public class SheriffBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Large TumbleFiend(Clone)"|| collision.gameObject.name=="Large TumbleFiend")
+        if (collision.gameObject.name == "Large TumbleFiend(Clone)" || collision.gameObject.name == "Large TumbleFiend")
         {
             //take large tumble damage
             Playerhealth -= 5;
@@ -376,7 +376,7 @@ public class SheriffBehavior : MonoBehaviour
             print("Hit by Explosion");
             Playerhealth -= 10;
         }
-        if(collision.gameObject.tag == "Spike")
+        if (collision.gameObject.tag == "Spike")
         {
             //Take turret damage
             print("Hit by Cactus Spike");

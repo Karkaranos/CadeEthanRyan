@@ -370,6 +370,7 @@ GameObject:
   - component: {fileID: 8803561459048492053}
   - component: {fileID: 8803561459048492055}
   - component: {fileID: 2084815326070009845}
+  - component: {fileID: -8107466911472383845}
   m_Layer: 0
   m_Name: Grayboxed Sheriff
   m_TagString: Untagged
@@ -409,13 +410,13 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: ef21717a0cbbbb94e8f53adbfe18c068, type: 2}
   gun: {fileID: 8803561458639646723}
   scopeDistance: 0
+  dmgShot: 0
   sheriff: {fileID: 8803561458009023020}
   revolver: {fileID: 21300000, guid: b4574e8732f2bbd439b98b3b27392293, type: 3}
   shotgun: {fileID: 21300000, guid: b2cef79c7d194dc419cdc6f0ccb8e44b, type: 3}
   pistol: {fileID: 21300000, guid: 6f6a09d8864de884e9547fea4e5a48a0, type: 3}
   bullet: {fileID: 6654295249230590641, guid: 6e13fa98b814dc5419c4a97e987dbba5, type: 3}
   atkPoint: {fileID: 4171786032498521643}
-  playerhealth: 100
 --- !u!114 &8803561459048492055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,3 +473,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &-8107466911472383845
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803561459048492042}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
