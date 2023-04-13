@@ -80,7 +80,7 @@ public class GameController : MonoBehaviour
         for(; ; )
         {
             yield return new WaitForSeconds(secondsBeforeSpawnItem);
-            int spawnChance = Random.Range(1, 20);
+            int spawnChance = Random.Range(1, 16);
             if (spawnChance == 1)
             {
                 Instantiate(healthBoost, new Vector2(Random.Range(-33, 40),
