@@ -38,8 +38,6 @@ public class StenoCerberusBehavior : MonoBehaviour
 
     #region Functions
 
-    //Initializes basic variables and starts Coroutines
-    #region SetUp
     /// <summary>
     /// Called before the first frame update; sets initial target and starts attack
     /// </summary>
@@ -50,10 +48,9 @@ public class StenoCerberusBehavior : MonoBehaviour
         StartCoroutine(FireSpikes());
         StartCoroutine(SwitchTarget());
     }
-    #endregion SetUp
 
-    //Handles the turret behavior and enemy death
-    #region Attacks and Death
+
+
     /// <summary>
     /// Creates a turret-like behavior and spawns a spike per a specified time
     /// </summary>
@@ -135,11 +132,12 @@ public class StenoCerberusBehavior : MonoBehaviour
                     Destroy(destroyMe);
                 }
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
+                GameController gc = GameObject.Find("Game Controller").
+                    GetComponent<GameController>();
                 Destroy(gameObject);
             }
         }
     }
-    #endregion Attacks and Death
 
     #endregion Functions
 }

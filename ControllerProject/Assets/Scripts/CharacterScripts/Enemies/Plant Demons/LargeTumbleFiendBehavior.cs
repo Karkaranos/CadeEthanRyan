@@ -31,8 +31,6 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
 
     #region Functions
 
-    //Sets up basic player information
-    #region SetUp
     /// <summary>
     /// Start is called before the first frame
     /// Sets enemy target and initial values for a couple variables
@@ -55,10 +53,9 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         offset.y = 3;
 
     }
-    #endregion SetUp
 
-    //Handles player tracking and movement
-    #region Movement
+
+
     /// <summary>
     /// Update is called once per frame
     /// Tracks the player
@@ -98,10 +95,9 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         }
         transform.Translate(moveForce, Space.Self);
     }
-    #endregion Movement
 
-    //Contains Death Condition and spawns smallers on death
-    #region Death
+
+
     /// <summary>
     /// Checks for collisions with triggers
     /// </summary>
@@ -126,6 +122,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     /// </summary>
     public virtual void OnDeath()
     {
+        GameController gc = GameObject.Find("Game Controller").
+            GetComponent<GameController>();
         Vector2 spawnPos = transform.position;
         for (int i = -1; i < smallerTumblesSpawned - 1; i++)
         {
@@ -133,11 +131,13 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
             spawnPos.y += Random.Range(-1, 1);
             Instantiate(smallTumble, spawnPos, transform.rotation);
             spawnPos = transform.position;
+            gc.AddEnemy();
         }
         Destroy(gameObject);
+
+        gc.RemoveEnemy();
     }
 
-    #endregion Death
 
     #endregion Functions
 }
