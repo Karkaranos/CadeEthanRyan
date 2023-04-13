@@ -104,7 +104,7 @@ MonoBehaviour:
   player1: {fileID: 0}
   speed: 3
   cellsForDeath: 0
-  health: 5
+  health: 2
 --- !u!58 &7471730578854874295
 CircleCollider2D:
   m_ObjectHideFlags: 0

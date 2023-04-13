@@ -345,7 +345,7 @@ MonoBehaviour:
   atkPoint2: {fileID: 872037930712580533}
   atkPoint3: {fileID: 872037930168073455}
   player1: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
-  health: 16
+  health: 10
 --- !u!114 &872037931166735022
 MonoBehaviour:
   m_ObjectHideFlags: 0
