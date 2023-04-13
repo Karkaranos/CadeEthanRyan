@@ -1451,19 +1451,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aea50739851b8d43ac9c239cb5d4a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kamicactus: {fileID: 0}
-  stenocerberus: {fileID: 0}
-  largeTumble: {fileID: 0}
-  smallTumble: {fileID: 0}
+  kamicactus: {fileID: 5630606698234742355, guid: 31a8e445bd1598a44ad81dca39970176, type: 3}
+  stenocerberus: {fileID: 872037931166735018, guid: a90028f1149871b45ace596758f5f39f, type: 3}
+  largeTumble: {fileID: 5265950989721354524, guid: 19296eb0b24166c4886dc3d4e94fae60, type: 3}
+  smallTumble: {fileID: 7129858497728827855, guid: 2f12e81c83786eb469248fc50f5ac3dd, type: 3}
   enemyCounter: 0
-  wave1EnemiesSpawned: 0
-  wave2EnemiesSpawned: 0
-  wave3EnemiesSpawned: 0
-  wave4EnemiesSpawned: 0
-  kamicactusSpawnMultiplier: 0
-  stenocerberusSpawnMultiplier: 0
-  largeTumbleSpawnMultiplier: 0
-  smallTumbleSpawnMultiplier: 0
+  wave1EnemiesSpawned: 3
+  wave2EnemiesSpawned: 8
+  wave3EnemiesSpawned: 15
+  wave4EnemiesSpawned: 24
+  kamicactusSpawnMultiplier: 4
+  stenocerberusSpawnMultiplier: 2
+  largeTumbleSpawnMultiplier: 3
+  smallTumbleSpawnMultiplier: 1
 --- !u!1 &1019476609
 GameObject:
   m_ObjectHideFlags: 0
