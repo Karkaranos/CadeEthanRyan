@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 public class Player1UIBehavior : MonoBehaviour
 {
+    #region Variables
     [SerializeField] SheriffBehavior player1;
     [SerializeField] Slider healthBar;
     [SerializeField] Slider ammoBar;
@@ -24,8 +25,13 @@ public class Player1UIBehavior : MonoBehaviour
     private float playerMaxHealth;
     private float playerMaxAmmo;
     GameController gc;
+    #endregion
 
+    #region Functions
 
+    /// <summary>
+    /// Start is called before the first frame. Sets reference to player's stats
+    /// </summary>
     private void Start()
     {
         gc = GameObject.Find("Game Controller").GetComponent<GameController>();
@@ -34,7 +40,11 @@ public class Player1UIBehavior : MonoBehaviour
         playerMaxHealth = player1.Playerhealth;
         playerMaxAmmo = player1.MaxAmmo;
     }
-    // Update is called once per frame
+    
+
+    /// <summary>
+    /// Called every frame. Updates UI
+    /// </summary>
     void Update()
     {
         healthBar.value = (player1.Playerhealth / playerMaxHealth);
@@ -60,4 +70,5 @@ public class Player1UIBehavior : MonoBehaviour
         enemyCount.text = "Enemies Left: " + gc.enemyCounter;
         waveCount.text = "Wave: " + gc.wave;
     }
+    #endregion
 }

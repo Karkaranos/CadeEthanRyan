@@ -66,7 +66,6 @@ public class SheriffBehavior : MonoBehaviour
     public int WeaponNumber { get => weaponNumber; set => weaponNumber = value; }
     #endregion
 
-
     #region Functions
 
     //Sets up control references

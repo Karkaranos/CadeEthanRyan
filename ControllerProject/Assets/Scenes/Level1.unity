@@ -1460,12 +1460,12 @@ MonoBehaviour:
   healthBoost: {fileID: 2417028149801561306, guid: 2ceb51b02c2a64b46b487c30c37c02aa, type: 3}
   ammoBoost: {fileID: 507650973739610079, guid: 3ef45c9f0b754ff41b96ed28e9002e10, type: 3}
   wave1EnemiesSpawned: 3
-  wave2EnemiesSpawned: 8
-  wave3EnemiesSpawned: 15
-  wave4EnemiesSpawned: 24
-  kamicactusSpawnMultiplier: 4
-  stenocerberusSpawnMultiplier: 2
-  largeTumbleSpawnMultiplier: 3
+  wave2EnemiesSpawned: 7
+  wave3EnemiesSpawned: 13
+  wave4EnemiesSpawned: 20
+  kamicactusSpawnMultiplier: 3
+  stenocerberusSpawnMultiplier: 3
+  largeTumbleSpawnMultiplier: 4
   smallTumbleSpawnMultiplier: 1
 --- !u!1 &1019476609
 GameObject:
