@@ -38,8 +38,7 @@ public class KamicactusBehavior : MonoBehaviour
 
     #region Functions
 
-    //Sets up basic function for the enemy
-    #region SetUp
+
     /// <summary>
     /// Start is called before the first frame
     /// Sets enemy target and initial values for a couple variables
@@ -63,10 +62,10 @@ public class KamicactusBehavior : MonoBehaviour
         explode = GetComponent<FlashScript>();
 
     }
-    #endregion SetUp
 
-    //Selects a target, moves towards it, and triggers its attack
-    #region Movement and Attack
+
+
+
     /// <summary>
     /// Update is called once per frame
     /// Tracks the player
@@ -120,6 +119,9 @@ public class KamicactusBehavior : MonoBehaviour
                 explode.Flash();
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
                 explodeStarted = true;
+                GameController gc = GameObject.Find("Game Controller").
+                    GetComponent<GameController>();
+                gc.RemoveEnemy();
             }
         }
     }
@@ -140,10 +142,12 @@ public class KamicactusBehavior : MonoBehaviour
                 explode.Flash();
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
                 explodeStarted = true;
+                GameController gc = GameObject.Find("Game Controller").
+                    GetComponent<GameController>();
+                gc.RemoveEnemy();
             }
         }
     }
-    #endregion Movement and Attack
 
     #endregion
 }
