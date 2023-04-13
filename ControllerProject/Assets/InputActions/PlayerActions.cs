@@ -80,6 +80,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""b24c8762-63cb-4385-9ba9-88572368585f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -146,6 +155,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SwitchPowerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""646cb311-cf8f-44dc-b80e-65395b3b588f"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -290,6 +310,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Player1Actions_QuickAttack = m_Player1Actions.FindAction("QuickAttack", throwIfNotFound: true);
         m_Player1Actions_ImpactAttack = m_Player1Actions.FindAction("ImpactAttack", throwIfNotFound: true);
         m_Player1Actions_SwitchPowerup = m_Player1Actions.FindAction("SwitchPowerup", throwIfNotFound: true);
+        m_Player1Actions_PauseMenu = m_Player1Actions.FindAction("PauseMenu", throwIfNotFound: true);
         // Player1Actions1
         m_Player1Actions1 = asset.FindActionMap("Player1Actions1", throwIfNotFound: true);
         m_Player1Actions1_Movement = m_Player1Actions1.FindAction("Movement", throwIfNotFound: true);
@@ -363,6 +384,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player1Actions_QuickAttack;
     private readonly InputAction m_Player1Actions_ImpactAttack;
     private readonly InputAction m_Player1Actions_SwitchPowerup;
+    private readonly InputAction m_Player1Actions_PauseMenu;
     public struct Player1ActionsActions
     {
         private @PlayerActions m_Wrapper;
@@ -373,6 +395,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @QuickAttack => m_Wrapper.m_Player1Actions_QuickAttack;
         public InputAction @ImpactAttack => m_Wrapper.m_Player1Actions_ImpactAttack;
         public InputAction @SwitchPowerup => m_Wrapper.m_Player1Actions_SwitchPowerup;
+        public InputAction @PauseMenu => m_Wrapper.m_Player1Actions_PauseMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player1Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -400,6 +423,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @SwitchPowerup.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchPowerup;
                 @SwitchPowerup.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchPowerup;
                 @SwitchPowerup.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnSwitchPowerup;
+                @PauseMenu.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnPauseMenu;
             }
             m_Wrapper.m_Player1ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -422,6 +448,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @SwitchPowerup.started += instance.OnSwitchPowerup;
                 @SwitchPowerup.performed += instance.OnSwitchPowerup;
                 @SwitchPowerup.canceled += instance.OnSwitchPowerup;
+                @PauseMenu.started += instance.OnPauseMenu;
+                @PauseMenu.performed += instance.OnPauseMenu;
+                @PauseMenu.canceled += instance.OnPauseMenu;
             }
         }
     }
@@ -507,6 +536,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnQuickAttack(InputAction.CallbackContext context);
         void OnImpactAttack(InputAction.CallbackContext context);
         void OnSwitchPowerup(InputAction.CallbackContext context);
+        void OnPauseMenu(InputAction.CallbackContext context);
     }
     public interface IPlayer1Actions1Actions
     {
