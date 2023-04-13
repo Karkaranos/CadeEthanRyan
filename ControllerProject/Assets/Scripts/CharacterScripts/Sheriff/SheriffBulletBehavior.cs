@@ -53,17 +53,6 @@ public class SheriffBulletBehavior : MonoBehaviour
 
     //Handles collisions with other objects
     #region Collisions
-    /// <summary>
-    /// Handles collisions with colliders
-    /// </summary>
-    /// <param name="collision">The object collided with</param>
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            Destroy(gameObject);
-        }
-    }
 
     /// <summary>
     /// Handles collisions with triggers
@@ -71,11 +60,13 @@ public class SheriffBulletBehavior : MonoBehaviour
     /// <param name="collision">The object collided with</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" || 
+            collision.gameObject.tag=="World Objects")
         {
             Destroy(gameObject);
         }
     }
+
     #endregion Collisions
 
     #endregion Functions

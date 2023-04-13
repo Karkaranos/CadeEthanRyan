@@ -13,7 +13,7 @@ public class CactusSpikeBehavior : MonoBehaviour
 {
     #region Variables
     Vector2 moveForce;
-    private float speed = .01f;
+    private float speed = .005f;
     #endregion
 
     #region Functions
@@ -51,12 +51,14 @@ public class CactusSpikeBehavior : MonoBehaviour
     /// <param name="collision">The object collided with</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag=="player" || collision.gameObject.tag == "bullet")
+        if(collision.gameObject.tag=="player" || collision.gameObject.tag == 
+            "bullet" || collision.gameObject.tag=="World Objects")
         {
 
             Destroy(gameObject);
         }
     }
+
     #endregion Collisions
 
     #endregion Functions

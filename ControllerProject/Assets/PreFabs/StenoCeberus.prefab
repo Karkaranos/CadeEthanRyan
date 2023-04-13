@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 872037931166735019}
   - component: {fileID: 872037931166735021}
   - component: {fileID: 872037931166735022}
+  - component: {fileID: -4094968756800987649}
   m_Layer: 0
   m_Name: StenoCeberus
   m_TagString: Enemy
@@ -344,7 +345,7 @@ MonoBehaviour:
   atkPoint2: {fileID: 872037930712580533}
   atkPoint3: {fileID: 872037930168073455}
   player1: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
-  health: 16
+  health: 10
 --- !u!114 &872037931166735022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,6 +363,27 @@ MonoBehaviour:
   explode: {fileID: 8217712592793994439, guid: 708a5c635e135b24dbc2d9cf6d553c6c, type: 3}
   numSpikesSpawned: 12
   explodeSpike: {fileID: 2167011491982744580, guid: 31757019c3b6a33439130689adec8bf7, type: 3}
+--- !u!50 &-4094968756800987649
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 872037931166735018}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &872037931320979263
 GameObject:
   m_ObjectHideFlags: 0
