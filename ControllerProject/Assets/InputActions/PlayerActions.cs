@@ -278,6 +278,98 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""MenuActions"",
+            ""id"": ""c074fc79-d600-427e-93d7-b23cfb7f9fd9"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""7e6464a2-cde6-4c8e-95a9-a53edf3234fe"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""c45efed1-5ff4-463c-874e-c88b53469945"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d1814334-8a07-4d7c-879a-355a7fee3d7b"",
+                    ""path"": ""<XInputController>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d6c4177-a4ec-4d61-b19c-26016d3c4c0d"",
+                    ""path"": ""<XInputController>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8609879-4ea0-47c2-967d-aaf8b4c52a88"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""862e4064-b304-4c28-ad47-c64f76ddf184"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3310f6b-1948-465f-ae0f-9f5881819733"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f29cff59-997e-44c3-8471-c4c59255a2e9"",
+                    ""path"": ""<XInputController>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -298,6 +390,10 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Player1Actions1_QuickAttack = m_Player1Actions1.FindAction("QuickAttack", throwIfNotFound: true);
         m_Player1Actions1_ImpactAttack = m_Player1Actions1.FindAction("ImpactAttack", throwIfNotFound: true);
         m_Player1Actions1_SwitchPowerup = m_Player1Actions1.FindAction("SwitchPowerup", throwIfNotFound: true);
+        // MenuActions
+        m_MenuActions = asset.FindActionMap("MenuActions", throwIfNotFound: true);
+        m_MenuActions_Move = m_MenuActions.FindAction("Move", throwIfNotFound: true);
+        m_MenuActions_Click = m_MenuActions.FindAction("Click", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -499,6 +595,47 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         }
     }
     public Player1Actions1Actions @Player1Actions1 => new Player1Actions1Actions(this);
+
+    // MenuActions
+    private readonly InputActionMap m_MenuActions;
+    private IMenuActionsActions m_MenuActionsActionsCallbackInterface;
+    private readonly InputAction m_MenuActions_Move;
+    private readonly InputAction m_MenuActions_Click;
+    public struct MenuActionsActions
+    {
+        private @PlayerActions m_Wrapper;
+        public MenuActionsActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_MenuActions_Move;
+        public InputAction @Click => m_Wrapper.m_MenuActions_Click;
+        public InputActionMap Get() { return m_Wrapper.m_MenuActions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActionsActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActionsActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsActionsCallbackInterface != null)
+            {
+                @Move.started -= m_Wrapper.m_MenuActionsActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_MenuActionsActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_MenuActionsActionsCallbackInterface.OnMove;
+                @Click.started -= m_Wrapper.m_MenuActionsActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_MenuActionsActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_MenuActionsActionsCallbackInterface.OnClick;
+            }
+            m_Wrapper.m_MenuActionsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
+            }
+        }
+    }
+    public MenuActionsActions @MenuActions => new MenuActionsActions(this);
     public interface IPlayer1ActionsActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -516,5 +653,10 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnQuickAttack(InputAction.CallbackContext context);
         void OnImpactAttack(InputAction.CallbackContext context);
         void OnSwitchPowerup(InputAction.CallbackContext context);
+    }
+    public interface IMenuActionsActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
     }
 }
