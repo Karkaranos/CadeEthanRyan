@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7304991497191279361}
   - component: {fileID: 1572543772854758797}
   - component: {fileID: 9008681822687779923}
-  - component: {fileID: -3185330664758434914}
+  - component: {fileID: 3912793385623242505}
   m_Layer: 0
   m_Name: Large TumbleFiend
   m_TagString: Enemy
@@ -104,7 +104,7 @@ MonoBehaviour:
   player1: {fileID: 0}
   speed: 3
   cellsForDeath: 0
-  health: 8
+  health: 15
 --- !u!58 &9008681822687779923
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!50 &-3185330664758434914
+--- !u!50 &3912793385623242505
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -141,4 +141,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0

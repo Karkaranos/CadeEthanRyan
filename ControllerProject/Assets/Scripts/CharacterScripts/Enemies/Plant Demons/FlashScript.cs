@@ -26,6 +26,8 @@ public class FlashScript : MonoBehaviour
     Vector2 moveForce;
 
 
+    // Start is called before the first frame update
+
 
     public IEnumerator Kaboom(float explodeCountdown)
     {
@@ -40,11 +42,7 @@ public class FlashScript : MonoBehaviour
 
         }
         Destroy(destroyMe);
-        GameController gc = GameObject.Find("Game Controller").
-    GetComponent<GameController>();
-        gc.RemoveEnemy();
         Destroy(gameObject);
-
 
 
     }

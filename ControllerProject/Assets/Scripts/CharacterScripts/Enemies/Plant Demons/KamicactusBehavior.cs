@@ -120,7 +120,6 @@ public class KamicactusBehavior : MonoBehaviour
                 explode.Flash();
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
                 explodeStarted = true;
-
             }
         }
     }
@@ -141,9 +140,6 @@ public class KamicactusBehavior : MonoBehaviour
                 explode.Flash();
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
                 explodeStarted = true;
-                GameController gc = GameObject.Find("Game Controller").
-    GetComponent<GameController>();
-                gc.RemoveEnemy();
             }
         }
     }

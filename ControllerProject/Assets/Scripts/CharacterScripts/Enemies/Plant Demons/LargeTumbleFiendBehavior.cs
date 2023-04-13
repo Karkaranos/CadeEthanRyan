@@ -127,17 +127,13 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     public virtual void OnDeath()
     {
         Vector2 spawnPos = transform.position;
-        GameController gc = GameObject.Find("Game Controller").
-            GetComponent<GameController>();
         for (int i = -1; i < smallerTumblesSpawned - 1; i++)
         {
             spawnPos.x += Random.Range(-1, 1);
             spawnPos.y += Random.Range(-1, 1);
             Instantiate(smallTumble, spawnPos, transform.rotation);
             spawnPos = transform.position;
-            gc.AddEnemy();
         }
-        gc.RemoveEnemy();
         Destroy(gameObject);
     }
 
