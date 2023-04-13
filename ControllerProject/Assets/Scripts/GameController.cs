@@ -17,9 +17,13 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject largeTumble;
     [SerializeField] GameObject smallTumble;
     public int enemyCounter;
-    private int wave = 1;
+    public int wave = 1;
     private int enemySpawnNum;
     private bool wavePause = false;
+
+    [SerializeField] GameObject healthBoost;
+    [SerializeField] GameObject ammoBoost;
+    private int secondsBeforeSpawnItem=3;
 
     SheriffBehavior player1;
 
@@ -50,6 +54,7 @@ public class GameController : MonoBehaviour
         player1 = GameObject.Find("Grayboxed Sheriff").
             GetComponent<SheriffBehavior>();
         SpawnEnemies(wave1EnemiesSpawned);
+        StartCoroutine(StatAdd());
     }
 
     /// <summary>
@@ -70,6 +75,24 @@ public class GameController : MonoBehaviour
 
     }
 
+    IEnumerator StatAdd()
+    {
+        for(; ; )
+        {
+            yield return new WaitForSeconds(secondsBeforeSpawnItem);
+            int spawnChance = Random.Range(1, 20);
+            if (spawnChance == 1)
+            {
+                Instantiate(healthBoost, new Vector2(Random.Range(-33, 40),
+                    Random.Range(-32, 14)), Quaternion.identity);
+            }
+            if (spawnChance == 2)
+            {
+                Instantiate(ammoBoost, new Vector2(Random.Range(-33, 40),
+                    Random.Range(-32, 14)), Quaternion.identity);
+            }
+        }
+    }
     IEnumerator WaveBreak()
     {
         wavePause = true;
