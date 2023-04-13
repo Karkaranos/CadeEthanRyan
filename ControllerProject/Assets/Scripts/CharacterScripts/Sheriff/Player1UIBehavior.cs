@@ -20,6 +20,7 @@ public class Player1UIBehavior : MonoBehaviour
     [SerializeField] Sprite shotgun;
     [SerializeField] Image currWeapon;
     [SerializeField] Text enemyCount;
+    [SerializeField] Text waveCount;
     private float playerMaxHealth;
     private float playerMaxAmmo;
     GameController gc;
@@ -57,5 +58,6 @@ public class Player1UIBehavior : MonoBehaviour
             img.sprite = pistol;
         }
         enemyCount.text = "Enemies Left: " + gc.enemyCounter;
+        waveCount.text = "Wave: " + gc.wave;
     }
 }
