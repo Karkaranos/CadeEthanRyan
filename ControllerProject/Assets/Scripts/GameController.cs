@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    #region Variables
+    //Enemy references and spawning
     [SerializeField] GameObject kamicactus;
     [SerializeField] GameObject stenocerberus;
     [SerializeField] GameObject largeTumble;
@@ -21,12 +23,17 @@ public class GameController : MonoBehaviour
     private int enemySpawnNum;
     private bool wavePause = false;
 
+
+    //Items
     [SerializeField] GameObject healthBoost;
     [SerializeField] GameObject ammoBoost;
     private int secondsBeforeSpawnItem=3;
 
+    //Player References
     SheriffBehavior player1;
 
+
+    //Enemy Spawning
     [Header("Enemy Spawn Numbers")]
     [Range(0, 20)]
     [SerializeField] private int wave1EnemiesSpawned;
@@ -46,9 +53,13 @@ public class GameController : MonoBehaviour
     [SerializeField] private int largeTumbleSpawnMultiplier;
     [Range(1, 4)]
     [SerializeField] private int smallTumbleSpawnMultiplier;
+    #endregion
 
+    #region Functions
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called before the first frame update. Sets Wave 1 to spawn
+    /// </summary>
     void Start()
     {
         player1 = GameObject.Find("Grayboxed Sheriff").
@@ -75,6 +86,10 @@ public class GameController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Spawn items to increase the player's stats
+    /// </summary>
+    /// <returns>How long between potential spawns</returns>
     IEnumerator StatAdd()
     {
         for(; ; )
@@ -93,6 +108,12 @@ public class GameController : MonoBehaviour
             }
         }
     }
+
+
+    /// <summary>
+    /// Pause between waves. Calls wave spawning.
+    /// </summary>
+    /// <returns>Time between waves</returns>
     IEnumerator WaveBreak()
     {
         wavePause = true;
@@ -112,61 +133,82 @@ public class GameController : MonoBehaviour
         wavePause = false;
 
     }
+
+
+    /// <summary>
+    /// Adds enemies to a counter
+    /// </summary>
     public void AddEnemy()
     {
         enemyCounter++;
     }
-
+    
+    /// <summary>
+    /// Removes enemies from a counter
+    /// </summary>
     public void RemoveEnemy()
     {
         enemyCounter--;
     }
 
+
+    /// <summary>
+    /// Spawns enemies. Enemies are spawned randomly using weighted percentages.
+    /// </summary>
+    /// <param name="spawnMe"></param>
     public void SpawnEnemies(int spawnMe)
     {
         int enemyType = 0;
         int enemyChance;
         for (int i = 0; i < spawnMe; i++)
         {
+            //Set the enemy spawn type
             enemyChance = Random.Range(1, 10);
-            if (enemyChance <= 4)
+            if (enemyChance <= 6)
             {
                 enemyType = 4;
             }
-            if (enemyChance > 4 && enemyChance <= 7)
+            if (enemyChance > 6 && enemyChance <= 9)
             {
                 enemyType = 3;
             }
-            if (enemyChance == 8 || enemyChance == 9)
+            /*if (enemyChance == 8 || enemyChance == 9)
             {
                 enemyType = 2;
-            }
+            }*/
             if (enemyChance == 10)
             {
                 enemyType = 1;
             }
-            if (enemyType == kamicactusSpawnMultiplier)
+
+            //Spawn the enemies corresponding to the type being spawned
+            if (enemyType == kamicactusSpawnMultiplier&&enemyCounter<spawnMe)
             {
                 Instantiate(kamicactus, new Vector2(Random.Range(-33, 40),
                     Random.Range(-32, 14)), Quaternion.identity);
+                AddEnemy();
             }
-            if (enemyType == stenocerberusSpawnMultiplier)
+            if (enemyType == stenocerberusSpawnMultiplier && enemyCounter < spawnMe)
             {
                 Instantiate(stenocerberus, new Vector2(Random.Range(-33, 40),
                     Random.Range(-32, 14)), Quaternion.identity);
+                AddEnemy();
             }
-            if (enemyType == largeTumbleSpawnMultiplier)
+            if (enemyType == largeTumbleSpawnMultiplier && enemyCounter < spawnMe)
             {
                 Instantiate(largeTumble, new Vector2(Random.Range(-33, 40),
                     Random.Range(-32, 14)), Quaternion.identity);
+                AddEnemy();
             }
-            if (enemyType == smallTumbleSpawnMultiplier)
+            if (enemyType == smallTumbleSpawnMultiplier && enemyCounter < spawnMe)
             {
                 Instantiate(smallTumble, new Vector2(Random.Range(-33, 40),
                     Random.Range(-32, 14)), Quaternion.identity);
+                AddEnemy();
             }
-            AddEnemy();
         }
     }
+
+    #endregion
 }
 
