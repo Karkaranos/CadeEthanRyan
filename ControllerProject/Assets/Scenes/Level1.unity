@@ -1456,6 +1456,8 @@ MonoBehaviour:
   largeTumble: {fileID: 5265950989721354524, guid: 19296eb0b24166c4886dc3d4e94fae60, type: 3}
   smallTumble: {fileID: 7129858497728827855, guid: 2f12e81c83786eb469248fc50f5ac3dd, type: 3}
   enemyCounter: 0
+  healthBoost: {fileID: 2417028149801561306, guid: 2ceb51b02c2a64b46b487c30c37c02aa, type: 3}
+  ammoBoost: {fileID: 507650973739610079, guid: 3ef45c9f0b754ff41b96ed28e9002e10, type: 3}
   wave1EnemiesSpawned: 3
   wave2EnemiesSpawned: 8
   wave3EnemiesSpawned: 15
