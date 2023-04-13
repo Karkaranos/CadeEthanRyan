@@ -19,12 +19,15 @@ public class Player1UIBehavior : MonoBehaviour
     [SerializeField] Sprite revolver;
     [SerializeField] Sprite shotgun;
     [SerializeField] Image currWeapon;
+    [SerializeField] Text enemyCount;
     private float playerMaxHealth;
     private float playerMaxAmmo;
+    GameController gc;
 
 
     private void Start()
     {
+        gc = GameObject.Find("Game Controller").GetComponent<GameController>();
         player1 = GameObject.Find("Grayboxed Sheriff").
             GetComponent<SheriffBehavior>();
         playerMaxHealth = player1.Playerhealth;
@@ -53,5 +56,6 @@ public class Player1UIBehavior : MonoBehaviour
         {
             img.sprite = pistol;
         }
+        enemyCount.text = "Enemies Left: " + gc.enemyCounter;
     }
 }

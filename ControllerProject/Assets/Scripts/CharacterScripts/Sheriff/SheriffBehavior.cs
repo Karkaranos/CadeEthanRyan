@@ -53,7 +53,7 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private Sprite pistol;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject atkPoint;
-    private int playerhealth = 100;
+    private int playerhealth = 200;
     private bool weaponChanged = false;
     private int weaponNumber=1;
 

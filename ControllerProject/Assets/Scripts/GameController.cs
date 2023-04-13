@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject stenocerberus;
     [SerializeField] GameObject largeTumble;
     [SerializeField] GameObject smallTumble;
-    [SerializeField] private int enemyCounter;
+    public int enemyCounter;
     private int wave=1;
     private int enemySpawnNum;
     private bool wavePause = false;
