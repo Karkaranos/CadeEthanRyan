@@ -167,11 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b064449ab58470a47b295261f42ce53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-
   titleScreen: {fileID: 1339978293}
   conScreen: {fileID: 714624557}
   first: {fileID: 1824432439}
-  second: {fileID: 1503858648}
+  second: {fileID: 543165307}
 --- !u!1 &321117239
 GameObject:
   m_ObjectHideFlags: 0
