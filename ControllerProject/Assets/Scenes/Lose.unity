@@ -133,8 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 223955267}
   - component: {fileID: 223955266}
-  - component: {fileID: 223955269}
   - component: {fileID: 223955268}
+  - component: {fileID: 223955269}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: MenuActions
+  m_DefaultActionMap: Player1Actions
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 2074446822}
 --- !u!114 &223955269
@@ -251,32 +251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2627be74d983cb04d8a60be077cd679b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputAsset: {fileID: 0}
-  inputMap:
-    m_Name: 
-    m_Id: 
-    m_Asset: {fileID: 0}
-    m_Actions: []
-    m_Bindings: []
-  move:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  click:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  movement: {x: 0, y: 0}
 --- !u!1 &420794240
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,10 +395,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.7764522, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+    m_PressedColor: {r: 0.46226418, g: 0.26456627, b: 0.26456627, a: 1}
+    m_SelectedColor: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 1}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -897,10 +871,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.7764522, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+    m_PressedColor: {r: 0.46226418, g: 0.26456627, b: 0.26456627, a: 1}
+    m_SelectedColor: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 1}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -921,7 +895,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 223955269}
         m_TargetAssemblyTypeName: MenuIndicatorBehavior, Assembly-CSharp
-        m_MethodName: PlayAgain
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
