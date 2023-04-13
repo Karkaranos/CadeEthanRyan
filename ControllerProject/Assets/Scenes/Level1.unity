@@ -698,7 +698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
       propertyPath: m_Name
-      value: Grayboxed Sheriff (1)
+      value: Grayboxed Sheriff
       objectReference: {fileID: 0}
     - target: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
       propertyPath: m_TagString
@@ -1416,7 +1416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 982564172}
-  - component: {fileID: 982564171}
+  - component: {fileID: 982564173}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -1424,31 +1424,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &982564171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 982564170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ac44a00dbf843742be31d8c1f7877bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kamicactus: {fileID: 5630606698234742355, guid: 31a8e445bd1598a44ad81dca39970176, type: 3}
-  stenocerberus: {fileID: 872037931166735018, guid: a90028f1149871b45ace596758f5f39f, type: 3}
-  largeTumble: {fileID: 5265950989721354524, guid: 19296eb0b24166c4886dc3d4e94fae60, type: 3}
-  smallTumble: {fileID: 7129858497728827855, guid: 2f12e81c83786eb469248fc50f5ac3dd, type: 3}
-  enemyCounter: 0
-  wave1EnemiesSpawned: 3
-  wave2EnemiesSpawned: 8
-  wave3EnemiesSpawned: 15
-  wave4EnemiesSpawned: 20
-  kamicactusSpawnMultiplier: 4
-  stenocerberusSpawnMultiplier: 2
-  largeTumbleSpawnMultiplier: 3
-  smallTumbleSpawnMultiplier: 1
 --- !u!4 &982564172
 Transform:
   m_ObjectHideFlags: 0
@@ -1464,6 +1439,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &982564173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982564170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aea50739851b8d43ac9c239cb5d4a30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kamicactus: {fileID: 0}
+  stenocerberus: {fileID: 0}
+  largeTumble: {fileID: 0}
+  smallTumble: {fileID: 0}
+  enemyCounter: 0
+  wave1EnemiesSpawned: 0
+  wave2EnemiesSpawned: 0
+  wave3EnemiesSpawned: 0
+  wave4EnemiesSpawned: 0
+  kamicactusSpawnMultiplier: 0
+  stenocerberusSpawnMultiplier: 0
+  largeTumbleSpawnMultiplier: 0
+  smallTumbleSpawnMultiplier: 0
 --- !u!1 &1019476609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,7 +1704,7 @@ GameObject:
   - component: {fileID: 1162245946}
   - component: {fileID: 1162245945}
   m_Layer: 0
-  m_Name: UI Manager (1)
+  m_Name: UI Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1874,7 +1874,7 @@ GameObject:
   - component: {fileID: 1422125390}
   - component: {fileID: 1422125389}
   m_Layer: 0
-  m_Name: EventSystem (1)
+  m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40581,7 +40581,7 @@ GameObject:
   - component: {fileID: 2004289194}
   - component: {fileID: 2004289193}
   m_Layer: 5
-  m_Name: Canvas (1)
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
