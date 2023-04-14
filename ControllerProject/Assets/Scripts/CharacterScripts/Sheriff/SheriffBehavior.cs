@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class SheriffBehavior : MonoBehaviour
@@ -27,6 +28,7 @@ public class SheriffBehavior : MonoBehaviour
     InputAction chargeAttack;
     InputAction switchWeapon;
     InputAction switchPowerUp;
+    InputAction pauseMenu;
 
     //Temporary Variables
     Vector2 movement;
@@ -56,6 +58,9 @@ public class SheriffBehavior : MonoBehaviour
     private int playerhealth = 200;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
+    [SerializeField] private GameObject firstScreen;
+    [SerializeField] private GameObject secondScreen;
+    [SerializeField] private GameObject firstSelected;
 
     public int Playerhealth { get => playerhealth; set => playerhealth = value; }
 
@@ -83,6 +88,7 @@ public class SheriffBehavior : MonoBehaviour
         quickAttack = inputMap.FindAction("QuickAttack");
         chargeAttack = inputMap.FindAction("ImpactAttack");
         switchPowerUp = inputMap.FindAction("SwitchPowerup");
+        pauseMenu = inputMap.FindAction("PauseMenu");
         Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
 
@@ -113,6 +119,9 @@ public class SheriffBehavior : MonoBehaviour
 
         //Powerup Switching - Right Trigger
         switchPowerUp.performed += contx => SwitchPowerUp();
+
+        //Pause Menu - Start Button
+        pauseMenu.performed += contx => PauseMenu();
 
     }
 
@@ -265,6 +274,18 @@ public class SheriffBehavior : MonoBehaviour
     private void SwitchPowerUp()
     {
         //code here to get list of power ups and move to next index
+    }
+    
+    /// <summary>
+    /// Opens PauseMenu
+    /// </summary>
+    private void PauseMenu()
+    {
+        Time.timeScale = 0;
+        firstScreen.SetActive(false);
+        secondScreen.SetActive(true);
+        GameObject.Find("EventSystem").GetComponent<EventSystem>()
+            .SetSelectedGameObject(firstSelected);
     }
 
     #endregion

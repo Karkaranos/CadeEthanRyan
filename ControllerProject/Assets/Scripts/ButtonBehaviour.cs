@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name :         ButtonBehaviour.cs
+// Author :            Ethan S. Reising
+// Creation Date :     April 13, 2023
+//
+// Brief Description : Manages UI/Menu buttons
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +13,9 @@ using UnityEngine.SceneManagement;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-    public GameObject titleScreen;
-    public GameObject conScreen;
+    public GameObject firstScreen;
+    public GameObject secondScreen;
+    public GameObject thirdScreen;
     public GameObject first;
     public GameObject second;
     
@@ -19,18 +27,47 @@ public class ButtonBehaviour : MonoBehaviour
 
     public void HowToPlay()
     {
-        titleScreen.SetActive(false);
-        conScreen.SetActive(true);
+        firstScreen.SetActive(false);
+        secondScreen.SetActive(true);
         GameObject.Find("EventSystem").GetComponent<EventSystem>()
             .SetSelectedGameObject(first);
     }
 
     public void BackButton()
     {
-        titleScreen.SetActive(true);
-        conScreen.SetActive(false);
+        firstScreen.SetActive(true);
+        secondScreen.SetActive(false);
         GameObject.Find("EventSystem").GetComponent<EventSystem>()
             .SetSelectedGameObject(second);
     }
+
+    public void ResumeButton()
+    {
+        firstScreen.SetActive(true);
+        secondScreen.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void MainMenuButton()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
+       
+    }
    
+    public void Settings()
+    {
+        secondScreen.SetActive(false);
+        thirdScreen.SetActive(true);
+        GameObject.Find("EventSystem").GetComponent<EventSystem>()
+            .SetSelectedGameObject(first);
+    }
+
+    public void PauseBack()
+    {
+        thirdScreen.SetActive(false);
+        secondScreen.SetActive(true);
+        GameObject.Find("EventSystem").GetComponent<EventSystem>()
+            .SetSelectedGameObject(second);
+    }
 }
