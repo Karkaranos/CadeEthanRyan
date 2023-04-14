@@ -167,8 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b064449ab58470a47b295261f42ce53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleScreen: {fileID: 1339978293}
-  conScreen: {fileID: 714624557}
+  firstScreen: {fileID: 1339978293}
+  secondScreen: {fileID: 714624557}
+  thirdScreen: {fileID: 0}
   first: {fileID: 1824432439}
   second: {fileID: 543165307}
 --- !u!1 &321117239
@@ -1051,7 +1052,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 69}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 160, y: 26.9577}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1503858650
 MonoBehaviour:
@@ -1331,7 +1332,7 @@ RectTransform:
   m_GameObject: {fileID: 1824432439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1247311651}
@@ -1528,15 +1529,15 @@ MonoBehaviour:
 
     Right Stick -> Scope Movement
 
-    Left
-    Trigger -> Switch Weapon
+    Y
+    -> Switch Weapon
 
-    Right Trigger -> Switch PowerUp
+    B -> Switch PowerUp
 
-    A Button ->
-    Light Attack
+    Right Trigger -> Light Attack
 
-    B Button -> Heavy Attack'
+    Right
+    Bumper -> Heavy Attack'
 --- !u!222 &1927792333
 CanvasRenderer:
   m_ObjectHideFlags: 0
