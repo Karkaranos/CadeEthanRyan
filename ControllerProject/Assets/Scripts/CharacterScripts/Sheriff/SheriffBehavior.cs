@@ -112,7 +112,8 @@ public class SheriffBehavior : MonoBehaviour
         switchWeapon.performed += contx => SwitchWeapon();
 
         //Quick Attack - A button
-        quickAttack.performed += contx => quickAtk();
+        quickAttack.started += contx => StartCoroutine(QuickAtk());
+        quickAttack.canceled += contx => StopCoroutine(QuickAtk());
 
         //Charged Attack - B Button
         chargeAttack.performed += contx => chargeAtk();
@@ -185,31 +186,35 @@ public class SheriffBehavior : MonoBehaviour
     /// <summary>
     /// Attacks using the player's standard attack, if available
     /// </summary>
-    private void quickAtk()
+    IEnumerator QuickAtk()
     {
-        if (weapon.Ammo == 0)
+        for(; ; )
         {
-            print("Out of Ammo");
-        }
-        else
-        {
-            if (atkAvailable && weapon)
+            if (weapon.Ammo == 0)
             {
-                GameObject temp;
-                //Attack, then start the cooldown timer
-                print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
-                temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                temp.GetComponent<SheriffBulletBehavior>().damageDealt =
-                    weapon.Dmg;
-                atkAvailable = false;
-                StartCoroutine(WeaponCoolDown());
-                weapon.Ammo--;
-                Ammo = weapon.Ammo;
+                print("Out of Ammo");
             }
             else
             {
-                print(weapon.Weapon + " is on cooldown.");
+                if (atkAvailable && weapon)
+                {
+                    GameObject temp;
+                    //Attack, then start the cooldown timer
+                    print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
+                    temp = Instantiate(bullet, transform.position, Quaternion.identity);
+                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                        weapon.Dmg;
+                    atkAvailable = false;
+                    StartCoroutine(WeaponCoolDown());
+                    weapon.Ammo--;
+                    Ammo = weapon.Ammo;
+                }
+                else
+                {
+                    print(weapon.Weapon + " is on cooldown.");
+                }
             }
+            yield return new WaitForSeconds(weapon.StandardCD);
         }
     }
 
@@ -256,8 +261,9 @@ public class SheriffBehavior : MonoBehaviour
         //Reset the attack cooldowns
         chgAtkAvailable = true;
         atkAvailable = true;
-        weaponChanged = true;
+        Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
+        weaponChanged = true;
         StartCoroutine(weaponChange());
 
     }
