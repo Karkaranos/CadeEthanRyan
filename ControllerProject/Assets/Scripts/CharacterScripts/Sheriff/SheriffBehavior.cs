@@ -20,6 +20,7 @@ public class SheriffBehavior : MonoBehaviour
     //Create an instance of input
     InputActionAsset inputAsset;
     InputActionMap inputMap;
+    PlayerInput pInput;
 
     //Create a reference for each inputAction
     InputAction playerMovement;
@@ -91,6 +92,8 @@ public class SheriffBehavior : MonoBehaviour
         Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
         uim = GameObject.Find("UIManager").GetComponent<UIManagerBehavior>();
+        pInput = GetComponent<PlayerInput>();
+        pInput.camera = Camera.current;
 
         gunImage = gun.GetComponent<SpriteRenderer>();
         gunImage.sprite = revolver;
@@ -161,7 +164,7 @@ public class SheriffBehavior : MonoBehaviour
                 temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                     weapon.ChargeDmg;
                 chgAtkAvailable = false;
-                StartCoroutine(ChargeWeaponCoolDown());
+                //StartCoroutine(ChargeWeaponCoolDown());
                 weapon.Ammo--;
                 Ammo = weapon.Ammo;
             }

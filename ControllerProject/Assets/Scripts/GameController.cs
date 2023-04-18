@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     private int secondsBeforeSpawnItem=3;
 
     //Player References
+    GameObject player1Obj;
     SheriffBehavior player1;
 
 
@@ -62,10 +63,26 @@ public class GameController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        player1 = GameObject.Find("Grayboxed Sheriff").
-            GetComponent<SheriffBehavior>();
-        SpawnEnemies(wave1EnemiesSpawned);
-        StartCoroutine(StatAdd());
+        StartCoroutine(CheckForPlayers());
+    }
+
+    IEnumerator CheckForPlayers()
+    {
+        for (; ; )
+        {
+            if (player1Obj == null)
+            {
+                player1Obj = GameObject.Find("Grayboxed Sheriff(Clone)");
+            }
+            if (player1Obj != null)
+            {
+                player1 = player1Obj.GetComponent<SheriffBehavior>();
+                SpawnEnemies(wave1EnemiesSpawned);
+                StartCoroutine(StatAdd());
+                StopCoroutine(CheckForPlayers());
+            }
+            yield return new WaitForSeconds(1);
+        }
     }
 
     /// <summary>
@@ -73,15 +90,18 @@ public class GameController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (enemyCounter == 0 && wave != 4 && !wavePause)
+        if (player1Obj != null)
         {
-            StartCoroutine(WaveBreak());
-            wave++;
-        }
+            if (enemyCounter == 0 && wave != 4 && !wavePause && player1Obj != null)
+            {
+                StartCoroutine(WaveBreak());
+                wave++;
+            }
 
-        if (player1.Playerhealth <= 0)
-        {
-            SceneManager.LoadScene("Lose");
+            if (player1.Playerhealth <= 0 && player1Obj != null)
+            {
+                SceneManager.LoadScene("Lose");
+            }
         }
 
     }
