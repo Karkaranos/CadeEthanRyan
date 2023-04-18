@@ -960,6 +960,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3187639058505215577, guid: bd700aa81b67fd74eaadc373641fd70e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2003987911}
     - target: {fileID: 7900805049857750449, guid: bd700aa81b67fd74eaadc373641fd70e, type: 3}
       propertyPath: m_Name
       value: QuitManager
