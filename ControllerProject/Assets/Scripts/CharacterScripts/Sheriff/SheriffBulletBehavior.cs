@@ -15,7 +15,7 @@ public class SheriffBulletBehavior : MonoBehaviour
 
     //General variables for setting speed and direction
     private GameObject scope;
-    private float speed = .05f;
+    private float speed = .1f;
     Vector2 moveForce = Vector2.zero;
 
     //Storing the damage this deals
