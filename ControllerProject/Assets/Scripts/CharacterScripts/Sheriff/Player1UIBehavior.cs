@@ -35,7 +35,7 @@ public class Player1UIBehavior : MonoBehaviour
     private void Start()
     {
         gc = GameObject.Find("Game Controller").GetComponent<GameController>();
-        player1 = GameObject.Find("Grayboxed Sheriff").
+        player1 = GameObject.Find("Grayboxed Sheriff(Clone)").
             GetComponent<SheriffBehavior>();
         playerMaxHealth = player1.Playerhealth;
         playerMaxAmmo = player1.MaxAmmo;

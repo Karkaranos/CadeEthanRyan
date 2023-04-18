@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 98051669027880252}
   - component: {fileID: 98051669027880255}
+  - component: {fileID: 9071541437965352417}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -47,3 +48,24 @@ MonoBehaviour:
   firstScreen: {fileID: 3916712036899931578, guid: 9a12f8f23be206543979929fc6da63df, type: 3}
   secondScreen: {fileID: 4768459672899112240, guid: 10f6180a329a55b46bfa30b73f766de8, type: 3}
   firstSelected: {fileID: 0}
+--- !u!114 &9071541437965352417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98051669027880254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a82050fe88803c47b8ece23cd76741b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 0}
+  healthBar: {fileID: 0}
+  ammoBar: {fileID: 0}
+  pistol: {fileID: 0}
+  revolver: {fileID: 0}
+  shotgun: {fileID: 0}
+  currWeapon: {fileID: 0}
+  enemyCount: {fileID: 0}
+  waveCount: {fileID: 0}

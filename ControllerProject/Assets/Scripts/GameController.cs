@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        player1 = GameObject.Find("Grayboxed Sheriff").
+        player1 = GameObject.Find("Grayboxed Sheriff(Clone)").
             GetComponent<SheriffBehavior>();
         SpawnEnemies(wave1EnemiesSpawned);
         StartCoroutine(StatAdd());
