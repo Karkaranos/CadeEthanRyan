@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name :         Quit.cs
+// Author :            Cade R. Naylor
+// Creation Date :     April 18, 2023
+//
+// Brief Description : Quit Manager
+*****************************************************************************/
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name :         IncreaseStat.cs
+// Author :            Cade R. Naylor
+// Creation Date :     April 18, 2023
+//
+// Brief Description : Spawns refills for ammo and health
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +27,7 @@ public class IncreaseStat : MonoBehaviour
     /// </summary>
     void Start()
     {
-        sb = GameObject.Find("Grayboxed Sheriff").GetComponent<SheriffBehavior>();
+        sb = GameObject.Find("Grayboxed Sheriff(Clone)").GetComponent<SheriffBehavior>();
     }
 
     /// <summary>

@@ -45,7 +45,7 @@ public class KamicactusBehavior : MonoBehaviour
     /// </summary>
     void Start()
     {
-        player1 = GameObject.Find("Grayboxed Sheriff");
+        player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
         target = 1;
         //target = Random.Range(1, 2);
         if (target == 1)

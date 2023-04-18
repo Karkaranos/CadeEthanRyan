@@ -44,7 +44,7 @@ public class StenoCerberusBehavior : MonoBehaviour
     void Start()
     {
         target = 1;
-        player1 = GameObject.Find("Grayboxed Sheriff");
+        player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
         targetObject = player1;
         StartCoroutine(FireSpikes());
         StartCoroutine(SwitchTarget());
