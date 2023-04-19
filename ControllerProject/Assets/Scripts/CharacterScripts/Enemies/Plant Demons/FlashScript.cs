@@ -21,6 +21,7 @@ public class FlashScript : MonoBehaviour
     List<GameObject> spawnedSpikes = new List<GameObject>();
     [SerializeField] private int numSpikesSpawned=12;
     [SerializeField] GameObject explodeSpike;
+    Vector2 spikeTarget;
     float spawnAngle;
     Vector2 direction;
     Vector2 moveForce;
@@ -40,6 +41,10 @@ public class FlashScript : MonoBehaviour
             spawnedSpikes.Add(Instantiate(explodeSpike, transform.position,
                 Quaternion.AngleAxis(spawnAngle, Vector3.forward)));
 
+        }
+        foreach(GameObject spike in spawnedSpikes)
+        {
+            //spike.GetComponent<ExplodeSpikeBehavior>().SetTarget();
         }
         Destroy(destroyMe);
         Destroy(gameObject);
