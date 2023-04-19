@@ -59,6 +59,7 @@ public class SheriffBehavior : MonoBehaviour
     private int playerhealth = 200;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
+    Coroutine stopMe;
 
     private UIManagerBehavior uim;
 
@@ -115,11 +116,11 @@ public class SheriffBehavior : MonoBehaviour
         switchWeapon.performed += contx => SwitchWeapon();
 
         //Quick Attack - A button
-        quickAttack.started += contx => StartCoroutine(QuickAtk());
-        quickAttack.canceled += contx => StopCoroutine(QuickAtk());
+        quickAttack.started += contx => stopMe=StartCoroutine(QuickAtk());
+        quickAttack.canceled += contx => StopShooting();
 
         //Charged Attack - B Button
-        chargeAttack.performed += contx => chargeAtk();
+        chargeAttack.performed += contx => stopMe=StartCoroutine(ChargeAtk());
 
         //Powerup Switching - Right Trigger
         switchPowerUp.performed += contx => SwitchPowerUp();
@@ -147,31 +148,35 @@ public class SheriffBehavior : MonoBehaviour
     /// <summary>
     /// Attacks using the player's Charged Attack, if available
     /// </summary>
-    private void chargeAtk()
+    IEnumerator  ChargeAtk()
     {
-        if (weapon.Ammo == 0)
+        for(; ; ) 
         {
-            print("Out of Ammo");
-        }
-        else
-        {
-            if (chgAtkAvailable && weapon)
+            if (weapon.Ammo == 0)
             {
-                GameObject temp;
-                //Attack, then start the cooldown timer
-                print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
-                temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                temp.GetComponent<SheriffBulletBehavior>().damageDealt =
-                    weapon.ChargeDmg;
-                chgAtkAvailable = false;
-                //StartCoroutine(ChargeWeaponCoolDown());
-                weapon.Ammo--;
-                Ammo = weapon.Ammo;
+                print("Out of Ammo");
             }
             else
             {
-                print(weapon.Weapon + " is on cooldown.");
+                if (chgAtkAvailable && weapon)
+                {
+                    GameObject temp;
+                    //Attack, then start the cooldown timer
+                    print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
+                    temp = Instantiate(bullet, transform.position, Quaternion.identity);
+                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                        weapon.ChargeDmg;
+                    chgAtkAvailable = false;
+                    StartCoroutine(ChargeWeaponCoolDown());
+                    weapon.Ammo--;
+                    Ammo = weapon.Ammo;
+                }
+                else
+                {
+                    print(weapon.Weapon + " is on cooldown.");
+                }
             }
+            yield return new WaitForSeconds(weapon.ChargeCD);
         }
     }
 
@@ -231,6 +236,15 @@ public class SheriffBehavior : MonoBehaviour
         atkAvailable = true;
     }
 
+
+    /// <summary>
+    /// Stops the Coroutine currently making the player shoot
+    /// </summary>
+    private void StopShooting()
+    {
+        StopCoroutine(stopMe);
+        print("stop");
+    }
 
     /// <summary>
     /// Switches the WeaponData the player is currently using

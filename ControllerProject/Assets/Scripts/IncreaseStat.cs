@@ -25,7 +25,7 @@ public class IncreaseStat : MonoBehaviour
     /// <summary>
     /// Start is called before the first frame. Gets reference to player.
     /// </summary>
-    void Start()
+    void Awake()
     {
         sb = GameObject.Find("Grayboxed Sheriff(Clone)").GetComponent<SheriffBehavior>();
     }
