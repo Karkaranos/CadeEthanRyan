@@ -30,7 +30,7 @@ public class FlashScript : MonoBehaviour
     // Start is called before the first frame update
 
 
-    public IEnumerator Kaboom(float explodeCountdown)
+    public virtual IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
         destroyMe = Instantiate(explode, transform.position, transform.rotation);

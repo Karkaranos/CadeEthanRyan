@@ -18,6 +18,7 @@ public class KamicactusBehavior : MonoBehaviour
     [SerializeField] private int cellsForDeath;
     [SerializeField] private float health = 3;
     [SerializeField] private int healthWhileExplode = 2;
+    Coroutine exploding;
 
     //References to players and setting targets
     private int target;
@@ -116,7 +117,6 @@ public class KamicactusBehavior : MonoBehaviour
     {
         if(collision.gameObject.name == "Bullet(Clone)")
         {
-            Coroutine exploding;
             GameController gc = GameObject.Find("Game Controller").
                 GetComponent<GameController>();
             SheriffBulletBehavior sbb =
@@ -133,8 +133,36 @@ public class KamicactusBehavior : MonoBehaviour
                 else
                 {
                     healthWhileExplode--;
-                    if (healthWhileExplode <= 0)
+                    if (healthWhileExplode <= 0&&exploding!=null)
                     {
+                        StopCoroutine(exploding);
+                        gc.RemoveEnemy();
+                        Destroy(gameObject);
+                    }
+                }
+            }
+        }
+        if (collision.gameObject.name == "Kaboom(Clone)")
+        {
+            GameController gc = GameObject.Find("Game Controller").
+                GetComponent<GameController>();
+            BanditExplodeBehavior beb=
+                collision.gameObject.GetComponent<BanditExplodeBehavior>();
+            health -= beb.damageDealt;
+            if (health <= 0 && !explodeStarted)
+            {
+                if (!explodeStarted)
+                {
+                    explode.Flash();
+                    exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
+                    explodeStarted = true;
+                }
+                else
+                {
+                    healthWhileExplode--;
+                    if (healthWhileExplode <= 0 && exploding != null)
+                    {
+                        StopCoroutine(exploding);
                         gc.RemoveEnemy();
                         Destroy(gameObject);
                     }

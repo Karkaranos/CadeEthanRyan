@@ -139,6 +139,26 @@ public class StenoCerberusBehavior : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        if (collision.gameObject.name == "Bullet(Clone)")
+        {
+            BanditExplodeBehavior beb =
+                collision.gameObject.GetComponent<BanditExplodeBehavior>();
+            health -= beb.damageDealt;
+            if (health <= 0)
+            {
+                GameObject destroyMe;
+                foreach (GameObject c in spikesShot)
+                {
+                    destroyMe = c;
+                    Destroy(destroyMe);
+                }
+                StartCoroutine(explode.Kaboom(ignitionToExplode));
+                GameController gc = GameObject.Find("Game Controller").
+                    GetComponent<GameController>();
+                gc.RemoveEnemy();
+                Destroy(gameObject);
+            }
+        }
     }
 
     #endregion Functions

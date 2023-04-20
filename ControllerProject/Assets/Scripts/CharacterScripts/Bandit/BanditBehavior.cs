@@ -47,6 +47,7 @@ public class BanditBehavior : MonoBehaviour
     public float dmgExplode;
     private int ammo;
     private int maxAmmo;
+    private float ignitionToExplode = 3;
 
     //Other Variables
     [SerializeField] private GameObject bandit;
@@ -166,9 +167,16 @@ public class BanditBehavior : MonoBehaviour
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
-                    temp = Instantiate(playerExplosion, transform.position, Quaternion.identity);
-                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                    print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. "
+                        + weapon.Ammo + " shots remaining.");
+                    temp = Instantiate(playerExplosion, transform.position, 
+                        Quaternion.identity);
+                    temp.GetComponent<BanditExplodeBehavior>().damageDealt =
+                       weapon.Dmg;
+                    temp.GetComponent<BanditExplodeBehavior>().Flash();
+                    StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
+                        Kaboom(ignitionToExplode));
+                    temp.GetComponent<BanditExplodeBehavior>().damageDealt = 
                         weapon.ChargeDmg;
                     chgAtkAvailable = false;
                     StartCoroutine(ChargeWeaponCoolDown());
@@ -212,9 +220,16 @@ public class BanditBehavior : MonoBehaviour
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
-                    temp = Instantiate(playerExplosion, transform.position, Quaternion.identity);
-                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                    print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " +
+                        weapon.Ammo + " shots remaining.");
+                    temp = Instantiate(playerExplosion, scope.transform.position, 
+                        Quaternion.identity);
+                    temp.GetComponent<BanditExplodeBehavior>().damageDealt =
+                        weapon.Dmg;
+                    temp.GetComponent<BanditExplodeBehavior>().Flash();
+                    StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
+                        Kaboom(ignitionToExplode));
+                    temp.GetComponent<BanditExplodeBehavior>().damageDealt =
                         weapon.Dmg;
                     atkAvailable = false;
                     StartCoroutine(WeaponCoolDown());
