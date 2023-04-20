@@ -114,6 +114,16 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
                 OnDeath();
             }
         }
+        if (collision.gameObject.name == "Kaboom(Clone)")
+        {
+            BanditExplodeBehavior beb =
+                collision.gameObject.GetComponent<BanditExplodeBehavior>();
+            health -= beb.damageDealt;
+            if (health <= 0)
+            {
+                OnDeath();
+            }
+        }
 
     }
 

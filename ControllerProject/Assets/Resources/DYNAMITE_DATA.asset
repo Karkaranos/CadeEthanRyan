@@ -15,8 +15,9 @@ MonoBehaviour:
   weaponName: 
   weapon: 3
   weaponType: 1
-  dmg: 0
-  chargeDmg: 0
-  chargeCD: 0
-  standardCD: 0
-  ammo: 0
+  dmg: 10
+  chargeDmg: 20
+  chargeCD: 5
+  standardCD: 1
+  ammo: 200
+  maxAmmo: 200

@@ -21,6 +21,7 @@ public class FlashScript : MonoBehaviour
     List<GameObject> spawnedSpikes = new List<GameObject>();
     [SerializeField] private int numSpikesSpawned=12;
     [SerializeField] GameObject explodeSpike;
+    Vector2 spikeTarget;
     float spawnAngle;
     Vector2 direction;
     Vector2 moveForce;
@@ -29,7 +30,7 @@ public class FlashScript : MonoBehaviour
     // Start is called before the first frame update
 
 
-    public IEnumerator Kaboom(float explodeCountdown)
+    public virtual IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
         destroyMe = Instantiate(explode, transform.position, transform.rotation);
@@ -41,6 +42,9 @@ public class FlashScript : MonoBehaviour
                 Quaternion.AngleAxis(spawnAngle, Vector3.forward)));
 
         }
+        GameController gc = GameObject.Find("Game Controller").
+    GetComponent<GameController>();
+        gc.RemoveEnemy();
         Destroy(destroyMe);
         Destroy(gameObject);
 

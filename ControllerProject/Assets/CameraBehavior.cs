@@ -16,13 +16,17 @@ public class CameraBehavior : MonoBehaviour
     bool followPlayer=false;
     Vector3 newPos;
     /// <summary>
-    /// Start is called before the first frame update. Sets Wave 1 to spawn
+    /// Start is called before the first frame update. Checks for players
     /// </summary>
     void Start()
     {
         StartCoroutine(CheckForPlayers());
     }
 
+    /// <summary>
+    /// Checks if there is at least one player
+    /// </summary>
+    /// <returns>How long before check</returns>
     IEnumerator CheckForPlayers()
     {
         for (; ; )
@@ -39,6 +43,10 @@ public class CameraBehavior : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Sets the camera to follow player 1
+    /// </summary>
     private void Update()
     {
         if (followPlayer)

@@ -17,6 +17,8 @@ public class KamicactusBehavior : MonoBehaviour
     [SerializeField] private float speed = 3f;
     [SerializeField] private int cellsForDeath;
     [SerializeField] private float health = 3;
+    [SerializeField] private int healthWhileExplode = 2;
+    Coroutine exploding;
 
     //References to players and setting targets
     private int target;
@@ -106,25 +108,6 @@ public class KamicactusBehavior : MonoBehaviour
         transform.Translate(moveForce, Space.Self);
     }
 
-    /// <summary>
-    /// Starts the exploding process when it collides with a player
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "player")
-        {
-            if (!explodeStarted)
-            {
-                explode.Flash();
-                StartCoroutine(explode.Kaboom(ignitionToExplode));
-                explodeStarted = true;
-                GameController gc = GameObject.Find("Game Controller").
-                    GetComponent<GameController>();
-                gc.RemoveEnemy();
-            }
-        }
-    }
 
     /// <summary>
     /// Handles enemy life loss and death due to attacks
@@ -134,17 +117,56 @@ public class KamicactusBehavior : MonoBehaviour
     {
         if(collision.gameObject.name == "Bullet(Clone)")
         {
+            GameController gc = GameObject.Find("Game Controller").
+                GetComponent<GameController>();
             SheriffBulletBehavior sbb =
                 collision.gameObject.GetComponent<SheriffBulletBehavior>();
             health -= sbb.damageDealt;
             if (health <= 0 && !explodeStarted)
             {
-                explode.Flash();
-                StartCoroutine(explode.Kaboom(ignitionToExplode));
-                explodeStarted = true;
-                GameController gc = GameObject.Find("Game Controller").
-                    GetComponent<GameController>();
-                gc.RemoveEnemy();
+                if (!explodeStarted)
+                {
+                    explode.Flash();
+                    exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
+                    explodeStarted = true;
+                }
+                else
+                {
+                    healthWhileExplode--;
+                    if (healthWhileExplode <= 0&&exploding!=null)
+                    {
+                        StopCoroutine(exploding);
+                        gc.RemoveEnemy();
+                        Destroy(gameObject);
+                    }
+                }
+            }
+        }
+        if (collision.gameObject.name == "Kaboom(Clone)")
+        {
+            GameController gc = GameObject.Find("Game Controller").
+                GetComponent<GameController>();
+            BanditExplodeBehavior beb=
+                collision.gameObject.GetComponent<BanditExplodeBehavior>();
+            health -= beb.damageDealt;
+            if (health <= 0 && !explodeStarted)
+            {
+                if (!explodeStarted)
+                {
+                    explode.Flash();
+                    exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
+                    explodeStarted = true;
+                }
+                else
+                {
+                    healthWhileExplode--;
+                    if (healthWhileExplode <= 0 && exploding != null)
+                    {
+                        StopCoroutine(exploding);
+                        gc.RemoveEnemy();
+                        Destroy(gameObject);
+                    }
+                }
             }
         }
     }
