@@ -442,6 +442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grayboxed Bandit
       objectReference: {fileID: 0}
+    - target: {fileID: 2700782505059181928, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2700782505059181930, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -635,7 +639,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
+  m_PlayerPrefab: {fileID: 1222668680}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -672,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624201c48cd3299479f5d004f97fbf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sheriff: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
+  sheriff: {fileID: 1222668680}
   bandit: {fileID: 2700782505059181928, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
   playerPrefabB: {fileID: 2700782505059181928, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
 --- !u!114 &980941495 stripped
@@ -868,6 +872,11 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+--- !u!1 &1222668680 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2700782505059181928, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
+  m_PrefabInstance: {fileID: 351410151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1303845812
 PrefabInstance:
   m_ObjectHideFlags: 0

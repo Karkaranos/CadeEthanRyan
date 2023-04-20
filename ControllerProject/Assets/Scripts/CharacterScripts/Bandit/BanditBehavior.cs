@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class BanditBehavior : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class BanditBehavior : MonoBehaviour
     //Create an instance of input
     InputActionAsset inputAsset;
     InputActionMap inputMap;
+    PlayerInput pInput;
 
     //Create a reference for each inputAction
     InputAction playerMovement;
@@ -27,6 +29,7 @@ public class BanditBehavior : MonoBehaviour
     InputAction chargeAttack;
     InputAction switchWeapon;
     InputAction switchPowerUp;
+    InputAction pauseMenu;
 
     //Temporary Variables
     Vector2 movement;
@@ -41,6 +44,9 @@ public class BanditBehavior : MonoBehaviour
     private bool chgAtkAvailable = true;
     private bool atkAvailable = true;
     public float scopeDistance;
+    public float dmgExplode;
+    private int ammo;
+    private int maxAmmo;
 
     //Other Variables
     [SerializeField] private GameObject bandit;
@@ -49,10 +55,25 @@ public class BanditBehavior : MonoBehaviour
     [SerializeField] private Sprite firecrackers;
     [SerializeField] private GameObject playerExplosion;
     [SerializeField] private GameObject atkPoint;
-    [SerializeField] private int playerhealth = 100;
+    [SerializeField] private int playerhealth = 200;
+    private bool weaponChanged = false;
+    private int weaponNumber = 1;
+    Coroutine stopMe;
+    private GameObject player1;
+
+    private UIManagerBehavior uim;
+
+    public int Playerhealth { get => playerhealth; set => playerhealth = value; }
+
+    public int Ammo { get => ammo; set => ammo = value; }
+
+    public bool Weaponchanged { get => weaponChanged; set => weaponChanged = value; }
+    public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
+    public int WeaponNumber { get => weaponNumber; set => weaponNumber = value; }
     #endregion
 
     #region Functions
+
     //Sets up control references
     #region Set Up
     /// <summary>
@@ -61,14 +82,22 @@ public class BanditBehavior : MonoBehaviour
     private void Awake()
     {
         inputAsset = this.GetComponent<PlayerInput>().actions;
-        inputMap = inputAsset.FindActionMap("Player1Actions1");
+        inputMap = inputAsset.FindActionMap("Player1Actions");
         playerMovement = inputMap.FindAction("Movement");
         scopeMovement = inputMap.FindAction("MoveScope");
         switchWeapon = inputMap.FindAction("SwitchWeapon");
         quickAttack = inputMap.FindAction("QuickAttack");
         chargeAttack = inputMap.FindAction("ImpactAttack");
         switchPowerUp = inputMap.FindAction("SwitchPowerup");
+        pauseMenu = inputMap.FindAction("PauseMenu");
 
+        player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
+
+        Ammo = weapon.Ammo;
+        maxAmmo = weapon.MaxAmmo;
+        uim = GameObject.Find("UIManager").GetComponent<UIManagerBehavior>();
+        pInput = GetComponent<PlayerInput>();
+        pInput.camera = Camera.current;
 
         explodeImage = arm.GetComponent<SpriteRenderer>();
         explodeImage.sprite = dynamite;
@@ -90,13 +119,19 @@ public class BanditBehavior : MonoBehaviour
         switchWeapon.performed += contx => SwitchWeapon();
 
         //Quick Attack - A button
-        quickAttack.performed += contx => quickAtk();
+        quickAttack.performed += contx => stopMe=StartCoroutine(QuickAtk());
+        quickAttack.canceled += contx => StopThrowing();
 
         //Charged Attack - B Button
-        chargeAttack.performed += contx => chargeAtk();
+        chargeAttack.performed += contx => stopMe=StartCoroutine(ChargeAtk());
+        chargeAttack.canceled += contx => StopThrowing();
+
 
         //Powerup Switching - Right Trigger
         switchPowerUp.performed += contx => SwitchPowerUp();
+
+        //Pause menu- Start Button
+        //pauseMenu.performed += contx => uim.PauseMenu();
     }
 
     private void OnEnable()
@@ -117,26 +152,35 @@ public class BanditBehavior : MonoBehaviour
     /// <summary>
     /// Attacks using the player's Charged Attack, if available
     /// </summary>
-    private void chargeAtk()
+    IEnumerator ChargeAtk()
     {
-        if (weapon.Ammo == 0)
+        for (; ; )
         {
-            print("Out of Ammo");
-        }
-        else
-        {
-            if (chgAtkAvailable && weapon)
+            if (weapon.Ammo == 0)
             {
-                //Attack, then start the cooldown timer
-                print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
-                chgAtkAvailable = false;
-                StartCoroutine(ChargeWeaponCoolDown());
-                weapon.Ammo--;
+                print("Out of Ammo");
             }
             else
             {
-                print(weapon.Weapon + " is on cooldown.");
+                if (chgAtkAvailable && weapon)
+                {
+                    GameObject temp;
+                    //Attack, then start the cooldown timer
+                    print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
+                    temp = Instantiate(playerExplosion, transform.position, Quaternion.identity);
+                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                        weapon.ChargeDmg;
+                    chgAtkAvailable = false;
+                    StartCoroutine(ChargeWeaponCoolDown());
+                    weapon.Ammo--;
+                    Ammo = weapon.Ammo;
+                }
+                else
+                {
+                    print(weapon.Weapon + " is on cooldown.");
+                }
             }
+            yield return new WaitForSeconds(weapon.ChargeCD);
         }
     }
 
@@ -154,26 +198,35 @@ public class BanditBehavior : MonoBehaviour
     /// <summary>
     /// Attacks using the player's standard attack, if available
     /// </summary>
-    private void quickAtk()
+    IEnumerator QuickAtk()
     {
-        if (weapon.Ammo == 0)
+        for (; ; )
         {
-            print("Out of Ammo");
-        }
-        else
-        {
-            if (atkAvailable && weapon)
+            if (weapon.Ammo == 0)
             {
-                //Attack, then start the cooldown timer
-                print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
-                atkAvailable = false;
-                StartCoroutine(WeaponCoolDown());
-                weapon.Ammo--;
+                print("Out of Ammo");
             }
             else
             {
-                print(weapon.Weapon + " is on cooldown.");
+                if (atkAvailable && weapon)
+                {
+                    GameObject temp;
+                    //Attack, then start the cooldown timer
+                    print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
+                    temp = Instantiate(playerExplosion, transform.position, Quaternion.identity);
+                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                        weapon.Dmg;
+                    atkAvailable = false;
+                    StartCoroutine(WeaponCoolDown());
+                    weapon.Ammo--;
+                    Ammo = weapon.Ammo;
+                }
+                else
+                {
+                    print(weapon.Weapon + " is on cooldown.");
+                }
             }
+            yield return new WaitForSeconds(weapon.StandardCD);
         }
     }
 
@@ -187,6 +240,14 @@ public class BanditBehavior : MonoBehaviour
         atkAvailable = true;
     }
 
+    /// <summary>
+    /// Stops the Coroutine currently making the player shoot
+    /// </summary>
+    private void StopThrowing()
+    {
+        StopCoroutine(stopMe);
+        print("stop");
+    }
 
     /// <summary>
     /// Switches the WeaponData the player is currently using
@@ -217,8 +278,20 @@ public class BanditBehavior : MonoBehaviour
         //Reset the attack cooldowns
         chgAtkAvailable = true;
         atkAvailable = true;
+        Ammo = weapon.Ammo;
+        maxAmmo = weapon.MaxAmmo;
+        weaponChanged = true;
+        StartCoroutine(WeaponChange());
+    }
 
-
+    /// <summary>
+    /// Resets weaponChanged after a brief pause
+    /// </summary>
+    /// <returns>Time paused for</returns>
+    IEnumerator WeaponChange()
+    {
+        yield return new WaitForSeconds(.1f);
+        weaponChanged = false;
     }
 
     /// <summary>
@@ -289,7 +362,27 @@ public class BanditBehavior : MonoBehaviour
     {
         Vector2 playerBind = pos;
 
-        if (pos.x > 8.4f)
+        if (player1 != null)
+        {
+            Vector2 camPos = player1.transform.position;
+            if (camPos.x - pos.x > 8.4f)
+            {
+                playerBind.x = camPos.x - 8.4f;
+            }
+            if (pos.x - camPos.x > 8.4f)
+            {
+                playerBind.x = camPos.x + 8.4f;
+            }
+            if (camPos.y - pos.y < 4.5f)
+            {
+                playerBind.y = camPos.y - 4.5f;
+            }
+            if (pos.y - camPos.y > 4.5f)
+            {
+                playerBind.y = camPos.y + 4.5f;
+            }
+        }
+        /*if (pos.x > 8.4f)
         {
             playerBind.x = 8.4f;
         }
@@ -304,7 +397,7 @@ public class BanditBehavior : MonoBehaviour
         if (pos.y < -4.5f)
         {
             playerBind.y = -4.5f;
-        }
+        }*/
         transform.position = playerBind;
     }
 
@@ -313,15 +406,20 @@ public class BanditBehavior : MonoBehaviour
     //Handles collisions with Enemies
     #region Collisions
 
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Large TumbleFiend(clone)")
+        if (collision.gameObject.name == "Large TumbleFiend(Clone)" || collision.gameObject.name == "Large TumbleFiend")
         {
-            //take large tumble damage!
+            //take large tumble damage
+            Playerhealth -= 5;
+            print("Hit by Large Tumble");
         }
-        if (collision.gameObject.name == "Small TumbleFiend(clone)")
+        if (collision.gameObject.name == "Small TumbleFiend(Clone)")
         {
-            //take large tumble damage!
+            //take large tumble damage
+            print("Hit by Small Tumble");
+            Playerhealth -= 3;
         }
     }
 
@@ -330,6 +428,14 @@ public class BanditBehavior : MonoBehaviour
         if (collision.gameObject.tag == "explosion")
         {
             //Take explosion Damage
+            print("Hit by Explosion");
+            Playerhealth -= 10;
+        }
+        if (collision.gameObject.tag == "Spike")
+        {
+            //Take turret damage
+            print("Hit by Cactus Spike");
+            Playerhealth -= 1;
         }
     }
 

@@ -77,11 +77,12 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: cf9744aef8518324c8b2b401a4bd758f, type: 2}
   arm: {fileID: 2700782505134199321}
   scopeDistance: 0
+  dmgExplode: 0
   bandit: {fileID: 2700782505614645616}
   dynamite: {fileID: 21300000, guid: bfb6158d2f2db044d8e241bbc82550c6, type: 3}
   cocktails: {fileID: 21300000, guid: 5c12c4cc6a381cc45bf807ba91ab0dfa, type: 3}
   firecrackers: {fileID: 21300000, guid: a40aa666eb9c3414583a0a611806fb82, type: 3}
-  playerExplosion: {fileID: 0}
+  playerExplosion: {fileID: 2859473220056204481, guid: 454b5caae2d20f74e9981313afaf0da6, type: 3}
   atkPoint: {fileID: 2700782506300072433}
   playerhealth: 100
 --- !u!114 &2700782505059181925

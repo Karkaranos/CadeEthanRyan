@@ -13,9 +13,6 @@ public class ExplodeSpikeBehavior : MonoBehaviour
 {
     #region Variables
 
-    Rigidbody2D rb2D;
-    float angle;
-    Vector2 newPos;
     Vector2 spikeTarget;
     [SerializeField] private float despawnTime = 2;
     #endregion
@@ -23,13 +20,19 @@ public class ExplodeSpikeBehavior : MonoBehaviour
     #region Functions
 
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Starts the despawn timer and calls target setting
+    /// </summary>
     void Start()
     {
         StartCoroutine(DespawnTimer());
         SetTarget();
     }
 
+    /// <summary>
+    /// Picks a random location within 10 units of the player and sets it as the 
+    /// target. Adds force in that direction.
+    /// </summary>
     public void SetTarget()
     {
         int dir = Random.Range(1, 3);
@@ -51,23 +54,28 @@ public class ExplodeSpikeBehavior : MonoBehaviour
         GetComponent<Rigidbody2D>().AddForce(spikeTarget);
     }
 
+    /// <summary>
+    /// Controls how long before the object is destroyed
+    /// </summary>
+    /// <returns>Seconds before destruction</returns>
     IEnumerator DespawnTimer()
     {
         yield return new WaitForSeconds(despawnTime);
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /// <summary>
+    /// Checks for collisions
+    /// </summary>
+    /// <param name="collision"></param>
+    /// 
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "player")
+        if (collision.gameObject.tag == "player" || collision.gameObject.tag == 
+            "World Objects")
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Update()
-    {
-
     }
 
     #endregion Functions

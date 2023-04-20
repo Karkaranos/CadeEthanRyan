@@ -42,10 +42,9 @@ public class FlashScript : MonoBehaviour
                 Quaternion.AngleAxis(spawnAngle, Vector3.forward)));
 
         }
-        foreach(GameObject spike in spawnedSpikes)
-        {
-            //spike.GetComponent<ExplodeSpikeBehavior>().SetTarget();
-        }
+        GameController gc = GameObject.Find("Game Controller").
+    GetComponent<GameController>();
+        gc.RemoveEnemy();
         Destroy(destroyMe);
         Destroy(gameObject);
 

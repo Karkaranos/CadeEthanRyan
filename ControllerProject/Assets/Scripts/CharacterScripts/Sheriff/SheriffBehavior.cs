@@ -48,7 +48,6 @@ public class SheriffBehavior : MonoBehaviour
     private int ammo;
     private int maxAmmo;
 
-
     //Other Variables
     [SerializeField] private GameObject sheriff;
     [SerializeField] private Sprite revolver;
@@ -90,6 +89,7 @@ public class SheriffBehavior : MonoBehaviour
         chargeAttack = inputMap.FindAction("ImpactAttack");
         switchPowerUp = inputMap.FindAction("SwitchPowerup");
         pauseMenu = inputMap.FindAction("PauseMenu");
+
         Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
         uim = GameObject.Find("UIManager").GetComponent<UIManagerBehavior>();
@@ -121,6 +121,7 @@ public class SheriffBehavior : MonoBehaviour
 
         //Charged Attack - B Button
         chargeAttack.performed += contx => stopMe=StartCoroutine(ChargeAtk());
+        chargeAttack.canceled += contx => StopShooting();
 
         //Powerup Switching - Right Trigger
         switchPowerUp.performed += contx => SwitchPowerUp();
@@ -281,11 +282,14 @@ public class SheriffBehavior : MonoBehaviour
         Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
         weaponChanged = true;
-        StartCoroutine(weaponChange());
-
+        StartCoroutine(WeaponChange());
     }
 
-    IEnumerator weaponChange()
+    /// <summary>
+    /// Resets weaponChanged after a brief pause
+    /// </summary>
+    /// <returns>Time paused for</returns>
+    IEnumerator WeaponChange()
     {
         yield return new WaitForSeconds(.1f);
         weaponChanged = false;
