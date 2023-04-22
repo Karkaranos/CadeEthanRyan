@@ -60,7 +60,7 @@ public class ButtonBehaviour : MonoBehaviour
         secondScreen.SetActive(false);
         thirdScreen.SetActive(true);
         GameObject.Find("EventSystem").GetComponent<EventSystem>()
-            .SetSelectedGameObject(first);
+            .SetSelectedGameObject(second);
     }
 
     public void PauseBack()
@@ -68,6 +68,6 @@ public class ButtonBehaviour : MonoBehaviour
         thirdScreen.SetActive(false);
         secondScreen.SetActive(true);
         GameObject.Find("EventSystem").GetComponent<EventSystem>()
-            .SetSelectedGameObject(second);
+            .SetSelectedGameObject(first);
     }
 }
