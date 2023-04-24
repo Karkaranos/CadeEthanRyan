@@ -897,6 +897,7 @@ GameObject:
   m_Component:
   - component: {fileID: 982564172}
   - component: {fileID: 982564173}
+  - component: {fileID: 982564174}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -943,10 +944,25 @@ MonoBehaviour:
   wave2EnemiesSpawned: 7
   wave3EnemiesSpawned: 13
   wave4EnemiesSpawned: 20
-  kamicactusSpawnMultiplier: 4
-  stenocerberusSpawnMultiplier: 1
-  largeTumbleSpawnMultiplier: 1
+  kamicactusSpawnMultiplier: 2
+  stenocerberusSpawnMultiplier: 3
+  largeTumbleSpawnMultiplier: 4
   smallTumbleSpawnMultiplier: 1
+--- !u!114 &982564174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982564170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a3230dd04c54b4ba5c54037279a16f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cell: {fileID: 3551580568256232340, guid: 04ca697df59bfce4c8b52ab537be2f4b, type: 3}
+  health: {fileID: 2417028149801561306, guid: 2ceb51b02c2a64b46b487c30c37c02aa, type: 3}
+  ammo: {fileID: 507650973739610079, guid: 3ef45c9f0b754ff41b96ed28e9002e10, type: 3}
 --- !u!1001 &1090898679
 PrefabInstance:
   m_ObjectHideFlags: 0

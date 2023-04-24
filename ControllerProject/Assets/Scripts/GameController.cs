@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
             {
                 player1 = player1Obj.GetComponent<SheriffBehavior>();
                 SpawnEnemies(wave1EnemiesSpawned);
-                StartCoroutine(StatAdd());
+                //StartCoroutine(StatAdd());
                 StopCoroutine(CheckForPlayers());
             }
             yield return new WaitForSeconds(1);

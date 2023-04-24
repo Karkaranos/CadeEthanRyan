@@ -35,6 +35,7 @@ public class KamicactusBehavior : MonoBehaviour
     private bool explodeStarted = false;
     [SerializeField] private int explosionSize = 3;
     [SerializeField] GameObject explodeRange;
+    public bool killed=false;
 
     #endregion
 
@@ -122,7 +123,7 @@ public class KamicactusBehavior : MonoBehaviour
             SheriffBulletBehavior sbb =
                 collision.gameObject.GetComponent<SheriffBulletBehavior>();
             health -= sbb.damageDealt;
-            if (health <= 0 && !explodeStarted)
+            if (health <= 0)
             {
                 if (!explodeStarted)
                 {
@@ -133,10 +134,14 @@ public class KamicactusBehavior : MonoBehaviour
                 else
                 {
                     healthWhileExplode--;
-                    if (healthWhileExplode <= 0&&exploding!=null)
+                    if (healthWhileExplode <= 0&&exploding!=null&&!killed)
                     {
                         StopCoroutine(exploding);
                         gc.RemoveEnemy();
+                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                            GetComponent<LootTableAndDropBehavior>();
+                        loot.DropLoot(transform.position);
+                        killed = true;
                         Destroy(gameObject);
                     }
                 }
@@ -149,7 +154,7 @@ public class KamicactusBehavior : MonoBehaviour
             BanditExplodeBehavior beb=
                 collision.gameObject.GetComponent<BanditExplodeBehavior>();
             health -= beb.damageDealt;
-            if (health <= 0 && !explodeStarted)
+            if (health <= 0)
             {
                 if (!explodeStarted)
                 {
@@ -160,10 +165,14 @@ public class KamicactusBehavior : MonoBehaviour
                 else
                 {
                     healthWhileExplode--;
-                    if (healthWhileExplode <= 0 && exploding != null)
+                    if (healthWhileExplode <= 0 && exploding != null&&!killed)
                     {
                         StopCoroutine(exploding);
                         gc.RemoveEnemy();
+                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                            GetComponent<LootTableAndDropBehavior>();
+                        loot.DropLoot(transform.position);
+                        killed = true;
                         Destroy(gameObject);
                     }
                 }

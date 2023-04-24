@@ -13,6 +13,7 @@ public class IncreaseStat : MonoBehaviour
 {
     #region Variables
     SheriffBehavior sb;
+    BanditBehavior bb;
     [Range(5, 20)]
     [SerializeField] private int healthAdded;
     [Range(5, 20)]
@@ -28,6 +29,10 @@ public class IncreaseStat : MonoBehaviour
     void Awake()
     {
         sb = GameObject.Find("Grayboxed Sheriff(Clone)").GetComponent<SheriffBehavior>();
+        if(GameObject.Find("Grayboxed Bandit(Clone)") != null)
+        {
+            bb = GameObject.Find("Grayboxed Bandit(Clone)").GetComponent<BanditBehavior>();
+        }
     }
 
     /// <summary>
@@ -39,21 +44,50 @@ public class IncreaseStat : MonoBehaviour
     {
         if (collision.gameObject.tag == "player")
         {
-            Destroy(gameObject);
-            if (name.Contains("heart")&&!valAdded)
+            if (collision.gameObject.name.Contains("Sheriff"))
             {
-                sb.Playerhealth += healthAdded;
-                print(sb.Playerhealth);
-                valAdded = true;
-            }
-            if (name.Contains("ammo")&&!valAdded)
-            {
-                sb.Ammo += ammoAdded;
-                print(sb.Ammo);
-                valAdded = true;
-                if (sb.Ammo > sb.MaxAmmo)
+                if (name.Contains("heart") && !valAdded)
                 {
-                    sb.Ammo = sb.MaxAmmo;
+                    sb.Playerhealth += healthAdded;
+                    print(sb.Playerhealth);
+                    valAdded = true;
+                }
+                if (name.Contains("ammo") && !valAdded)
+                {
+                    sb.Ammo += ammoAdded;
+                    print(sb.Ammo);
+                    valAdded = true;
+                    if (sb.Ammo > sb.MaxAmmo)
+                    {
+                        sb.Ammo = sb.MaxAmmo;
+                    }
+                }
+                if (name.Contains("cell"))
+                {
+                    sb.Cells++;
+                }
+            }
+            if (collision.gameObject.name.Contains("Bandit"))
+            {
+                if (name.Contains("heart") && !valAdded)
+                {
+                    bb.Playerhealth += healthAdded;
+                    print(bb.Playerhealth);
+                    valAdded = true;
+                }
+                if (name.Contains("ammo") && !valAdded)
+                {
+                    bb.Ammo += ammoAdded;
+                    print(bb.Ammo);
+                    valAdded = true;
+                    if (bb.Ammo > bb.MaxAmmo)
+                    {
+                        bb.Ammo = bb.MaxAmmo;
+                    }
+                }
+                if (name.Contains("cell"))
+                {
+                    bb.Cells++;
                 }
             }
             Destroy(gameObject);

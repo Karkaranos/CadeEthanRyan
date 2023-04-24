@@ -61,6 +61,7 @@ public class BanditBehavior : MonoBehaviour
     private int weaponNumber = 1;
     Coroutine stopMe;
     private GameObject player1;
+    [SerializeField] private int cells;
 
     private UIManagerBehavior uim;
 
@@ -71,6 +72,7 @@ public class BanditBehavior : MonoBehaviour
     public bool Weaponchanged { get => weaponChanged; set => weaponChanged = value; }
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
     public int WeaponNumber { get => weaponNumber; set => weaponNumber = value; }
+    public int Cells { get => cells; set => cells = value; }
     #endregion
 
     #region Functions
