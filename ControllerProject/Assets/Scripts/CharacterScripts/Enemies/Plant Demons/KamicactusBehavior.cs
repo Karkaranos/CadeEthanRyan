@@ -17,7 +17,7 @@ public class KamicactusBehavior : MonoBehaviour
     [SerializeField] private float speed = 3f;
     [SerializeField] private int cellsForDeath;
     [SerializeField] private float health = 3;
-    [SerializeField] private int healthWhileExplode = 2;
+    [SerializeField] private int healthWhileExplode = 10;
     Coroutine exploding;
 
     //References to players and setting targets
