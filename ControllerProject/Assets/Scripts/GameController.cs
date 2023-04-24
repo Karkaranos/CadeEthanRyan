@@ -124,7 +124,8 @@ public class GameController : MonoBehaviour
         }
         if (wave == 4)
         {
-            //SpawnEnemies(wave4EnemiesSpawned);
+            canSpawn = true;
+            Wave4Spawn();
         }
         wavePause = false;
 
@@ -269,7 +270,35 @@ public class GameController : MonoBehaviour
         }
     }
 
-
+    public void Wave4Spawn()
+    {
+        int enemyType;
+        for (int i = 0; i < wave4EnemiesSpawned; i++)
+        {
+            if (canSpawn && wave == 4)
+            {
+                print("Wave 4 spawn");
+                enemyType = Random.Range(1, 3);
+                print("Type Spawned: " + enemyType);
+                if (enemyType == 1)
+                {
+                    Instantiate(kamicactus, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                else
+                {
+                    Instantiate(largeTumble, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyCounter == wave4EnemiesSpawned)
+                {
+                    canSpawn = false;
+                }
+            }
+        }
+    }
 
     #endregion
 
