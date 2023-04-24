@@ -38,11 +38,19 @@ public class GameController : MonoBehaviour
     [SerializeField] private int wave2EnemiesSpawned;
     [Range(0, 10)]
     [SerializeField] private int wave3EnemiesSpawned;
-    [Range(0, 50)]
+    [Range(0, 20)]
     [SerializeField] private int wave4EnemiesSpawned;
+    [Range(0, 20)]
+    [SerializeField] private int wave5EnemiesSpawned;
+    [Range(0, 30)]
+    [SerializeField] private int wave6EnemiesSpawned;
+    [Range(0, 40)]
+    [SerializeField] private int wave7EnemiesSpawned;
+    [Range(0, 40)]
+    [SerializeField] private int wave8EnemiesSpawned;
 
 
-    [Header("Enemy Spawn Chance")]
+    /*[Header("Enemy Spawn Chance")]
     [Range(1, 4)]
     [SerializeField] private int kamicactusSpawnMultiplier;
     [Range(1, 4)]
@@ -50,7 +58,7 @@ public class GameController : MonoBehaviour
     [Range(1, 4)]
     [SerializeField] private int largeTumbleSpawnMultiplier;
     [Range(1, 4)]
-    [SerializeField] private int smallTumbleSpawnMultiplier;
+    [SerializeField] private int smallTumbleSpawnMultiplier;*/
     #endregion
 
     #region Functions
@@ -89,7 +97,7 @@ public class GameController : MonoBehaviour
     {
         if (player1Obj != null)
         {
-            if (enemyCounter == 0 && wave != 4 && !wavePause && player1Obj != null)
+            if (enemyCounter == 0 && wave != 5 && !wavePause && player1Obj != null)
             {
                 StartCoroutine(WaveBreak());
                 wave++;
@@ -126,6 +134,11 @@ public class GameController : MonoBehaviour
         {
             canSpawn = true;
             Wave4Spawn();
+        }
+        if (wave == 5)
+        {
+            canSpawn = true;
+            Wave5Spawn();
         }
         wavePause = false;
 
@@ -250,7 +263,7 @@ public class GameController : MonoBehaviour
     }
 
     /// <summary>
-    /// Spawns a wave of all Stenocerberus for the second wave
+    /// Spawns a wave of all Stenocerberus for the third wave
     /// </summary>
     public void Wave3Spawn()
     {
@@ -270,6 +283,9 @@ public class GameController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawns a wave with a mix of kamicactus and tumbles for the fourth wave
+    /// </summary>
     public void Wave4Spawn()
     {
         int enemyType;
@@ -300,6 +316,155 @@ public class GameController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawns a wave with stenocerberus and tumbles for the 5th wave
+    /// </summary>
+    public void Wave5Spawn()
+    {
+        int enemyType;
+        for (int i = 0; i < wave5EnemiesSpawned; i++)
+        {
+            if (canSpawn && wave == 5)
+            {
+                print("Wave 5 spawn");
+                enemyType = Random.Range(1, 3);
+                print("Type Spawned: " + enemyType);
+                if (enemyType == 1)
+                {
+                    Instantiate(stenocerberus, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                else
+                {
+                    Instantiate(largeTumble, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyCounter == wave5EnemiesSpawned)
+                {
+                    canSpawn = false;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Spawns a wave with all types for the 6th wave
+    /// </summary>
+    public void Wave6Spawn()
+    {
+        int enemyType;
+        for (int i = 0; i < wave6EnemiesSpawned; i++)
+        {
+            if (canSpawn && wave == 6)
+            {
+                print("Wave 6 spawn");
+                enemyType = Random.Range(1, 4);
+                print("Type Spawned: " + enemyType);
+                if (enemyType == 1)
+                {
+                    Instantiate(stenocerberus, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyType == 2)
+                {
+                    Instantiate(kamicactus, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyType == 3)
+                {
+                    Instantiate(largeTumble, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyCounter == wave6EnemiesSpawned)
+                {
+                    canSpawn = false;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Spawns a wave with all types for the 7th wave
+    /// </summary>
+    public void Wave7Spawn()
+    {
+        int enemyType;
+        for (int i = 0; i < wave7EnemiesSpawned; i++)
+        {
+            if (canSpawn && wave == 7)
+            {
+                print("Wave 7 spawn");
+                enemyType = Random.Range(1, 4);
+                print("Type Spawned: " + enemyType);
+                if (enemyType == 1)
+                {
+                    Instantiate(stenocerberus, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyType == 2)
+                {
+                    Instantiate(kamicactus, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyType == 3)
+                {
+                    Instantiate(largeTumble, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyCounter == wave7EnemiesSpawned)
+                {
+                    canSpawn = false;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Spawns a wave with all enemy types for the 8th wave
+    /// </summary>
+    public void Wave8Spawn()
+    {
+        int enemyType;
+        for (int i = 0; i < wave8EnemiesSpawned; i++)
+        {
+            if (canSpawn && wave == 8)
+            {
+                print("Wave 8 spawn");
+                enemyType = Random.Range(1, 4);
+                print("Type Spawned: " + enemyType);
+                if (enemyType == 1)
+                {
+                    Instantiate(stenocerberus, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyType == 2)
+                {
+                    Instantiate(kamicactus, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyType == 3)
+                {
+                    Instantiate(largeTumble, new Vector2(Random.Range(-33, 40),
+                        Random.Range(-32, 14)), Quaternion.identity);
+                    AddEnemy();
+                }
+                if (enemyCounter == wave8EnemiesSpawned)
+                {
+                    canSpawn = false;
+                }
+            }
+        }
+    }
     #endregion
 
     #endregion
