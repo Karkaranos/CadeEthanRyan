@@ -56,7 +56,7 @@ public class BanditBehavior : MonoBehaviour
     [SerializeField] private Sprite firecrackers;
     [SerializeField] private GameObject playerExplosion;
     [SerializeField] private GameObject atkPoint;
-    [SerializeField] private int playerhealth = 200;
+    [SerializeField] private int playerhealth = 100;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
     Coroutine stopMe;

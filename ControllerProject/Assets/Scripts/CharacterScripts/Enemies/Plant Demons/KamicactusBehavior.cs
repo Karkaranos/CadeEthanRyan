@@ -31,7 +31,7 @@ public class KamicactusBehavior : MonoBehaviour
 
     //Variables for exploding
     FlashScript explode;
-    private float ignitionToExplode = 5;
+    private float ignitionToExplode = 3;
     private bool explodeStarted = false;
     [SerializeField] private int explosionSize = 3;
     [SerializeField] GameObject explodeRange;

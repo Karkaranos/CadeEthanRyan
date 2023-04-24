@@ -25,12 +25,6 @@ public class GameController : MonoBehaviour
     private bool canSpawn = true;
     private bool gameStarted=false;
 
-
-    //Items
-    [SerializeField] GameObject healthBoost;
-    [SerializeField] GameObject ammoBoost;
-    private int secondsBeforeSpawnItem=3;
-
     //Player References
     GameObject player1Obj;
     SheriffBehavior player1;
