@@ -29,7 +29,10 @@ public class IncreaseStat : MonoBehaviour
     void Awake()
     {
         sb = GameObject.Find("Grayboxed Sheriff(Clone)").GetComponent<SheriffBehavior>();
-        bb = GameObject.Find("Grayboxed Bandit(Clone)").GetComponent<BanditBehavior>();
+        if(GameObject.Find("Grayboxed Bandit(Clone)") != null)
+        {
+            bb = GameObject.Find("Grayboxed Bandit(Clone)").GetComponent<BanditBehavior>();
+        }
     }
 
     /// <summary>
@@ -41,7 +44,7 @@ public class IncreaseStat : MonoBehaviour
     {
         if (collision.gameObject.tag == "player")
         {
-            if (collision.gameObject.name.Contains("Bandit"))
+            if (collision.gameObject.name.Contains("Sheriff"))
             {
                 if (name.Contains("heart") && !valAdded)
                 {
@@ -64,7 +67,7 @@ public class IncreaseStat : MonoBehaviour
                     sb.Cells++;
                 }
             }
-            if (collision.gameObject.name.Contains("Sheriff"))
+            if (collision.gameObject.name.Contains("Bandit"))
             {
                 if (name.Contains("heart") && !valAdded)
                 {

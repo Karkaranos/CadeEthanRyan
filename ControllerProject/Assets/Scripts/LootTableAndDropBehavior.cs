@@ -9,7 +9,7 @@ public class LootTableAndDropBehavior : MonoBehaviour
     [SerializeField] GameObject ammo;
 
     private int randomNum;
-    private int totalChances=2;
+    private int totalChances=1;
     private int totalPool=20;
 
     public void DropLoot(Vector2 pos)
@@ -28,16 +28,16 @@ public class LootTableAndDropBehavior : MonoBehaviour
                 Instantiate(cell, pos, Quaternion.identity);
             }
 
-            //Spawn health with a 3 in 20 chance
-            if(randomNum >=5 && randomNum <= 7)
+            //Spawn health with a 1 in 10 chance
+            if(randomNum >=5 && randomNum <= 6)
             {
                 pos.x += Random.Range(-1, 1);
                 pos.y += Random.Range(-1, 1);
                 Instantiate(health, pos, Quaternion.identity);
             }
 
-            //Spawn health with a 2 in 10 chance
-            if(randomNum>=12 && randomNum <= 16)
+            //Spawn health with a 1 in 10 chance
+            if(randomNum>=12 && randomNum <= 13)
             {
                 pos.x += Random.Range(-1, 1);
                 pos.y += Random.Range(-1, 1);

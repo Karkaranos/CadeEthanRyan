@@ -35,7 +35,7 @@ public class KamicactusBehavior : MonoBehaviour
     private bool explodeStarted = false;
     [SerializeField] private int explosionSize = 3;
     [SerializeField] GameObject explodeRange;
-    bool killed=false;
+    public bool killed=false;
 
     #endregion
 
@@ -123,7 +123,7 @@ public class KamicactusBehavior : MonoBehaviour
             SheriffBulletBehavior sbb =
                 collision.gameObject.GetComponent<SheriffBulletBehavior>();
             health -= sbb.damageDealt;
-            if (health <= 0 && !explodeStarted)
+            if (health <= 0)
             {
                 if (!explodeStarted)
                 {
@@ -154,7 +154,7 @@ public class KamicactusBehavior : MonoBehaviour
             BanditExplodeBehavior beb=
                 collision.gameObject.GetComponent<BanditExplodeBehavior>();
             health -= beb.damageDealt;
-            if (health <= 0 && !explodeStarted)
+            if (health <= 0)
             {
                 if (!explodeStarted)
                 {
