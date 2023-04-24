@@ -35,6 +35,7 @@ public class KamicactusBehavior : MonoBehaviour
     private bool explodeStarted = false;
     [SerializeField] private int explosionSize = 3;
     [SerializeField] GameObject explodeRange;
+    bool killed=false;
 
     #endregion
 
@@ -133,10 +134,14 @@ public class KamicactusBehavior : MonoBehaviour
                 else
                 {
                     healthWhileExplode--;
-                    if (healthWhileExplode <= 0&&exploding!=null)
+                    if (healthWhileExplode <= 0&&exploding!=null&&!killed)
                     {
                         StopCoroutine(exploding);
                         gc.RemoveEnemy();
+                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                            GetComponent<LootTableAndDropBehavior>();
+                        loot.DropLoot(transform.position);
+                        killed = true;
                         Destroy(gameObject);
                     }
                 }
@@ -160,10 +165,14 @@ public class KamicactusBehavior : MonoBehaviour
                 else
                 {
                     healthWhileExplode--;
-                    if (healthWhileExplode <= 0 && exploding != null)
+                    if (healthWhileExplode <= 0 && exploding != null&&!killed)
                     {
                         StopCoroutine(exploding);
                         gc.RemoveEnemy();
+                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                            GetComponent<LootTableAndDropBehavior>();
+                        loot.DropLoot(transform.position);
+                        killed = true;
                         Destroy(gameObject);
                     }
                 }

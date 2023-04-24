@@ -156,7 +156,11 @@ public class StenoCerberusBehavior : MonoBehaviour
                 GameController gc = GameObject.Find("Game Controller").
                     GetComponent<GameController>();
                 gc.RemoveEnemy();
+                LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                    GetComponent<LootTableAndDropBehavior>();
+                loot.DropLoot(transform.position);
                 Destroy(gameObject);
+
             }
         }
     }

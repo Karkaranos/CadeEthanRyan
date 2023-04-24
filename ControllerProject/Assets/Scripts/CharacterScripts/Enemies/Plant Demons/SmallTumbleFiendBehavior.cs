@@ -19,10 +19,13 @@ public class SmallTumbleFiendBehavior : LargeTumbleFiendBehavior
     /// </summary>
     public override void OnDeath()
     {
-        Destroy(gameObject);
         GameController gc = GameObject.Find("Game Controller").
             GetComponent<GameController>();
+        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+        GetComponent<LootTableAndDropBehavior>();
+        loot.DropLoot(transform.position);
         gc.RemoveEnemy();
+        Destroy(gameObject);
     }
     #endregion
 }
