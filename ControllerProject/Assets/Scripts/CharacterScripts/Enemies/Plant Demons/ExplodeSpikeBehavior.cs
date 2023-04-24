@@ -50,7 +50,7 @@ public class ExplodeSpikeBehavior : MonoBehaviour
         {
             spikeTarget.y *= -1;
         }
-        spikeTarget *= .015f;
+        spikeTarget *= .01f;
         GetComponent<Rigidbody2D>().AddForce(spikeTarget);
     }
 
