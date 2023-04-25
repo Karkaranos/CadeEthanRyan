@@ -938,16 +938,17 @@ MonoBehaviour:
   smallTumble: {fileID: 7129858497728827855, guid: 2f12e81c83786eb469248fc50f5ac3dd, type: 3}
   enemyCounter: 0
   wave: 1
-  healthBoost: {fileID: 2417028149801561306, guid: 2ceb51b02c2a64b46b487c30c37c02aa, type: 3}
-  ammoBoost: {fileID: 507650973739610079, guid: 3ef45c9f0b754ff41b96ed28e9002e10, type: 3}
-  wave1EnemiesSpawned: 1
-  wave2EnemiesSpawned: 7
-  wave3EnemiesSpawned: 13
-  wave4EnemiesSpawned: 20
-  kamicactusSpawnMultiplier: 2
+  wave1Enemies: 3
+  wave2Enemies: 6
+  wave3Enemies: 4
+  wave4Enemies: 10
+  wave5Enemies: 15
+  wave6Enemies: 22
+  wave7Enemies: 33
+  wave8Enemies: 40
+  kamicactusSpawnMultiplier: 3
   stenocerberusSpawnMultiplier: 3
-  largeTumbleSpawnMultiplier: 4
-  smallTumbleSpawnMultiplier: 1
+  largeTumbleSpawnMultiplier: 3
 --- !u!114 &982564174
 MonoBehaviour:
   m_ObjectHideFlags: 0

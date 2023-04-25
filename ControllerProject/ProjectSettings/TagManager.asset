@@ -11,14 +11,15 @@ TagManager:
   - explosion
   - Enemy
   - Spike
+  - World Objects
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Drops
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

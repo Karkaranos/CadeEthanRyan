@@ -55,7 +55,7 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private Sprite pistol;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject atkPoint;
-    private int playerhealth = 200;
+    [SerializeField] private int playerhealth = 100;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
     Coroutine stopMe;
@@ -166,7 +166,7 @@ public class SheriffBehavior : MonoBehaviour
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
+                    //print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
                     temp = Instantiate(bullet, transform.position, Quaternion.identity);
                     temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                         weapon.ChargeDmg;
@@ -212,7 +212,7 @@ public class SheriffBehavior : MonoBehaviour
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
+                    //print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
                     temp = Instantiate(bullet, transform.position, Quaternion.identity);
                     temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                         weapon.Dmg;

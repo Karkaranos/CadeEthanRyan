@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2700782505059181931}
   - component: {fileID: 2700782505059181924}
   - component: {fileID: 2700782505059181925}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grayboxed Bandit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,6 +85,7 @@ MonoBehaviour:
   playerExplosion: {fileID: 2859473220056204481, guid: 454b5caae2d20f74e9981313afaf0da6, type: 3}
   atkPoint: {fileID: 2700782506300072433}
   playerhealth: 100
+  cells: 0
 --- !u!114 &2700782505059181925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2700782505134199322}
   - component: {fileID: 2700782505134199323}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2700782505432481777}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +245,7 @@ GameObject:
   - component: {fileID: 2700782505614645612}
   - component: {fileID: 2700782505614645619}
   - component: {fileID: 2700782505614645618}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bandit Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2700782505669261849}
   - component: {fileID: 2700782505669261850}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2700782506300072434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: throwingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
