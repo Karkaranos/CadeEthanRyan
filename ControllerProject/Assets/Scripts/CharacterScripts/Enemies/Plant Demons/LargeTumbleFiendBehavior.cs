@@ -141,7 +141,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
             spawnPos.y += Random.Range(-1, 1);
             Instantiate(smallTumble, spawnPos, transform.rotation);
             spawnPos = transform.position;
-            gc.AddEnemy();
+            gc.enemyCounter++;
         }
         LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
             GetComponent<LootTableAndDropBehavior>();

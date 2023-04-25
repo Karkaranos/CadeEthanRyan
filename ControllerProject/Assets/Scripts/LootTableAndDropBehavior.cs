@@ -18,7 +18,6 @@ public class LootTableAndDropBehavior : MonoBehaviour
         for(int i=0; i<totalChances; i++)
         {
             randomNum = Random.Range(1, totalPool);
-            print("Item Generation Number: " + randomNum);
 
             //Spawn an extra cell with a 1 in 10 chance
             if(randomNum >= 1 && randomNum <= 2)
