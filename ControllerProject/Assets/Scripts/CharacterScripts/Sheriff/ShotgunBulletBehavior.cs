@@ -1,9 +1,10 @@
 /*****************************************************************************
-// File Name :         SheriffBulletBehavior.cs
+// File Name :         ShotgunBulletBehavior.cs
 // Author :            Cade R. Naylor
-// Creation Date :     April 1, 2023
+// Creation Date :     April 25, 2023
 //
-// Brief Description : Sets a direction for Sheriff's bullets and adds force
+// Brief Description : Sets a direction for Shotgun bullets and adds force, as well
+                        as spawn two additional bullets
 *****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;

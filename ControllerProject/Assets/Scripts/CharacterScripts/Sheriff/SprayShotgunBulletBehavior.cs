@@ -1,3 +1,11 @@
+/*****************************************************************************
+// File Name :         SprayShotgunBulletBehavior.cs
+// Author :            Cade R. Naylor
+// Creation Date :     April 25, 2023
+//
+// Brief Description : Derived from ShotgunBulletBehavior; contains overrides for
+                        on awake
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
