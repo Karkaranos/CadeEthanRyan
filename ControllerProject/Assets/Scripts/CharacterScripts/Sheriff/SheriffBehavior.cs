@@ -413,7 +413,7 @@ public class SheriffBehavior : MonoBehaviour
         {
             //Take explosion Damage
             print("Hit by Explosion");
-            Playerhealth -= 10;
+            Playerhealth -= 5;
         }
         if (collision.gameObject.tag == "Spike")
         {

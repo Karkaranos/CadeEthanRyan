@@ -24,7 +24,7 @@ public class KamicactusBehavior : MonoBehaviour
     private int target;
     private GameObject targetObject;
     [SerializeField] GameObject player1;
-    //[SerializeField] GameObject player2;
+    [SerializeField] GameObject player2;
     Vector3 offset;
 
 
@@ -49,16 +49,20 @@ public class KamicactusBehavior : MonoBehaviour
     void Start()
     {
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
+        player2 = GameObject.Find("Grayboxed Bandit(Clone");
         target = 1;
-        //target = Random.Range(1, 2);
+        if (player2 != null)
+        {
+            target = Random.Range(1, 2);
+        }
         if (target == 1)
         {
             targetObject = player1;
         }
-        /*else
+        else
         {
             targetObject = player2;
-        }*/
+        }
         offset.x = 3;
         offset.y = 3;
         offset.y = 3;
@@ -107,6 +111,17 @@ public class KamicactusBehavior : MonoBehaviour
             moveForce.y += 1 * speed * Time.deltaTime;
         }
         transform.Translate(moveForce, Space.Self);
+        difference.x = Mathf.Abs(difference.x);
+        difference.y = Mathf.Abs(difference.y);
+        if(difference.magnitude <= 5&&!explodeStarted)
+        {
+            explode.Flash();
+            exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
+            explodeStarted = true;
+            health = 0;
+            speed = 2;
+        }
+
     }
 
 
@@ -130,6 +145,7 @@ public class KamicactusBehavior : MonoBehaviour
                     explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explodeStarted = true;
+                    speed = 2;
                 }
                 else
                 {
@@ -161,6 +177,7 @@ public class KamicactusBehavior : MonoBehaviour
                     explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explodeStarted = true;
+                    speed = 2;
                 }
                 else
                 {

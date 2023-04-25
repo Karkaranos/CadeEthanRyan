@@ -23,13 +23,16 @@ public class StenoCerberusBehavior : MonoBehaviour
     private int attackingHead;
     List<GameObject> spikesShot = new List<GameObject>();
     private int ignitionToExplode = 5;
+    private int range = 15;
 
     //References to players and setting targets
     private int target;
     private GameObject targetObject;
     [SerializeField] GameObject player1;
-    //[SerializeField] GameObject player2;
+    [SerializeField] GameObject player2;
     private int targetSwitchTimer;
+    Vector2 targetPos;
+    Vector2 distance;
 
     //General Variables
     [SerializeField] private float health;
@@ -45,6 +48,7 @@ public class StenoCerberusBehavior : MonoBehaviour
     {
         target = 1;
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
+        player2 = GameObject.Find("Grayboxed Bandit(Clone)");
         targetObject = player1;
         StartCoroutine(FireSpikes());
         StartCoroutine(SwitchTarget());
@@ -61,30 +65,38 @@ public class StenoCerberusBehavior : MonoBehaviour
         GameObject objectSpawned;
         for (; ; )
         {
-            attackingHead = Random.Range(1, 4);
-            if (attackingHead == 1)
+            targetPos = targetObject.transform.position;
+            distance.x = transform.position.x - targetPos.x;
+            distance.y = transform.position.y - targetPos.y;
+            distance.x = Mathf.Abs(distance.x);
+            distance.y = Mathf.Abs(distance.y);
+            if (distance.magnitude <= range)
             {
-                objectSpawned = (Instantiate(spike, atkPoint1.transform.position,
-                    Quaternion.identity));
-                spikesShot.Add(objectSpawned);
-                objectSpawned.GetComponent<CactusSpikeBehavior>().
-                    GetTarget(targetObject);
-            }
-            else if (attackingHead == 2)
-            {
-                objectSpawned = (Instantiate(spike, atkPoint2.transform.position,
-                    Quaternion.identity));
-                spikesShot.Add(objectSpawned);
-                objectSpawned.GetComponent<CactusSpikeBehavior>().
-                    GetTarget(targetObject);
-            }
-            else
-            {
-                objectSpawned = (Instantiate(spike, atkPoint3.transform.position,
-                    Quaternion.identity));
-                spikesShot.Add(objectSpawned);
-                objectSpawned.GetComponent<CactusSpikeBehavior>().
-                    GetTarget(targetObject);
+                attackingHead = Random.Range(1, 4);
+                if (attackingHead == 1)
+                {
+                    objectSpawned = (Instantiate(spike, atkPoint1.transform.position,
+                        Quaternion.identity));
+                    spikesShot.Add(objectSpawned);
+                    objectSpawned.GetComponent<CactusSpikeBehavior>().
+                        GetTarget(targetObject);
+                }
+                else if (attackingHead == 2)
+                {
+                    objectSpawned = (Instantiate(spike, atkPoint2.transform.position,
+                        Quaternion.identity));
+                    spikesShot.Add(objectSpawned);
+                    objectSpawned.GetComponent<CactusSpikeBehavior>().
+                        GetTarget(targetObject);
+                }
+                else
+                {
+                    objectSpawned = (Instantiate(spike, atkPoint3.transform.position,
+                        Quaternion.identity));
+                    spikesShot.Add(objectSpawned);
+                    objectSpawned.GetComponent<CactusSpikeBehavior>().
+                        GetTarget(targetObject);
+                }
             }
             yield return new WaitForSeconds(rateFired);
         }
@@ -99,7 +111,10 @@ public class StenoCerberusBehavior : MonoBehaviour
         if (target == 1)
         {
             target = 2;
-            //targetObject = player2;
+            if (player2 != null)
+            {
+                targetObject = player2;
+            }
         }
         else
         {
@@ -133,13 +148,10 @@ public class StenoCerberusBehavior : MonoBehaviour
                     Destroy(destroyMe);
                 }
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
-                GameController gc = GameObject.Find("Game Controller").
-                    GetComponent<GameController>();
-                gc.RemoveEnemy();
                 LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
                     GetComponent<LootTableAndDropBehavior>();
                 loot.DropLoot(transform.position);
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
         if (collision.gameObject.name == "Explode(Clone)")
@@ -155,14 +167,12 @@ public class StenoCerberusBehavior : MonoBehaviour
                     destroyMe = c;
                     Destroy(destroyMe);
                 }
+                explode.Flash();
                 StartCoroutine(explode.Kaboom(ignitionToExplode));
-                GameController gc = GameObject.Find("Game Controller").
-                    GetComponent<GameController>();
-                gc.RemoveEnemy();
                 LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
                     GetComponent<LootTableAndDropBehavior>();
                 loot.DropLoot(transform.position);
-                Destroy(gameObject);
+                //Destroy(gameObject);
 
             }
         }
