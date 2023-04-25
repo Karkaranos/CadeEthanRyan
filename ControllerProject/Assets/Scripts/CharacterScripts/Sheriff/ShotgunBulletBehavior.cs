@@ -1,15 +1,16 @@
 /*****************************************************************************
-// File Name :         SheriffBulletBehavior.cs
+// File Name :         ShotgunBulletBehavior.cs
 // Author :            Cade R. Naylor
-// Creation Date :     April 1, 2023
+// Creation Date :     April 25, 2023
 //
-// Brief Description : Sets a direction for Sheriff's bullets and adds force
+// Brief Description : Sets a direction for Shotgun bullets and adds force, as well
+                        as spawn two additional bullets
 *****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SheriffBulletBehavior : MonoBehaviour
+public class ShotgunBulletBehavior : MonoBehaviour
 {
     #region Variables
 
@@ -17,6 +18,8 @@ public class SheriffBulletBehavior : MonoBehaviour
     private GameObject scope;
     private float speed = .1f;
     Vector2 moveForce = Vector2.zero;
+    [SerializeField] GameObject bulletSpray;
+    GameObject temp;
 
     //Storing the damage this deals
     public float damageDealt;
@@ -25,10 +28,11 @@ public class SheriffBulletBehavior : MonoBehaviour
 
     #region Functions
 
+
     /// <summary>
     /// Sets the bullet's direction and adds force
     /// </summary>
-    public void Awake()
+    public virtual void Awake()
     {
         scope = GameObject.Find("Scope");
         Vector2 scopePos = scope.transform.position;
@@ -39,6 +43,30 @@ public class SheriffBulletBehavior : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
+
+        //Spawns one offshoot bullet above/to the right of the main bullet and adds
+        //force
+        moveForce.x = dir.x + .25f;
+        moveForce.y = dir.y + .25f;
+        moveForce *= speed;
+        angle += 30;
+        temp=Instantiate(bulletSpray, transform.position, 
+            Quaternion.AngleAxis(angle, Vector3.forward));
+        temp.GetComponent<Rigidbody2D>().AddForce(moveForce);
+
+
+        //Spawns one offshoot bullet below/to the left of the main bullet and adds
+        //force
+        moveForce.x = dir.x-.25f;
+        moveForce.y = dir.y-.25f;
+        moveForce *= speed;
+        angle -= 60;
+        temp=Instantiate(bulletSpray, transform.position,
+            Quaternion.AngleAxis(angle, Vector3.forward));
+        temp.GetComponent<Rigidbody2D>().AddForce(moveForce);
+
+
+        //Adds force to the main bullet
         moveForce.x = dir.x;
         moveForce.y = dir.y;
         moveForce *= speed;
@@ -56,11 +84,12 @@ public class SheriffBulletBehavior : MonoBehaviour
         Destroy(gameObject);
     }
 
+
     /// <summary>
     /// Handles collisions with colliders
     /// </summary>
     /// <param name="collision">The object collided with</param>
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
@@ -73,12 +102,14 @@ public class SheriffBulletBehavior : MonoBehaviour
     /// Handles collisions with triggers
     /// </summary>
     /// <param name="collision">The object collided with</param>
-    public virtual void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy"||collision.gameObject.tag=="World Objects")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "World Objects")
         {
             Destroy(gameObject);
         }
     }
+
     #endregion Functions
 }
+

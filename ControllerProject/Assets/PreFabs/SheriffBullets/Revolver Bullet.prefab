@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1278686361567054216}
   - component: {fileID: -7950530659024892747}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Revolver Bullet
   m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf60a6595dfdf94aa992771fbd7de04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scope: {fileID: 0}
+  damageDealt: 0
 --- !u!58 &1278686361567054216
 CircleCollider2D:
   m_ObjectHideFlags: 0
