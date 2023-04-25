@@ -437,6 +437,7 @@ MonoBehaviour:
   shotgun: {fileID: 21300000, guid: b2cef79c7d194dc419cdc6f0ccb8e44b, type: 3}
   pistol: {fileID: 21300000, guid: 6f6a09d8864de884e9547fea4e5a48a0, type: 3}
   bullet: {fileID: 6654295249230590641, guid: 6e13fa98b814dc5419c4a97e987dbba5, type: 3}
+  shotgunBullet: {fileID: 5812975587884874350, guid: 4ca1c0d494a80184599bb8aec495812d, type: 3}
   atkPoint: {fileID: 4171786032498521643}
   playerhealth: 100
   cells: 0

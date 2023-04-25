@@ -54,6 +54,7 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private Sprite shotgun;
     [SerializeField] private Sprite pistol;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject shotgunBullet;
     [SerializeField] private GameObject atkPoint;
     [SerializeField] private int playerhealth = 100;
     private bool weaponChanged = false;
@@ -167,9 +168,18 @@ public class SheriffBehavior : MonoBehaviour
                     GameObject temp;
                     //Attack, then start the cooldown timer
                     //print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
-                    temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
-                        weapon.ChargeDmg;
+                    if(weapon.Weapon != WeaponData.WeaponID.SHOTGUN)
+                    {
+                        temp = Instantiate(bullet, transform.position, Quaternion.identity);
+                        temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                            weapon.ChargeDmg;
+                    }
+                    else
+                    {
+                        temp = Instantiate(shotgunBullet, transform.position, Quaternion.identity);
+                        temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
+                            weapon.ChargeDmg;
+                    }
                     chgAtkAvailable = false;
                     StartCoroutine(ChargeWeaponCoolDown());
                     weapon.Ammo--;
@@ -213,9 +223,18 @@ public class SheriffBehavior : MonoBehaviour
                     GameObject temp;
                     //Attack, then start the cooldown timer
                     //print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
-                    temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
-                        weapon.Dmg;
+                    if (weapon.Weapon != WeaponData.WeaponID.SHOTGUN)
+                    {
+                        temp = Instantiate(bullet, transform.position, Quaternion.identity);
+                        temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                            weapon.Dmg;
+                    }
+                    else
+                    {
+                        temp = Instantiate(shotgunBullet, transform.position, Quaternion.identity);
+                        temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
+                            weapon.Dmg;
+                    }
                     atkAvailable = false;
                     StartCoroutine(WeaponCoolDown());
                     weapon.Ammo--;
