@@ -134,6 +134,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
             }
             if (health <= 0&&!dying)
             {
+                dying = true;
                 OnDeath();
             }
         }
@@ -144,6 +145,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
             health -= beb.damageDealt;
             if (health <= 0&&!dying)
             {
+                dying = true;
                 OnDeath();
             }
         }
@@ -155,7 +157,6 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     /// </summary>
     public virtual void OnDeath()
     {
-        dying = true;
         GameController gc = GameObject.Find("Game Controller").
             GetComponent<GameController>();
         Vector2 spawnPos = transform.position;
@@ -170,8 +171,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
             GetComponent<LootTableAndDropBehavior>();
         loot.DropLoot(transform.position);
-        Destroy(gameObject);
         gc.RemoveEnemy();
+        Destroy(gameObject);
     }
 
 

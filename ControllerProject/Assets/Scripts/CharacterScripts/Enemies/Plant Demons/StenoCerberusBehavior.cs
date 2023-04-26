@@ -24,6 +24,10 @@ public class StenoCerberusBehavior : MonoBehaviour
     List<GameObject> spikesShot = new List<GameObject>();
     private int ignitionToExplode = 5;
     private int range = 15;
+    private bool explodeStarted = false;
+    private int healthWhileExplode = 10;
+    Coroutine exploding;
+    private bool killed = false;
 
     //References to players and setting targets
     private int target;
@@ -134,6 +138,8 @@ public class StenoCerberusBehavior : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         FlashScript explode = GetComponent<FlashScript>();
+        GameController gc = GameObject.Find("Game Controller").
+            GetComponent<GameController>();
         if (collision.gameObject.tag == "bullet")
         {
             if (collision.name.Contains("Pistol"))
@@ -163,17 +169,32 @@ public class StenoCerberusBehavior : MonoBehaviour
             }
             if (health <= 0)
             {
-                GameObject destroyMe;
-                foreach (GameObject c in spikesShot)
+                if (!explodeStarted)
                 {
-                    destroyMe = c;
-                    Destroy(destroyMe);
+                    //explode.Flash();
+                    exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
+                    explodeStarted = true;
                 }
-                StartCoroutine(explode.Kaboom(ignitionToExplode));
-                LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
-                    GetComponent<LootTableAndDropBehavior>();
-                loot.DropLoot(transform.position);
-                //Destroy(gameObject);
+                else
+                {
+                    healthWhileExplode--;
+                    if (healthWhileExplode <= 0 && exploding != null && !killed)
+                    {
+                        StopCoroutine(exploding);
+                        gc.RemoveEnemy();
+                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                            GetComponent<LootTableAndDropBehavior>();
+                        loot.DropLoot(transform.position);
+                        killed = true;
+                        GameObject destroyMe;
+                        foreach (GameObject c in spikesShot)
+                        {
+                            destroyMe = c;
+                            Destroy(destroyMe);
+                        }
+                        Destroy(gameObject);
+                    }
+                }
             }
         }
         if (collision.gameObject.name == "Explode(Clone)")
@@ -183,18 +204,32 @@ public class StenoCerberusBehavior : MonoBehaviour
             health -= beb.damageDealt;
             if (health <= 0)
             {
-                GameObject destroyMe;
-                foreach (GameObject c in spikesShot)
+                if (!explodeStarted)
                 {
-                    destroyMe = c;
-                    Destroy(destroyMe);
+                    //explode.Flash();
+                    exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
+                    explodeStarted = true;
                 }
-                explode.Flash();
-                StartCoroutine(explode.Kaboom(ignitionToExplode));
-                LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
-                    GetComponent<LootTableAndDropBehavior>();
-                loot.DropLoot(transform.position);
-                //Destroy(gameObject);
+                else
+                {
+                    healthWhileExplode--;
+                    if (healthWhileExplode <= 0 && exploding != null && !killed)
+                    {
+                        StopCoroutine(exploding);
+                        gc.RemoveEnemy();
+                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                            GetComponent<LootTableAndDropBehavior>();
+                        loot.DropLoot(transform.position);
+                        killed = true;
+                        GameObject destroyMe;
+                        foreach (GameObject c in spikesShot)
+                        {
+                            destroyMe = c;
+                            Destroy(destroyMe);
+                        }
+                        Destroy(gameObject);
+                    }
+                }
 
             }
         }
