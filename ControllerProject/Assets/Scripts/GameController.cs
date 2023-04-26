@@ -131,8 +131,9 @@ public class GameController : MonoBehaviour
     /// <returns>Time between waves</returns>
     IEnumerator WaveBreak()
     {
-        if (enemyCounter == 0)
+        if (enemyCounter <= 0)
         {
+            enemyCounter = 0;
             wavePause = true;
             yield return new WaitForSeconds(3f);
             enemySpawnNum = 0;

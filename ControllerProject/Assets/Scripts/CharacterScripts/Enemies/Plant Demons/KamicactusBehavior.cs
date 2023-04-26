@@ -131,13 +131,35 @@ public class KamicactusBehavior : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Bullet(Clone)")
+        if(collision.gameObject.tag == "bullet")
         {
+            if (collision.name.Contains("Pistol"))
+            {
+                PistolBulletBehavior pbb = 
+                    collision.gameObject.GetComponent<PistolBulletBehavior>();
+                health -= pbb.damageDealt;
+
+            }
+            if (collision.name.Contains("Revolver"))
+            {
+                SheriffBulletBehavior sbb =
+                    collision.gameObject.GetComponent<SheriffBulletBehavior>();
+                health -= sbb.damageDealt;
+            }
+            if (collision.name.Contains("Spray"))
+            {
+                SprayShotgunBulletBehavior ssbb = 
+                    collision.GetComponent<SprayShotgunBulletBehavior>();
+                health -= ssbb.damageDealt;
+            }
+            if (collision.name.Contains("Shotgun"))
+            {
+                ShotgunBulletBehavior shotbb = 
+                    collision.gameObject.GetComponent<ShotgunBulletBehavior>();
+                health -= shotbb.damageDealt;
+            }
             GameController gc = GameObject.Find("Game Controller").
                 GetComponent<GameController>();
-            SheriffBulletBehavior sbb =
-                collision.gameObject.GetComponent<SheriffBulletBehavior>();
-            health -= sbb.damageDealt;
             if (health <= 0)
             {
                 if (!explodeStarted)

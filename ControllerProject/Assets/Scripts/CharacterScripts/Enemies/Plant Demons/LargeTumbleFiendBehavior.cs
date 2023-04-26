@@ -27,6 +27,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     [SerializeField] private float speed = 3f;
     [SerializeField] private int cellsForDeath;
     [SerializeField] private float health = 3;
+    private bool dying = false;
     #endregion Variables
 
     #region Functions
@@ -106,10 +107,32 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "bullet")
         {
-            SheriffBulletBehavior sbb =
-                collision.gameObject.GetComponent<SheriffBulletBehavior>();
-            health -= sbb.damageDealt;
-            if (health <= 0)
+            if (collision.name.Contains("Pistol"))
+            {
+                PistolBulletBehavior pbb =
+                    collision.gameObject.GetComponent<PistolBulletBehavior>();
+                health -= pbb.damageDealt;
+
+            }
+            if (collision.name.Contains("Revolver"))
+            {
+                SheriffBulletBehavior sbb =
+                    collision.gameObject.GetComponent<SheriffBulletBehavior>();
+                health -= sbb.damageDealt;
+            }
+            if (collision.name.Contains("Spray"))
+            {
+                SprayShotgunBulletBehavior ssbb =
+                    collision.GetComponent<SprayShotgunBulletBehavior>();
+                health -= ssbb.damageDealt;
+            }
+            if (collision.name.Contains("Shotgun"))
+            {
+                ShotgunBulletBehavior shotbb =
+                    collision.gameObject.GetComponent<ShotgunBulletBehavior>();
+                health -= shotbb.damageDealt;
+            }
+            if (health <= 0&&!dying)
             {
                 OnDeath();
             }
@@ -119,7 +142,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
             BanditExplodeBehavior beb =
                 collision.gameObject.GetComponent<BanditExplodeBehavior>();
             health -= beb.damageDealt;
-            if (health <= 0)
+            if (health <= 0&&!dying)
             {
                 OnDeath();
             }
@@ -132,6 +155,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     /// </summary>
     public virtual void OnDeath()
     {
+        dying = true;
         GameController gc = GameObject.Find("Game Controller").
             GetComponent<GameController>();
         Vector2 spawnPos = transform.position;
