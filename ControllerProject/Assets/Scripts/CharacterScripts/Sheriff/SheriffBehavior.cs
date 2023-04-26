@@ -47,6 +47,7 @@ public class SheriffBehavior : MonoBehaviour
     public float dmgShot;
     private int ammo;
     private int maxAmmo;
+    private bool canAttack;
 
     //Other Variables
     [SerializeField] private GameObject sheriff;
@@ -164,7 +165,7 @@ public class SheriffBehavior : MonoBehaviour
             }
             else
             {
-                if (chgAtkAvailable && weapon)
+                if (chgAtkAvailable && weapon && canAttack)
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
@@ -225,7 +226,7 @@ public class SheriffBehavior : MonoBehaviour
             }
             else
             {
-                if (atkAvailable && weapon)
+                if (atkAvailable && weapon && canAttack)
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
@@ -387,6 +388,22 @@ public class SheriffBehavior : MonoBehaviour
 
         scopeDistance = Mathf.Sqrt(Mathf.Pow(newScopePos.x - playerPos.x, 2) + Mathf.Pow(newScopePos.y - playerPos.y, 2));
 
+    }
+
+    /// <summary>
+    /// Checks if the scope is far enough away from the player
+    /// </summary>
+    private void Update()
+    {
+        Vector2 difference = transform.position - scope.transform.position;
+        if (difference.magnitude >= 1)
+        {
+            canAttack = true;
+        }
+        else
+        {
+            canAttack = false;
+        }
     }
 
 
