@@ -47,14 +47,19 @@ public class BanditBehavior : MonoBehaviour
     public float dmgExplode;
     private int ammo;
     private int maxAmmo;
-    private float ignitionToExplode = 3;
+    private float dynamiteIgnitionToExplode = 2;
+    private float firecrackerIgnitionToExplode = 1;
+    private float cocktailIgnitionToExplode = 3;
+    private bool canAttack;
 
     //Other Variables
     [SerializeField] private GameObject bandit;
     [SerializeField] private Sprite dynamite;
     [SerializeField] private Sprite cocktails;
     [SerializeField] private Sprite firecrackers;
-    [SerializeField] private GameObject playerExplosion;
+    [SerializeField] private GameObject dynamiteExplosive;
+    [SerializeField] private GameObject firecrackerExplosive;
+    [SerializeField] private GameObject cocktailExplosive;
     [SerializeField] private GameObject atkPoint;
     [SerializeField] private int playerhealth = 100;
     private bool weaponChanged = false;
@@ -134,18 +139,22 @@ public class BanditBehavior : MonoBehaviour
         switchPowerUp.performed += contx => SwitchPowerUp();
 
         //Pause menu- Start Button
-        //pauseMenu.performed += contx => uim.PauseMenu();
+        pauseMenu.performed += contx => uim.PauseMenu();
     }
 
+    /// <summary>
+    /// Turns on Action Maps
+    /// </summary>
     private void OnEnable()
     {
-        //Turn on Action Maps; Implicitly called
         inputMap.Enable();
     }
 
+    /// <summary>
+    /// Turns off Action Maps
+    /// </summary>
     private void OnDisable()
     {
-        //Turn off action maps
         inputMap.Disable();
     }
     #endregion Set Up
@@ -165,21 +174,42 @@ public class BanditBehavior : MonoBehaviour
             }
             else
             {
-                if (chgAtkAvailable && weapon)
+                if (chgAtkAvailable && weapon && canAttack) 
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. "
-                        + weapon.Ammo + " shots remaining.");
-                    temp = Instantiate(playerExplosion, transform.position, 
-                        Quaternion.identity);
-                    temp.GetComponent<BanditExplodeBehavior>().damageDealt =
-                       weapon.Dmg;
-                    temp.GetComponent<BanditExplodeBehavior>().Flash();
-                    StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
-                        Kaboom(ignitionToExplode));
-                    temp.GetComponent<BanditExplodeBehavior>().damageDealt = 
-                        weapon.ChargeDmg;
+                    //print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage.
+                    //"+ weapon.Ammo + " shots remaining.");
+                    if (weapon.Weapon == WeaponData.WeaponID.DYNAMITE)
+                    {
+                        temp = Instantiate(dynamiteExplosive, transform.position, 
+                            Quaternion.identity);
+                        temp.GetComponent<BanditExplodeBehavior>().damageDealt =
+                            weapon.ChargeDmg;
+                        temp.GetComponent<BanditExplodeBehavior>().Flash();
+                        StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
+                            Kaboom(dynamiteIgnitionToExplode));
+                    }
+                    if (weapon.Weapon == WeaponData.WeaponID.COCKTAILS)
+                    {
+                        temp = Instantiate(cocktailExplosive, transform.position,
+                            Quaternion.identity);
+                        temp.GetComponent<CocktailExplodeBehavior>().damageDealt =
+                            weapon.ChargeDmg;
+                        temp.GetComponent<CocktailExplodeBehavior>().Flash();
+                        StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
+                            Kaboom(cocktailIgnitionToExplode));
+                    }
+                    if (weapon.Weapon == WeaponData.WeaponID.FIRECRACKERS)
+                    {
+                        temp = Instantiate(firecrackerExplosive, transform.position,
+                            Quaternion.identity);
+                        temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
+                            weapon.ChargeDmg;
+                        temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
+                        StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>
+                            ().Kaboom(firecrackerIgnitionToExplode));
+                    }
                     chgAtkAvailable = false;
                     StartCoroutine(ChargeWeaponCoolDown());
                     weapon.Ammo--;
@@ -218,21 +248,42 @@ public class BanditBehavior : MonoBehaviour
             }
             else
             {
-                if (atkAvailable && weapon)
+                if (atkAvailable && weapon && canAttack)
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " +
-                        weapon.Ammo + " shots remaining.");
-                    temp = Instantiate(playerExplosion, scope.transform.position, 
-                        Quaternion.identity);
-                    temp.GetComponent<BanditExplodeBehavior>().damageDealt =
-                        weapon.Dmg;
-                    temp.GetComponent<BanditExplodeBehavior>().Flash();
-                    StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
-                        Kaboom(ignitionToExplode));
-                    temp.GetComponent<BanditExplodeBehavior>().damageDealt =
-                        weapon.Dmg;
+                    //print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " +
+                    //    weapon.Ammo + " shots remaining.");
+                    if (weapon.Weapon == WeaponData.WeaponID.DYNAMITE)
+                    {
+                        temp = Instantiate(dynamiteExplosive, transform.position,
+                            Quaternion.identity);
+                        temp.GetComponent<BanditExplodeBehavior>().damageDealt =
+                            weapon.Dmg;
+                        temp.GetComponent<BanditExplodeBehavior>().Flash();
+                        StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
+                            Kaboom(dynamiteIgnitionToExplode));
+                    }
+                    if (weapon.Weapon == WeaponData.WeaponID.COCKTAILS)
+                    {
+                        temp = Instantiate(cocktailExplosive, transform.position,
+                            Quaternion.identity);
+                        temp.GetComponent<CocktailExplodeBehavior>().damageDealt =
+                            weapon.Dmg;
+                        temp.GetComponent<CocktailExplodeBehavior>().Flash();
+                        StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
+                            Kaboom(cocktailIgnitionToExplode));
+                    }
+                    if (weapon.Weapon == WeaponData.WeaponID.FIRECRACKERS)
+                    {
+                        temp = Instantiate(firecrackerExplosive, transform.position,
+                            Quaternion.identity);
+                        temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
+                            weapon.Dmg;
+                        temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
+                        StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>
+                            ().Kaboom(firecrackerIgnitionToExplode));
+                    }
                     atkAvailable = false;
                     StartCoroutine(WeaponCoolDown());
                     weapon.Ammo--;
@@ -367,6 +418,22 @@ public class BanditBehavior : MonoBehaviour
 
         scopeDistance = Mathf.Sqrt(Mathf.Pow(newScopePos.x - playerPos.x, 2) + Mathf.Pow(newScopePos.y - playerPos.y, 2));
 
+    }
+
+    /// <summary>
+    /// Checks if the scope is far enough away from the player
+    /// </summary>
+    private void Update()
+    {
+        Vector2 difference = transform.position - scope.transform.position;
+        if (difference.magnitude >= 1)
+        {
+            canAttack = true;
+        }
+        else
+        {
+            canAttack = false;
+        }
     }
 
 

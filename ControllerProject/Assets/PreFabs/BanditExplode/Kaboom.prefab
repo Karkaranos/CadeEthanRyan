@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4744520420135161216}
   - component: {fileID: 3375965030297094696}
   - component: {fileID: -8160003524953188765}
+  - component: {fileID: 3934354651392673749}
   m_Layer: 0
   m_Name: Kaboom
-  m_TagString: bullet
+  m_TagString: explodey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,3 +102,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &3934354651392673749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360213339838752088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be518122547cb484daf3b82c51ae704a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageDealt: 0

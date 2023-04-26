@@ -131,13 +131,35 @@ public class KamicactusBehavior : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Bullet(Clone)")
+        if(collision.gameObject.tag == "bullet")
         {
+            if (collision.name.Contains("Pistol"))
+            {
+                PistolBulletBehavior pbb = 
+                    collision.gameObject.GetComponent<PistolBulletBehavior>();
+                health -= pbb.damageDealt;
+
+            }
+            if (collision.name.Contains("Revolver"))
+            {
+                SheriffBulletBehavior sbb =
+                    collision.gameObject.GetComponent<SheriffBulletBehavior>();
+                health -= sbb.damageDealt;
+            }
+            if (collision.name.Contains("Spray"))
+            {
+                SprayShotgunBulletBehavior ssbb = 
+                    collision.GetComponent<SprayShotgunBulletBehavior>();
+                health -= ssbb.damageDealt;
+            }
+            if (collision.name.Contains("Shotgun"))
+            {
+                ShotgunBulletBehavior shotbb = 
+                    collision.gameObject.GetComponent<ShotgunBulletBehavior>();
+                health -= shotbb.damageDealt;
+            }
             GameController gc = GameObject.Find("Game Controller").
                 GetComponent<GameController>();
-            SheriffBulletBehavior sbb =
-                collision.gameObject.GetComponent<SheriffBulletBehavior>();
-            health -= sbb.damageDealt;
             if (health <= 0)
             {
                 if (!explodeStarted)
@@ -163,13 +185,21 @@ public class KamicactusBehavior : MonoBehaviour
                 }
             }
         }
-        if (collision.gameObject.name == "Kaboom(Clone)")
+        if (collision.gameObject.tag == "explodey")
         {
             GameController gc = GameObject.Find("Game Controller").
                 GetComponent<GameController>();
-            BanditExplodeBehavior beb=
-                collision.gameObject.GetComponent<BanditExplodeBehavior>();
-            health -= beb.damageDealt;
+            if (collision.name.Contains("Fire"))
+            {
+                FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
+                health -= fb.damageDealt;
+            }
+            else if (collision.name.Contains("Kaboom"))
+            {
+                DamageStoreExplodeBehavior dseb = collision.gameObject.
+                    GetComponent<DamageStoreExplodeBehavior>();
+                health -= dseb.damageDealt;
+            }
             if (health <= 0)
             {
                 if (!explodeStarted)

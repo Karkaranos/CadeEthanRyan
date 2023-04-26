@@ -24,6 +24,10 @@ public class StenoCerberusBehavior : MonoBehaviour
     List<GameObject> spikesShot = new List<GameObject>();
     private int ignitionToExplode = 5;
     private int range = 15;
+    private bool explodeStarted = false;
+    private int healthWhileExplode = 10;
+    Coroutine exploding;
+    private bool killed = false;
 
     //References to players and setting targets
     private int target;
@@ -134,45 +138,106 @@ public class StenoCerberusBehavior : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         FlashScript explode = GetComponent<FlashScript>();
-        if (collision.gameObject.name == "Bullet(Clone)")
+        GameController gc = GameObject.Find("Game Controller").
+            GetComponent<GameController>();
+        if (collision.gameObject.tag == "bullet")
         {
-            SheriffBulletBehavior sbb =
-                collision.gameObject.GetComponent<SheriffBulletBehavior>();
-            health -= sbb.damageDealt;
+            if (collision.name.Contains("Pistol"))
+            {
+                PistolBulletBehavior pbb =
+                    collision.gameObject.GetComponent<PistolBulletBehavior>();
+                health -= pbb.damageDealt;
+
+            }
+            if (collision.name.Contains("Revolver"))
+            {
+                SheriffBulletBehavior sbb =
+                    collision.gameObject.GetComponent<SheriffBulletBehavior>();
+                health -= sbb.damageDealt;
+            }
+            if (collision.name.Contains("Spray"))
+            {
+                SprayShotgunBulletBehavior ssbb =
+                    collision.GetComponent<SprayShotgunBulletBehavior>();
+                health -= ssbb.damageDealt;
+            }
+            if (collision.name.Contains("Shotgun"))
+            {
+                ShotgunBulletBehavior shotbb =
+                    collision.gameObject.GetComponent<ShotgunBulletBehavior>();
+                health -= shotbb.damageDealt;
+            }
             if (health <= 0)
             {
-                GameObject destroyMe;
-                foreach (GameObject c in spikesShot)
+                if (!explodeStarted)
                 {
-                    destroyMe = c;
-                    Destroy(destroyMe);
+                    //explode.Flash();
+                    exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
+                    explodeStarted = true;
                 }
-                StartCoroutine(explode.Kaboom(ignitionToExplode));
-                LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
-                    GetComponent<LootTableAndDropBehavior>();
-                loot.DropLoot(transform.position);
-                //Destroy(gameObject);
+                else
+                {
+                    healthWhileExplode--;
+                    if (healthWhileExplode <= 0 && exploding != null && !killed)
+                    {
+                        StopCoroutine(exploding);
+                        gc.RemoveEnemy();
+                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                            GetComponent<LootTableAndDropBehavior>();
+                        loot.DropLoot(transform.position);
+                        killed = true;
+                        GameObject destroyMe;
+                        foreach (GameObject c in spikesShot)
+                        {
+                            destroyMe = c;
+                            Destroy(destroyMe);
+                        }
+                        Destroy(gameObject);
+                    }
+                }
             }
         }
-        if (collision.gameObject.name == "Explode(Clone)")
+        if (collision.gameObject.tag == "explodey")
         {
-            BanditExplodeBehavior beb =
-                collision.gameObject.GetComponent<BanditExplodeBehavior>();
-            health -= beb.damageDealt;
+            if (collision.name.Contains("Fire"))
+            {
+                FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
+                health -= fb.damageDealt;
+            }
+            else if (collision.name.Contains("Kaboom"))
+            {
+                DamageStoreExplodeBehavior dseb = collision.gameObject.
+                    GetComponent<DamageStoreExplodeBehavior>();
+                health -= dseb.damageDealt;
+            }
             if (health <= 0)
             {
-                GameObject destroyMe;
-                foreach (GameObject c in spikesShot)
+                if (!explodeStarted)
                 {
-                    destroyMe = c;
-                    Destroy(destroyMe);
+                    //explode.Flash();
+                    exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
+                    explodeStarted = true;
                 }
-                explode.Flash();
-                StartCoroutine(explode.Kaboom(ignitionToExplode));
-                LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
-                    GetComponent<LootTableAndDropBehavior>();
-                loot.DropLoot(transform.position);
-                //Destroy(gameObject);
+                else
+                {
+                    healthWhileExplode--;
+                    if (healthWhileExplode <= 0 && exploding != null && !killed)
+                    {
+                        StopCoroutine(exploding);
+                        gc.RemoveEnemy();
+                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                            GetComponent<LootTableAndDropBehavior>();
+                        loot.DropLoot(transform.position);
+                        killed = true;
+                        GameObject destroyMe;
+                        foreach (GameObject c in spikesShot)
+                        {
+                            destroyMe = c;
+                            Destroy(destroyMe);
+                        }
+                        Destroy(gameObject);
+                    }
+                }
 
             }
         }

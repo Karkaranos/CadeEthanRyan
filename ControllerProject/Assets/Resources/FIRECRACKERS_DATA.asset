@@ -17,7 +17,7 @@ MonoBehaviour:
   weaponType: 1
   dmg: 20
   chargeDmg: 30
-  chargeCD: 4
-  standardCD: 2
+  chargeCD: 10
+  standardCD: 5
   ammo: 50
   maxAmmo: 50

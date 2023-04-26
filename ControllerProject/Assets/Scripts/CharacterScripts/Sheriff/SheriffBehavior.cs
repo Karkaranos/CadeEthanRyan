@@ -47,6 +47,7 @@ public class SheriffBehavior : MonoBehaviour
     public float dmgShot;
     private int ammo;
     private int maxAmmo;
+    private bool canAttack;
 
     //Other Variables
     [SerializeField] private GameObject sheriff;
@@ -136,15 +137,19 @@ public class SheriffBehavior : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Turns on Action Maps
+    /// </summary>
     private void OnEnable()
     {
-        //Turn on Action Maps; Implicitly called
         inputMap.Enable();
     }
 
+    /// <summary>
+    /// Turns off action maps
+    /// </summary>
     private void OnDisable()
     {
-        //Turn off action maps
         inputMap.Disable();
     }
     #endregion Set Up
@@ -164,26 +169,30 @@ public class SheriffBehavior : MonoBehaviour
             }
             else
             {
-                if (chgAtkAvailable && weapon)
+                if (chgAtkAvailable && weapon && canAttack)
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    //print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
+                    //print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage.
+                    //" + weapon.Ammo + " shots remaining.");
                     if(weapon.Weapon == WeaponData.WeaponID.REVOLVER)
                     {
-                        temp = Instantiate(revolverBullet, transform.position, Quaternion.identity);
+                        temp = Instantiate(revolverBullet, transform.position, 
+                            Quaternion.identity);
                         temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
                     {
-                        temp = Instantiate(shotgunBullet, transform.position, Quaternion.identity);
+                        temp = Instantiate(shotgunBullet, transform.position,
+                            Quaternion.identity);
                         temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
                     {
-                        temp = Instantiate(pistolBullet, transform.position, Quaternion.identity);
+                        temp = Instantiate(pistolBullet, transform.position, 
+                            Quaternion.identity);
                         temp.GetComponent<PistolBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
                     }
@@ -225,7 +234,7 @@ public class SheriffBehavior : MonoBehaviour
             }
             else
             {
-                if (atkAvailable && weapon)
+                if (atkAvailable && weapon && canAttack)
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
@@ -387,6 +396,22 @@ public class SheriffBehavior : MonoBehaviour
 
         scopeDistance = Mathf.Sqrt(Mathf.Pow(newScopePos.x - playerPos.x, 2) + Mathf.Pow(newScopePos.y - playerPos.y, 2));
 
+    }
+
+    /// <summary>
+    /// Checks if the scope is far enough away from the player
+    /// </summary>
+    private void Update()
+    {
+        Vector2 difference = transform.position - scope.transform.position;
+        if (difference.magnitude >= 1)
+        {
+            canAttack = true;
+        }
+        else
+        {
+            canAttack = false;
+        }
     }
 
 
