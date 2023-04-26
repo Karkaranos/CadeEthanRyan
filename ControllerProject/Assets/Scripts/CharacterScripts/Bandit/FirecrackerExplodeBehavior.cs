@@ -25,7 +25,10 @@ public class FirecrackerExplodeBehavior : FlashScript
     {
         yield return new WaitForSeconds(explodeCountdown);
         scale = transform.localScale;
-        destroyThisObject = Instantiate(kaboom, transform.position, transform.rotation);
+        destroyThisObject = Instantiate(kaboom, transform.position, transform.
+            rotation);
+        destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt = 
+            damageDealt;
         yield return new WaitForSeconds(.1f);
         Destroy(destroyThisObject);
         scale = Vector3.zero;
@@ -34,7 +37,8 @@ public class FirecrackerExplodeBehavior : FlashScript
         {
             smallExplodePos.x = transform.position.x + Random.Range(-1f, 1f);
             smallExplodePos.y = transform.position.y + Random.Range(-1f, 1f);
-            smallExplosions.Add(Instantiate(smallerKabooms, smallExplodePos, Quaternion.identity));
+            smallExplosions.Add(Instantiate(smallerKabooms, smallExplodePos, 
+                Quaternion.identity));
         }
         foreach(GameObject i in smallExplosions)
         {

@@ -23,7 +23,10 @@ public class SmallFirecrackerBehavior : MonoBehaviour
     public IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
-        destroyThisObject=Instantiate(kaboom, transform.position, Quaternion.identity);
+        destroyThisObject=Instantiate(kaboom, transform.position, Quaternion.
+            identity);
+        destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt 
+            = damageDealt;
         yield return new WaitForSeconds(.1f);
         Destroy(destroyThisObject);
         Destroy(gameObject);
