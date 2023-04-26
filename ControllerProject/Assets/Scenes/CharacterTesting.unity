@@ -637,13 +637,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2700782505059181924, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
+      propertyPath: cocktailExplosive
+      value: 
+      objectReference: {fileID: 1859233750919071300, guid: 7f1fdd8b5e3ab5c48b5186c99be26562, type: 3}
+    - target: {fileID: 2700782505059181924, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
+      propertyPath: dynamiteExplosive
+      value: 
+      objectReference: {fileID: 2859473220056204481, guid: 454b5caae2d20f74e9981313afaf0da6, type: 3}
     - target: {fileID: 2700782505059181928, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
       propertyPath: m_Name
       value: Grayboxed Bandit
       objectReference: {fileID: 0}
     - target: {fileID: 2700782505059181928, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2700782505059181930, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
       propertyPath: m_RootOrder

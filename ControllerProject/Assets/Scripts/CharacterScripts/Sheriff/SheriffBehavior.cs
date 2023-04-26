@@ -137,15 +137,19 @@ public class SheriffBehavior : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Turns on Action Maps
+    /// </summary>
     private void OnEnable()
     {
-        //Turn on Action Maps; Implicitly called
         inputMap.Enable();
     }
 
+    /// <summary>
+    /// Turns off action maps
+    /// </summary>
     private void OnDisable()
     {
-        //Turn off action maps
         inputMap.Disable();
     }
     #endregion Set Up
@@ -169,22 +173,26 @@ public class SheriffBehavior : MonoBehaviour
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    //print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
+                    //print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage.
+                    //" + weapon.Ammo + " shots remaining.");
                     if(weapon.Weapon == WeaponData.WeaponID.REVOLVER)
                     {
-                        temp = Instantiate(revolverBullet, transform.position, Quaternion.identity);
+                        temp = Instantiate(revolverBullet, transform.position, 
+                            Quaternion.identity);
                         temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
                     {
-                        temp = Instantiate(shotgunBullet, transform.position, Quaternion.identity);
+                        temp = Instantiate(shotgunBullet, transform.position,
+                            Quaternion.identity);
                         temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
                     {
-                        temp = Instantiate(pistolBullet, transform.position, Quaternion.identity);
+                        temp = Instantiate(pistolBullet, transform.position, 
+                            Quaternion.identity);
                         temp.GetComponent<PistolBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
                     }
