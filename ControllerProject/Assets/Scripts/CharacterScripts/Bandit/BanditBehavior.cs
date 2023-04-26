@@ -198,9 +198,18 @@ public class BanditBehavior : MonoBehaviour
                             weapon.ChargeDmg;
                         temp.GetComponent<CocktailExplodeBehavior>().Flash();
                         StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
-                            Kaboom(dynamiteIgnitionToExplode));
+                            Kaboom(cocktailIgnitionToExplode));
                     }
-                    ////ADD THE FIRECRACKER HERE WHEN IT IS COMPLETE
+                    if (weapon.Weapon == WeaponData.WeaponID.FIRECRACKERS)
+                    {
+                        temp = Instantiate(firecrackerExplosive, transform.position,
+                            Quaternion.identity);
+                        temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
+                            weapon.ChargeDmg;
+                        temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
+                        StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>
+                            ().Kaboom(firecrackerIgnitionToExplode));
+                    }
                     chgAtkAvailable = false;
                     StartCoroutine(ChargeWeaponCoolDown());
                     weapon.Ammo--;
@@ -239,7 +248,7 @@ public class BanditBehavior : MonoBehaviour
             }
             else
             {
-                if (atkAvailable && weapon)
+                if (atkAvailable && weapon && canAttack)
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
@@ -263,7 +272,17 @@ public class BanditBehavior : MonoBehaviour
                             weapon.Dmg;
                         temp.GetComponent<CocktailExplodeBehavior>().Flash();
                         StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
-                            Kaboom(dynamiteIgnitionToExplode));
+                            Kaboom(cocktailIgnitionToExplode));
+                    }
+                    if (weapon.Weapon == WeaponData.WeaponID.FIRECRACKERS)
+                    {
+                        temp = Instantiate(firecrackerExplosive, transform.position,
+                            Quaternion.identity);
+                        temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
+                            weapon.Dmg;
+                        temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
+                        StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>
+                            ().Kaboom(firecrackerIgnitionToExplode));
                     }
                     atkAvailable = false;
                     StartCoroutine(WeaponCoolDown());
@@ -399,6 +418,22 @@ public class BanditBehavior : MonoBehaviour
 
         scopeDistance = Mathf.Sqrt(Mathf.Pow(newScopePos.x - playerPos.x, 2) + Mathf.Pow(newScopePos.y - playerPos.y, 2));
 
+    }
+
+    /// <summary>
+    /// Checks if the scope is far enough away from the player
+    /// </summary>
+    private void Update()
+    {
+        Vector2 difference = transform.position - scope.transform.position;
+        if (difference.magnitude >= 1)
+        {
+            canAttack = true;
+        }
+        else
+        {
+            canAttack = false;
+        }
     }
 
 

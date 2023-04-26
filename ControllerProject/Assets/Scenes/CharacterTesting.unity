@@ -645,6 +645,10 @@ PrefabInstance:
       propertyPath: dynamiteExplosive
       value: 
       objectReference: {fileID: 2859473220056204481, guid: 454b5caae2d20f74e9981313afaf0da6, type: 3}
+    - target: {fileID: 2700782505059181924, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
+      propertyPath: firecrackerExplosive
+      value: 
+      objectReference: {fileID: 5733515255665031954, guid: 9ad0175d4ac01be489471fcef7dc2284, type: 3}
     - target: {fileID: 2700782505059181928, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
       propertyPath: m_Name
       value: Grayboxed Bandit

@@ -1,42 +1,40 @@
-/*****************************************************************************
-// File Name :         CocktailExplodeBehavior.cs
-// Author :            Cade R. Naylor
-// Creation Date :     April 26, 2023
-//
-// Brief Description : Moves the cocktail, starts its timer, and explodes it
-*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CocktailExplodeBehavior : MonoBehaviour
+public class SmallFirecrackerBehavior : MonoBehaviour
 {
+    [SerializeField] GameObject kaboom;
+    public float damageDealt;
+    GameObject destroyThisObject;
+
     Color flash1 = new Color(255, 255, 255);
     Color flash2 = new Color(255, 0, 0);
     [SerializeField] float deathTimer = 5;
     [SerializeField] float flashInterval = .67f;
-    [SerializeField] GameObject fire;
+    [SerializeField] GameObject explode;
     int c = 0;
-    public float damageDealt;
+
 
 
     // Start is called before the first frame update
 
 
-    public virtual IEnumerator Kaboom(float explodeCountdown)
+    public IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
-        Instantiate(fire, transform.position, transform.rotation);
+        destroyThisObject=Instantiate(kaboom, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(.1f);
+        Destroy(destroyThisObject);
         Destroy(gameObject);
     }
-    public void Flash()
+    public void Flash(float countdown)
     {
         GetComponent<Renderer>().material.color = flash1;
         c = 1;
         StartCoroutine(ExplodeFlash());
+        StartCoroutine(Kaboom(countdown));
     }
-
-
 
     public IEnumerator ExplodeFlash()
     {
