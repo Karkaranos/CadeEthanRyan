@@ -33,6 +33,9 @@ public class BossBehavior : MonoBehaviour
     private int dynamiteDmg=10;
     private int firecrackerDmg=20;
     private int cocktailDmg=15;
+    private int dynamiteTimer=2;
+    private int firecrackerTimer=1;
+    private int cocktailTimer=3;
     private int towersToSpawn = 0;
     private bool waiting = false;
     private float exhaustionTimer = 3f;
@@ -52,6 +55,7 @@ public class BossBehavior : MonoBehaviour
     private float speed = 3;
     private bool moveToNextPhase = true;
     [SerializeField] private int BossPhase = 5;
+    GameObject temp;
 
     #endregion Variables
 
@@ -68,6 +72,8 @@ public class BossBehavior : MonoBehaviour
         towerSpawn.y -= 3;
         towerList.Add(Instantiate(tower, towerSpawn, Quaternion.identity));
         activeShield = Instantiate(shield, transform.position, Quaternion.identity);
+        player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
+        player2 = GameObject.Find("Grayboxed Bandit(Clone)");
     }
 
     /// <summary>
@@ -209,7 +215,14 @@ public class BossBehavior : MonoBehaviour
         }
         else
         {
-            target = player2;
+            if (player2 != null)
+            {
+                target = player2;
+            }
+            else
+            {
+                target = player1;
+            }
         }
     }
 
@@ -218,17 +231,18 @@ public class BossBehavior : MonoBehaviour
         attackType = Random.Range(1, 4);
         if (attackType == 1)
         {
-            //Revolver Bullet
+            print("Revolver attack");
         }
         if (attackType == 2)
         {
-            //Shotgun Bullet
+            print("Shotgun attack");
         }
         if (attackType == 3)
         {
-            //Pistol bullet
+            print("Pistol attack");
         }
         attacking = false;
+        moveToNextPhase = true;
     }
 
     private void ExplosionAttack()
@@ -236,17 +250,34 @@ public class BossBehavior : MonoBehaviour
         attackType = Random.Range(1, 4);
         if (attackType == 1)
         {
-            //Dynamite
+            temp = Instantiate(dynamite, target.transform.position,
+                            Quaternion.identity);
+            temp.GetComponent<BanditExplodeBehavior>().damageDealt = dynamiteDmg;
+            temp.GetComponent<BanditExplodeBehavior>().Flash();
+            StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
+                Kaboom(dynamiteTimer));
         }
         if (attackType == 2)
         {
-            //Cocktail
+            temp = Instantiate(cocktail, target.transform.position,
+                Quaternion.identity);
+            temp.GetComponent<CocktailExplodeBehavior>().damageDealt = cocktailDmg;
+            temp.GetComponent<CocktailExplodeBehavior>().Flash();
+            StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
+                Kaboom(cocktailTimer));
         }
         if (attackType == 3)
         {
-            //Firecracker
+            temp = Instantiate(firecracker, target.transform.position,
+                Quaternion.identity);
+            temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt = 
+                firecrackerDmg;
+            temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
+            StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>().
+                Kaboom(firecrackerTimer));
         }
         attacking = false;
+        moveToNextPhase = true;
     }
 
     /// <summary>

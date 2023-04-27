@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class BossTowerBehavior : MonoBehaviour
 {
-    private float health=20;
+    [SerializeField] private float health=20;
     BossBehavior bb;
     private bool destroyed;
     

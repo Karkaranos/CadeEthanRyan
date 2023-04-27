@@ -1170,7 +1170,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shield: {fileID: 5204469853131220585, guid: f2d3f0f342ffe3c429baff5bdde45408, type: 3}
   tower: {fileID: 3981518984779973386, guid: c50513576d220e246baf4b1720dcc8fb, type: 3}
+  pistolBullet: {fileID: 0}
+  shotgunBullet: {fileID: 0}
+  revolverBullet: {fileID: 0}
+  dynamite: {fileID: 0}
+  firecracker: {fileID: 0}
+  cocktail: {fileID: 0}
   health: 200
+  BossPhase: 0
 --- !u!50 &1441239407
 Rigidbody2D:
   serializedVersion: 4
