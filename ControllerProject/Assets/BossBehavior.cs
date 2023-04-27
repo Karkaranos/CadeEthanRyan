@@ -34,15 +34,17 @@ public class BossBehavior : MonoBehaviour
     private int firecrackerDmg=20;
     private int cocktailDmg=15;
     private int towersToSpawn = 0;
-
-    //Variables for pausing
     private bool waiting = false;
     private float exhaustionTimer = 3f;
+    private bool attacking = false;
+    private int attackType;
+    private int targetNum;
 
     //Movement and positioning
     Vector3 towerSpawn;
     GameObject player1;
     GameObject player2;
+    GameObject target;
     Vector3 targetMovePos;
 
     //General variables
@@ -115,12 +117,17 @@ public class BossBehavior : MonoBehaviour
             StartCoroutine(BossExhaustion());
         }
 
-        if (BossPhase == 4)
+        //Attacking Phase
+        if (BossPhase == 4&&!attacking)
         {
-            print("Boss Attack");
+            BossAttack();
         }
     }
 
+    /// <summary>
+    /// Removes a tower when its health reaches 0
+    /// </summary>
+    /// <param name="destroyedTower">The tower destroyed</param>
     public void RemoveTower(GameObject destroyedTower)
     {
         towerList.Remove(destroyedTower);
@@ -134,6 +141,7 @@ public class BossBehavior : MonoBehaviour
         }
     }
 
+
     private void BossDeath()
     {
         GameController gc = GameObject.Find("Game Controller").
@@ -141,9 +149,11 @@ public class BossBehavior : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Moves the boss towards a previously chosen random location
+    /// </summary>
     private void BossMove()
     {
-        //picks a random location on the map and moves towards it
         Vector2 difference;
         Vector2 moveForce = Vector2.zero;
 
@@ -169,6 +179,10 @@ public class BossBehavior : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Pauses the boss for a set amount of time before resuming standard behavior
+    /// </summary>
+    /// <returns>How long the boss pauses for</returns>
     IEnumerator BossExhaustion()
     {
         waiting = true;
@@ -178,19 +192,66 @@ public class BossBehavior : MonoBehaviour
 
     private void BossAttack()
     {
-
+        attacking = true;
+        attackType = Random.Range(1, 5);
+        if (attackType == 2)
+        {
+            ExplosionAttack();
+        }
+        else
+        {
+            GunAttack();
+        }
+        targetNum = Random.Range(1, 3);
+        if (targetNum == 1)
+        {
+            target = player1;
+        }
+        else
+        {
+            target = player2;
+        }
     }
 
     private void GunAttack()
     {
-
+        attackType = Random.Range(1, 4);
+        if (attackType == 1)
+        {
+            //Revolver Bullet
+        }
+        if (attackType == 2)
+        {
+            //Shotgun Bullet
+        }
+        if (attackType == 3)
+        {
+            //Pistol bullet
+        }
+        attacking = false;
     }
 
     private void ExplosionAttack()
     {
-
+        attackType = Random.Range(1, 4);
+        if (attackType == 1)
+        {
+            //Dynamite
+        }
+        if (attackType == 2)
+        {
+            //Cocktail
+        }
+        if (attackType == 3)
+        {
+            //Firecracker
+        }
+        attacking = false;
     }
 
+    /// <summary>
+    /// Spawns towers to protect the boss
+    /// </summary>
     private void SpawnTowers()
     {
         for(int i=0; i<towersToSpawn; i++)
