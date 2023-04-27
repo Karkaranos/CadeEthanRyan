@@ -45,9 +45,9 @@ public class BossBehavior : MonoBehaviour
 
     //Movement and positioning
     Vector3 towerSpawn;
-    GameObject player1;
-    GameObject player2;
-    GameObject target;
+    [SerializeField] GameObject player1;
+    [SerializeField] GameObject player2;
+    [SerializeField] GameObject target;
     Vector3 targetMovePos;
 
     //General variables
@@ -74,6 +74,7 @@ public class BossBehavior : MonoBehaviour
         activeShield = Instantiate(shield, transform.position, Quaternion.identity);
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
         player2 = GameObject.Find("Grayboxed Bandit(Clone)");
+        target = player1;
     }
 
     /// <summary>

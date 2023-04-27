@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject stenocerberus;
     [SerializeField] GameObject largeTumble;
     [SerializeField] GameObject smallTumble;
+    [SerializeField] GameObject boss;
     public int enemyCounter;
     public int wave = 1;
     private int enemySpawnNum;
@@ -88,8 +89,7 @@ public class GameController : MonoBehaviour
             {
                 player1 = player1Obj.GetComponent<SheriffBehavior>();
                 gameStarted = true;
-                numToSpawn = wave1Enemies;
-                Wave1Spawn();
+                StartCoroutine(WaveBreak());
                 StopCoroutine(CheckForPlayers());
             }
             yield return new WaitForSeconds(1);
@@ -105,7 +105,7 @@ public class GameController : MonoBehaviour
         {
             if (enemyCounter <= 2 && enemySpawnNum < numToSpawn)
             {
-                print("Spawn More");
+                //Wait to spawn more
             }
             else
             {
@@ -137,6 +137,12 @@ public class GameController : MonoBehaviour
             wavePause = true;
             yield return new WaitForSeconds(3f);
             enemySpawnNum = 0;
+            if (wave == 1)
+            {
+                numToSpawn = wave1Enemies;
+                canSpawn = true;
+                Wave1Spawn();
+            }
             if (wave == 2)
             {
                 numToSpawn = wave2Enemies;
@@ -173,6 +179,11 @@ public class GameController : MonoBehaviour
             if (wave == 8)
             {
                 numToSpawn = wave8Enemies;
+                canSpawn = true;
+            }
+            if (wave == 9)
+            {
+                numToSpawn = 1;
                 canSpawn = true;
             }
             wavePause = false;
@@ -360,7 +371,8 @@ public class GameController : MonoBehaviour
 
                     if (wave == 9)
                     {
-                        print("Boss");
+                        Instantiate(boss, new Vector2(0,0), Quaternion.identity);
+                        AddEnemy();
                     }
                 }
             }

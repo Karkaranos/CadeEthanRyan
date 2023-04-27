@@ -38,7 +38,7 @@ public class ShotgunBulletBehavior : MonoBehaviour
 
         //Code from robertbu on Stack Overflow- it gets the direction of the scope
         //Then converts it to an angle and sets it
-        Vector3 dir = attackMe.transform.position - transform.position;
+        Vector3 dir = target.transform.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
