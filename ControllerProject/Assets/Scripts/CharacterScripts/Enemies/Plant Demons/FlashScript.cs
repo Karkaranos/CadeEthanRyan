@@ -17,7 +17,7 @@ public class FlashScript : MonoBehaviour
     [SerializeField] float flashInterval =.67f;
     [SerializeField] GameObject explode;
     int c = 0;
-    private GameObject destroyMe;
+    [SerializeField] GameObject destroyMe;
     List<GameObject> spawnedSpikes = new List<GameObject>();
     [SerializeField] private int numSpikesSpawned=12;
     [SerializeField] GameObject explodeSpike;

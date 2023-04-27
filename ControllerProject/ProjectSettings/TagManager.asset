@@ -13,6 +13,7 @@ TagManager:
   - Spike
   - World Objects
   - Shield
+  - NPC
   layers:
   - Default
   - TransparentFX

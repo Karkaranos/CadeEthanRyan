@@ -30,7 +30,7 @@ public class SheriffBehavior : MonoBehaviour
     InputAction switchWeapon;
     InputAction switchPowerUp;
     InputAction pauseMenu;
-    InputAction playerInteract;
+    [SerializeField] private InputAction playerInteract;
 
     //Temporary Variables
     Vector2 movement;
@@ -66,7 +66,7 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private int cells;
 
     private UIManagerBehavior uim;
-    private DialogueManager dm;
+    private NPC npc;
 
     public int Playerhealth { get => playerhealth; set => playerhealth = value; }
 
@@ -99,6 +99,8 @@ public class SheriffBehavior : MonoBehaviour
         pauseMenu = inputMap.FindAction("PauseMenu");
         playerInteract = inputMap.FindAction("Interact");
 
+
+        npc = GameObject.Find("Bartender").GetComponent<NPC>();
         Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
         uim = GameObject.Find("UIManager").GetComponent<UIManagerBehavior>();
@@ -137,7 +139,7 @@ public class SheriffBehavior : MonoBehaviour
 
         //Pause Menu - Start Button
         pauseMenu.performed += contx => uim.PauseMenu();
-        */
+        playerInteract.performed += contx => npc.TriggerDialogue();*/
     }
 
     /// <summary>
@@ -163,7 +165,7 @@ public class SheriffBehavior : MonoBehaviour
         switchPowerUp.Enable();
         pauseMenu.performed += contx => uim.PauseMenu();
         pauseMenu.Enable();
-        playerInteract.performed += contx => dm.Interact();
+        playerInteract.performed += contx => npc.TriggerDialogue();
         playerInteract.Enable();
     }
 
@@ -190,7 +192,7 @@ public class SheriffBehavior : MonoBehaviour
         switchPowerUp.Disable();
         pauseMenu.performed -= contx => uim.PauseMenu();
         pauseMenu.Disable();
-        playerInteract.performed -= contx => dm.Interact();
+        playerInteract.performed -= contx => npc.TriggerDialogue();
         playerInteract.Disable();
     }
 

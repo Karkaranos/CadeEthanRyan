@@ -25,7 +25,7 @@ public class StenoCerberusBehavior : MonoBehaviour
     private int ignitionToExplode = 5;
     private int range = 15;
     private bool explodeStarted = false;
-    private int healthWhileExplode = 10;
+    private int healthWhileExplode = 5;
     Coroutine exploding;
     private bool killed = false;
 

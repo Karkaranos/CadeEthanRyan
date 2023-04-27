@@ -11,6 +11,8 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
+    
+
 
     private Queue<string> sentences;
 
@@ -27,8 +29,7 @@ public class DialogueManager : MonoBehaviour
         sentences.Clear();
     }
 
-    public void Interact()
-    {
-
-    }
+    
+    
+    
 }
