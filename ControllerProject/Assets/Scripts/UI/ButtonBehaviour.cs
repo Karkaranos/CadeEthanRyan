@@ -43,6 +43,10 @@ public class ButtonBehaviour : MonoBehaviour
 
     public void ResumeButton()
     {
+        if(firstScreen == null)
+        {
+            firstScreen = GameObject.Find("PlayerUI 1");
+        }
         firstScreen.SetActive(true);
         secondScreen.SetActive(false);
         Time.timeScale = 1;

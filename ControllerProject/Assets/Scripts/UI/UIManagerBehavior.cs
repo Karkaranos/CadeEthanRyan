@@ -24,7 +24,7 @@ public class UIManagerBehavior : MonoBehaviour
     /// </summary>
     public void PauseMenu()
     {
-        if (firstScreen == null)
+        /*if (firstScreen == null)
         {
 
             firstScreen = GameObject.Find("PlayerUI 1");
@@ -36,7 +36,7 @@ public class UIManagerBehavior : MonoBehaviour
 
             secondScreen = GameObject.Find("PauseMenu");
         
-}
+}*/
         Time.timeScale = 0;
         firstScreen.SetActive(false);
         secondScreen.SetActive(true);
