@@ -21,9 +21,6 @@ public class CocktailExplodeBehavior : MonoBehaviour
     GameObject temp;
 
 
-    // Start is called before the first frame update
-
-
     public virtual IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);

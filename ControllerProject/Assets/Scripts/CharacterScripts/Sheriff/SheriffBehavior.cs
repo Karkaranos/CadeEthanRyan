@@ -224,6 +224,7 @@ public class SheriffBehavior : MonoBehaviour
                             Quaternion.identity);
                         temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
+                        temp.GetComponent<SheriffBulletBehavior>().Shoot(scope);
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
                     {
@@ -231,6 +232,7 @@ public class SheriffBehavior : MonoBehaviour
                             Quaternion.identity);
                         temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
+                        temp.GetComponent<ShotgunBulletBehavior>().Shoot(scope);
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
                     {
@@ -238,6 +240,7 @@ public class SheriffBehavior : MonoBehaviour
                             Quaternion.identity);
                         temp.GetComponent<PistolBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
+                        temp.GetComponent<PistolBulletBehavior>().Shoot(scope);
                     }
                     chgAtkAvailable = false;
                     StartCoroutine(ChargeWeaponCoolDown());
@@ -284,21 +287,27 @@ public class SheriffBehavior : MonoBehaviour
                     //print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
                     if (weapon.Weapon == WeaponData.WeaponID.REVOLVER)
                     {
-                        temp = Instantiate(revolverBullet, transform.position, Quaternion.identity);
+                        temp = Instantiate(revolverBullet, transform.position, 
+                            Quaternion.identity);
                         temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                             weapon.Dmg;
+                        temp.GetComponent<SheriffBulletBehavior>().Shoot(scope);
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
                     {
-                        temp = Instantiate(shotgunBullet, transform.position, Quaternion.identity);
+                        temp = Instantiate(shotgunBullet, transform.position, 
+                            Quaternion.identity);
                         temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
                             weapon.Dmg;
+                        temp.GetComponent<ShotgunBulletBehavior>().Shoot(scope);
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
                     {
-                        temp = Instantiate(pistolBullet, transform.position, Quaternion.identity);
+                        temp = Instantiate(pistolBullet, transform.position, 
+                            Quaternion.identity);
                         temp.GetComponent<PistolBulletBehavior>().damageDealt =
                             weapon.Dmg;
+                        temp.GetComponent<PistolBulletBehavior>().Shoot(scope);
                     }
                     atkAvailable = false;
                     StartCoroutine(WeaponCoolDown());

@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class SprayShotgunBulletBehavior : ShotgunBulletBehavior
 {
-    public override void Awake()
+    public override void Shoot(GameObject attackMe)
     {
         StartCoroutine(DespawnTimer());
     }

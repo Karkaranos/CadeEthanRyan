@@ -14,7 +14,7 @@ public class SheriffBulletBehavior : MonoBehaviour
     #region Variables
 
     //General variables for setting speed and direction
-    private GameObject scope;
+    GameObject target;
     private float speed = .1f;
     Vector2 moveForce = Vector2.zero;
 
@@ -28,14 +28,13 @@ public class SheriffBulletBehavior : MonoBehaviour
     /// <summary>
     /// Sets the bullet's direction and adds force
     /// </summary>
-    public void Awake()
+    public void Shoot(GameObject attackMe)
     {
-        scope = GameObject.Find("Scope");
-        Vector2 scopePos = scope.transform.position;
+        target = attackMe;
 
         //Code from robertbu on Stack Overflow- it gets the direction of the scope
         //Then converts it to an angle and sets it
-        Vector3 dir = scope.transform.position - transform.position;
+        Vector3 dir = target.transform.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
