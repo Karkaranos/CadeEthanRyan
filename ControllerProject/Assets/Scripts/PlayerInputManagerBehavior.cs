@@ -20,21 +20,30 @@ public class PlayerInputManagerBehavior : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefabB;
 
+    /// <summary>
+    /// Sets the input Manager
+    /// </summary>
     private void Start()
     {
         inputManager = GetComponent<PlayerInputManager>();
     }
 
+    /// <summary>
+    /// Switches prefab ob player joining
+    /// </summary>
+    /// <param name="input">New input</param>
     void OnPlayerJoined(PlayerInput input)
     {
         if (sheriff == null)
         {
-            sheriff = input.gameObject;
-            inputManager.playerPrefab = playerPrefabB;
+            //sheriff = input.gameObject;
+            inputManager.playerPrefab = bandit;
         }
         else
         {
-            bandit = input.gameObject;
+            print("bandito");
+            //bandit = input.gameObject;
+            inputManager.playerPrefab = bandit;
         }
     }
 }
