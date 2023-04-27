@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - Spike
   - World Objects
+  - Shield
   layers:
   - Default
   - TransparentFX

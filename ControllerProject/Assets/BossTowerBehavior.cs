@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name :         BossTowerBehavior.cs
+// Author :            Cade R. Naylor
+// Creation Date :     April 26, 2023
+//
+// Brief Description : Creates the boss towers and handles their destruction
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +14,18 @@ public class BossTowerBehavior : MonoBehaviour
     private float health=20;
     BossBehavior bb;
     private bool destroyed;
-    // Start is called before the first frame update
+    
+    /// <summary>
+    /// Start is called before the first frame. Gets a reference to the boss. 
+    /// </summary>
     void Start()
     {
         bb = GameObject.Find("Grayboxed Boss").GetComponent<BossBehavior>();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Occurs every frame. Checks for tower death. 
+    /// </summary>
     void Update()
     {
         if (health <= 0)

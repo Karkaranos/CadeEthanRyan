@@ -319,6 +319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUI 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1871215262809869827, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1871215262809869836, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -405,39 +409,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1871215263598095388, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.992
       objectReference: {fileID: 0}
     - target: {fileID: 1871215263598095388, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1871215264381462307, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1871215264381462307, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3435420261161236473, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3435420261161236473, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3435420261161236473, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.008000016
       objectReference: {fileID: 0}
     - target: {fileID: 3435420261754689083, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3435420261754689083, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
@@ -1164,8 +1168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae1f544fbb373043a4a0100dff5a04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: {fileID: 0}
-  tower: {fileID: 8217712592793994439, guid: 708a5c635e135b24dbc2d9cf6d553c6c, type: 3}
+  shield: {fileID: 5204469853131220585, guid: f2d3f0f342ffe3c429baff5bdde45408, type: 3}
+  tower: {fileID: 3981518984779973386, guid: c50513576d220e246baf4b1720dcc8fb, type: 3}
+  health: 200
 --- !u!50 &1441239407
 Rigidbody2D:
   serializedVersion: 4
