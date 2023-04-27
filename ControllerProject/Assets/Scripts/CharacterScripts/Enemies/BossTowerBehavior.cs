@@ -70,6 +70,7 @@ public class BossTowerBehavior : MonoBehaviour
         }
         if (collision.gameObject.tag == "explodey")
         {
+            print("tower explode");
             if (collision.name.Contains("Fire"))
             {
                 FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();

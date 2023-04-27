@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3375965030297094696}
   - component: {fileID: -8160003524953188765}
   - component: {fileID: 3934354651392673749}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Kaboom
   m_TagString: explodey
   m_Icon: {fileID: 0}

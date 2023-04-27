@@ -182,8 +182,8 @@ public class BanditBehavior : MonoBehaviour
                     //"+ weapon.Ammo + " shots remaining.");
                     if (weapon.Weapon == WeaponData.WeaponID.DYNAMITE)
                     {
-                        temp = Instantiate(dynamiteExplosive, transform.position, 
-                            Quaternion.identity);
+                        temp = Instantiate(dynamiteExplosive, scope.transform.
+                            position, Quaternion.identity);
                         temp.GetComponent<BanditExplodeBehavior>().damageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<BanditExplodeBehavior>().Flash();
@@ -192,8 +192,8 @@ public class BanditBehavior : MonoBehaviour
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.COCKTAILS)
                     {
-                        temp = Instantiate(cocktailExplosive, transform.position,
-                            Quaternion.identity);
+                        temp = Instantiate(cocktailExplosive, scope.transform.
+                            position, Quaternion.identity);
                         temp.GetComponent<CocktailExplodeBehavior>().damageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<CocktailExplodeBehavior>().Flash();
@@ -202,8 +202,8 @@ public class BanditBehavior : MonoBehaviour
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.FIRECRACKERS)
                     {
-                        temp = Instantiate(firecrackerExplosive, transform.position,
-                            Quaternion.identity);
+                        temp = Instantiate(firecrackerExplosive, scope.transform.
+                            position,Quaternion.identity);
                         temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
@@ -256,8 +256,8 @@ public class BanditBehavior : MonoBehaviour
                     //    weapon.Ammo + " shots remaining.");
                     if (weapon.Weapon == WeaponData.WeaponID.DYNAMITE)
                     {
-                        temp = Instantiate(dynamiteExplosive, transform.position,
-                            Quaternion.identity);
+                        temp = Instantiate(dynamiteExplosive, scope.transform.
+                            position,Quaternion.identity);
                         temp.GetComponent<BanditExplodeBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<BanditExplodeBehavior>().Flash();
@@ -266,8 +266,8 @@ public class BanditBehavior : MonoBehaviour
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.COCKTAILS)
                     {
-                        temp = Instantiate(cocktailExplosive, transform.position,
-                            Quaternion.identity);
+                        temp = Instantiate(cocktailExplosive, scope.transform.
+                            position, Quaternion.identity);
                         temp.GetComponent<CocktailExplodeBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<CocktailExplodeBehavior>().Flash();
@@ -276,8 +276,8 @@ public class BanditBehavior : MonoBehaviour
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.FIRECRACKERS)
                     {
-                        temp = Instantiate(firecrackerExplosive, transform.position,
-                            Quaternion.identity);
+                        temp = Instantiate(firecrackerExplosive, scope.transform.
+                            position, Quaternion.identity);
                         temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
@@ -513,7 +513,7 @@ public class BanditBehavior : MonoBehaviour
         {
             //Take explosion Damage
             print("Hit by Explosion");
-            Playerhealth -= 5;
+            Playerhealth -= 3;
         }
         if (collision.gameObject.tag == "Spike")
         {

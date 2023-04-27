@@ -1096,6 +1096,7 @@ MonoBehaviour:
   stenocerberus: {fileID: 872037931166735018, guid: a90028f1149871b45ace596758f5f39f, type: 3}
   largeTumble: {fileID: 5265950989721354524, guid: 19296eb0b24166c4886dc3d4e94fae60, type: 3}
   smallTumble: {fileID: 7129858497728827855, guid: 2f12e81c83786eb469248fc50f5ac3dd, type: 3}
+  boss: {fileID: 6217047579522872382, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
   enemyCounter: 0
   wave: 1
   wave1Enemies: 3
