@@ -27,6 +27,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     [SerializeField] private float speed = 3f;
     [SerializeField] private int cellsForDeath;
     [SerializeField] private float health = 3;
+    private bool dying = false;
     #endregion Variables
 
     #region Functions
@@ -106,21 +107,53 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "bullet")
         {
-            SheriffBulletBehavior sbb =
-                collision.gameObject.GetComponent<SheriffBulletBehavior>();
-            health -= sbb.damageDealt;
-            if (health <= 0)
+            if (collision.name.Contains("Pistol"))
             {
+                PistolBulletBehavior pbb =
+                    collision.gameObject.GetComponent<PistolBulletBehavior>();
+                health -= pbb.damageDealt;
+
+            }
+            if (collision.name.Contains("Revolver"))
+            {
+                SheriffBulletBehavior sbb =
+                    collision.gameObject.GetComponent<SheriffBulletBehavior>();
+                health -= sbb.damageDealt;
+            }
+            if (collision.name.Contains("Spray"))
+            {
+                SprayShotgunBulletBehavior ssbb =
+                    collision.GetComponent<SprayShotgunBulletBehavior>();
+                health -= ssbb.damageDealt;
+            }
+            if (collision.name.Contains("Shotgun"))
+            {
+                ShotgunBulletBehavior shotbb =
+                    collision.gameObject.GetComponent<ShotgunBulletBehavior>();
+                health -= shotbb.damageDealt;
+            }
+            if (health <= 0&&!dying)
+            {
+                dying = true;
                 OnDeath();
             }
         }
-        if (collision.gameObject.name == "Kaboom(Clone)")
+        if (collision.gameObject.tag == "explodey")
         {
-            BanditExplodeBehavior beb =
-                collision.gameObject.GetComponent<BanditExplodeBehavior>();
-            health -= beb.damageDealt;
-            if (health <= 0)
+            if (collision.name.Contains("Fire"))
             {
+                FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
+                health -= fb.damageDealt;
+            }
+            else if (collision.name.Contains("Kaboom"))
+            {
+                DamageStoreExplodeBehavior dseb = collision.gameObject.
+                    GetComponent<DamageStoreExplodeBehavior>();
+                health -= dseb.damageDealt;
+            }
+            if (health <= 0&&!dying)
+            {
+                dying = true;
                 OnDeath();
             }
         }
@@ -141,11 +174,13 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
             spawnPos.y += Random.Range(-1, 1);
             Instantiate(smallTumble, spawnPos, transform.rotation);
             spawnPos = transform.position;
-            gc.AddEnemy();
+            gc.enemyCounter++;
         }
-        Destroy(gameObject);
-
+        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+            GetComponent<LootTableAndDropBehavior>();
+        loot.DropLoot(transform.position);
         gc.RemoveEnemy();
+        Destroy(gameObject);
     }
 
 

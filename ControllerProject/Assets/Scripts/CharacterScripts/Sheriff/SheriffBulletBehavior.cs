@@ -25,13 +25,10 @@ public class SheriffBulletBehavior : MonoBehaviour
 
     #region Functions
 
-    //Handles functions that happen upon Instantiation
-    #region OnSpawn
-
     /// <summary>
     /// Sets the bullet's direction and adds force
     /// </summary>
-    void Awake()
+    public void Awake()
     {
         scope = GameObject.Find("Scope");
         Vector2 scopePos = scope.transform.position;
@@ -46,18 +43,24 @@ public class SheriffBulletBehavior : MonoBehaviour
         moveForce.y = dir.y;
         moveForce *= speed;
         GetComponent<Rigidbody2D>().AddForce(moveForce);
-
+        StartCoroutine(DespawnTimer());
     }
 
-    #endregion OnSpawn
+    /// <summary>
+    /// Destrous the bullet after a set time to reduce lag
+    /// </summary>
+    /// <returns>How long it waits before destroying</returns>
+    public IEnumerator DespawnTimer()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
+    }
 
-    //Handles collisions with other objects
-    #region Collisions
     /// <summary>
     /// Handles collisions with colliders
     /// </summary>
     /// <param name="collision">The object collided with</param>
-    private void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
@@ -70,14 +73,12 @@ public class SheriffBulletBehavior : MonoBehaviour
     /// Handles collisions with triggers
     /// </summary>
     /// <param name="collision">The object collided with</param>
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy"||collision.gameObject.tag=="World Objects")
         {
             Destroy(gameObject);
         }
     }
-    #endregion Collisions
-
     #endregion Functions
 }

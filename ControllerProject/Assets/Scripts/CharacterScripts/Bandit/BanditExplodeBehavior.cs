@@ -18,7 +18,10 @@ public class BanditExplodeBehavior : FlashScript
     public override IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
-        destroyThisObject = Instantiate(kaboom, transform.position, transform.rotation);
+        destroyThisObject = Instantiate(kaboom, transform.position, 
+            transform.rotation);
+        destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt =
+            damageDealt;
         yield return new WaitForSeconds(.1f);
         Destroy(destroyThisObject);
         Destroy(gameObject);

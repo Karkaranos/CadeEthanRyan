@@ -13,7 +13,7 @@ public class CactusSpikeBehavior : MonoBehaviour
 {
     #region Variables
     Vector2 moveForce;
-    private float speed = .005f;
+    private float speed = .01f;
     #endregion
 
     #region Functions

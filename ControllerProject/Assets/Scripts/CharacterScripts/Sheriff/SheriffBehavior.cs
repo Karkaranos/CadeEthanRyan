@@ -47,18 +47,22 @@ public class SheriffBehavior : MonoBehaviour
     public float dmgShot;
     private int ammo;
     private int maxAmmo;
+    private bool canAttack;
 
     //Other Variables
     [SerializeField] private GameObject sheriff;
     [SerializeField] private Sprite revolver;
     [SerializeField] private Sprite shotgun;
     [SerializeField] private Sprite pistol;
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject revolverBullet;
+    [SerializeField] private GameObject shotgunBullet;
+    [SerializeField] private GameObject pistolBullet;
     [SerializeField] private GameObject atkPoint;
-    private int playerhealth = 200;
+    [SerializeField] private int playerhealth = 100;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
     Coroutine stopMe;
+    [SerializeField] private int cells;
 
     private UIManagerBehavior uim;
 
@@ -69,6 +73,8 @@ public class SheriffBehavior : MonoBehaviour
     public bool Weaponchanged { get => weaponChanged; set => weaponChanged = value; }
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
     public int WeaponNumber { get => weaponNumber; set => weaponNumber = value; }
+
+    public int Cells { get => cells; set => cells = value; }
     #endregion
 
     #region Functions
@@ -131,15 +137,19 @@ public class SheriffBehavior : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Turns on Action Maps
+    /// </summary>
     private void OnEnable()
     {
-        //Turn on Action Maps; Implicitly called
         inputMap.Enable();
     }
 
+    /// <summary>
+    /// Turns off action maps
+    /// </summary>
     private void OnDisable()
     {
-        //Turn off action maps
         inputMap.Disable();
     }
     #endregion Set Up
@@ -159,14 +169,33 @@ public class SheriffBehavior : MonoBehaviour
             }
             else
             {
-                if (chgAtkAvailable && weapon)
+                if (chgAtkAvailable && weapon && canAttack)
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage. " + weapon.Ammo + " shots remaining.");
-                    temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
-                        weapon.ChargeDmg;
+                    //print(weapon.Weapon + " deals " + weapon.ChargeDmg + " damage.
+                    //" + weapon.Ammo + " shots remaining.");
+                    if(weapon.Weapon == WeaponData.WeaponID.REVOLVER)
+                    {
+                        temp = Instantiate(revolverBullet, transform.position, 
+                            Quaternion.identity);
+                        temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                            weapon.ChargeDmg;
+                    }
+                    if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
+                    {
+                        temp = Instantiate(shotgunBullet, transform.position,
+                            Quaternion.identity);
+                        temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
+                            weapon.ChargeDmg;
+                    }
+                    if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
+                    {
+                        temp = Instantiate(pistolBullet, transform.position, 
+                            Quaternion.identity);
+                        temp.GetComponent<PistolBulletBehavior>().damageDealt =
+                            weapon.ChargeDmg;
+                    }
                     chgAtkAvailable = false;
                     StartCoroutine(ChargeWeaponCoolDown());
                     weapon.Ammo--;
@@ -205,14 +234,29 @@ public class SheriffBehavior : MonoBehaviour
             }
             else
             {
-                if (atkAvailable && weapon)
+                if (atkAvailable && weapon && canAttack)
                 {
                     GameObject temp;
                     //Attack, then start the cooldown timer
-                    print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
-                    temp = Instantiate(bullet, transform.position, Quaternion.identity);
-                    temp.GetComponent<SheriffBulletBehavior>().damageDealt =
-                        weapon.Dmg;
+                    //print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
+                    if (weapon.Weapon == WeaponData.WeaponID.REVOLVER)
+                    {
+                        temp = Instantiate(revolverBullet, transform.position, Quaternion.identity);
+                        temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                            weapon.Dmg;
+                    }
+                    if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
+                    {
+                        temp = Instantiate(shotgunBullet, transform.position, Quaternion.identity);
+                        temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
+                            weapon.Dmg;
+                    }
+                    if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
+                    {
+                        temp = Instantiate(pistolBullet, transform.position, Quaternion.identity);
+                        temp.GetComponent<PistolBulletBehavior>().damageDealt =
+                            weapon.Dmg;
+                    }
                     atkAvailable = false;
                     StartCoroutine(WeaponCoolDown());
                     weapon.Ammo--;
@@ -354,6 +398,22 @@ public class SheriffBehavior : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Checks if the scope is far enough away from the player
+    /// </summary>
+    private void Update()
+    {
+        Vector2 difference = transform.position - scope.transform.position;
+        if (difference.magnitude >= 1)
+        {
+            canAttack = true;
+        }
+        else
+        {
+            canAttack = false;
+        }
+    }
+
 
 
     /// <summary>
@@ -410,7 +470,7 @@ public class SheriffBehavior : MonoBehaviour
         {
             //Take explosion Damage
             print("Hit by Explosion");
-            Playerhealth -= 10;
+            Playerhealth -= 5;
         }
         if (collision.gameObject.tag == "Spike")
         {

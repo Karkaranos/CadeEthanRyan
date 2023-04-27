@@ -51,6 +51,7 @@ public class Player1UIBehavior : MonoBehaviour
                     GetComponent<SheriffBehavior>();
                 playerMaxHealth = player1.Playerhealth;
                 playerMaxAmmo = player1.MaxAmmo;
+                break;
             }
             yield return new WaitForSeconds(1);
         }
