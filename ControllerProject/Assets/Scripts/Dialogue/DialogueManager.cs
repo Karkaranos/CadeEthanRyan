@@ -12,13 +12,23 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
 
-    public Queue<string> sentences;
+    private Queue<string> sentences;
 
     
     void Start()
     {
-        
+        sentences = new Queue<string>();
     }
 
-    
+    public void StartDialogue (Dialogue dialogue)
+    {
+        Debug.Log("Starting conversation with " + dialogue.name);
+
+        sentences.Clear();
+    }
+
+    public void Interact()
+    {
+
+    }
 }
