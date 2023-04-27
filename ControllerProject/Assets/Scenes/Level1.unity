@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &66730655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1871215262809869827, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
+  m_PrefabInstance: {fileID: 878166845}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &143909340 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 804134771319265628, guid: e02900cd142628545a4c291a8c625f24, type: 3}
@@ -40121,7 +40126,7 @@ PrefabInstance:
     - target: {fileID: 252247829790609423, guid: 31c2514ee9105b14eb19896ce543f448, type: 3}
       propertyPath: firstScreen
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 66730655}
     - target: {fileID: 252247829790609423, guid: 31c2514ee9105b14eb19896ce543f448, type: 3}
       propertyPath: thirdScreen
       value: 
@@ -43194,6 +43199,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 329050466}
     - target: {fileID: 145088140203766998, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
+      propertyPath: player2
+      value: 
+      objectReference: {fileID: 2700782505059181924, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
+    - target: {fileID: 145088140203766998, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 240389138}
@@ -43205,6 +43214,18 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 242963053610387947, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
+      propertyPath: firstScreen
+      value: 
+      objectReference: {fileID: 66730655}
+    - target: {fileID: 242963053610387947, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
+      propertyPath: secondScreen
+      value: 
+      objectReference: {fileID: 1198486985}
+    - target: {fileID: 242963053610387947, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
+      propertyPath: firstSelected
+      value: 
+      objectReference: {fileID: 1626088380}
     - target: {fileID: 9071541437965352417, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
       propertyPath: pistol
       value: 
@@ -43241,6 +43262,10 @@ PrefabInstance:
       propertyPath: ammoBar
       value: 
       objectReference: {fileID: 1692363957}
+    - target: {fileID: 9216583905448986933, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
+      propertyPath: player1
+      value: 
+      objectReference: {fileID: 8803561459048492053, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
     - target: {fileID: 9216583905448986933, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
       propertyPath: healthBar
       value: 
