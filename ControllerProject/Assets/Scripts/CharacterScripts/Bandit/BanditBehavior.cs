@@ -394,7 +394,7 @@ public class BanditBehavior : MonoBehaviour
         transform.Translate(movementVelocity, Space.Self);
 
         //Clamp the player's position to stay on screen
-        ClampPlayer(transform.position);
+        //ClampPlayer(transform.position);
 
         //Set the scope's position to the new value while ensuring it revolves
         //around the player
@@ -434,6 +434,7 @@ public class BanditBehavior : MonoBehaviour
         {
             canAttack = false;
         }
+        ClampPlayer(transform.position);
     }
 
 
@@ -449,21 +450,21 @@ public class BanditBehavior : MonoBehaviour
         if (player1 != null)
         {
             Vector2 camPos = player1.transform.position;
-            if (camPos.x - pos.x > 8.4f)
+            if (camPos.x - pos.x > 8f)
             {
-                playerBind.x = camPos.x - 8.4f;
+                playerBind.x = camPos.x - 8f;
             }
-            if (pos.x - camPos.x > 8.4f)
+            if (camPos.x-pos.x < -8f)
             {
-                playerBind.x = camPos.x + 8.4f;
+                playerBind.x = camPos.x + 8f;
             }
-            if (camPos.y - pos.y < 4.5f)
+            if (camPos.y - pos.y > 4f)
             {
-                playerBind.y = camPos.y - 4.5f;
+                playerBind.y = camPos.y - 4f;
             }
-            if (pos.y - camPos.y > 4.5f)
+            if (camPos.y-pos.y < -4f)
             {
-                playerBind.y = camPos.y + 4.5f;
+                playerBind.y = camPos.y + 4f;
             }
         }
         /*if (pos.x > 8.4f)
