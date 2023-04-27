@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3696700487495048129}
   - component: {fileID: 5883074368649509613}
   - component: {fileID: -7114918856257415949}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmallFirecracker
   m_TagString: explosion
   m_Icon: {fileID: 0}
@@ -97,10 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0f49018758bbd47ae818319a890f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kaboom: {fileID: 7170108641163915168, guid: 802275ea3e0694b40963ec6b383cf1a5, type: 3}
+  damageDealt: 0
   deathTimer: 5
   flashInterval: 0.67
   explode: {fileID: 7170108641163915168, guid: 802275ea3e0694b40963ec6b383cf1a5, type: 3}
-  numSpikesSpawned: 12
-  explodeSpike: {fileID: 0}
-  kaboom: {fileID: 7170108641163915168, guid: 802275ea3e0694b40963ec6b383cf1a5, type: 3}
-  damageDealt: 0

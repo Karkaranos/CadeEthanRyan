@@ -20,7 +20,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     private int target;
     private GameObject targetObject;
     [SerializeField] GameObject player1;
-    //[SerializeField] GameObject player2;
+    [SerializeField] GameObject player2;
     Vector3 offset;
 
     //General variables
@@ -39,16 +39,17 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     void Start()
     {
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
+        player2 = GameObject.Find("Grayboxed Bandit(Clone)");
         target = 1;
-        //target = Random.Range(1, 2);
+        target = Random.Range(1, 2);
         if (target == 1)
         {
             targetObject = player1;
         }
-        /*else
+        else
         {
             targetObject = player2;
-        }*/
+        }
         offset.x = 3;
         offset.y = 3;
         offset.y = 3;
@@ -140,6 +141,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         }
         if (collision.gameObject.tag == "explodey")
         {
+            print("Tumble explode");
             if (collision.name.Contains("Fire"))
             {
                 FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
