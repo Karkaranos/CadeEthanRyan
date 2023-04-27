@@ -54,7 +54,7 @@ public class IncreaseStat : MonoBehaviour
                 }
                 if (name.Contains("ammo") && !valAdded)
                 {
-                    sb.Ammo += ammoAdded;
+                    sb.Ammo += (int)(sb.MaxAmmo * (Random.Range(.05f, .16f)));
                     print(sb.Ammo);
                     valAdded = true;
                     if (sb.Ammo > sb.MaxAmmo)

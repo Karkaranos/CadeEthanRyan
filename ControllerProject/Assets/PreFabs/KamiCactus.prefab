@@ -104,7 +104,7 @@ MonoBehaviour:
   speed: 3.5
   cellsForDeath: 0
   health: 5
-  healthWhileExplode: 10
+  healthWhileExplode: 6
   player1: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
   player2: {fileID: 0}
   explosionSize: 3
@@ -125,6 +125,7 @@ MonoBehaviour:
   deathTimer: 5
   flashInterval: 0.67
   explode: {fileID: 8217712592793994439, guid: 708a5c635e135b24dbc2d9cf6d553c6c, type: 3}
+  destroyMe: {fileID: 0}
   numSpikesSpawned: 12
   explodeSpike: {fileID: 2167011491982744580, guid: 31757019c3b6a33439130689adec8bf7, type: 3}
 --- !u!50 &1090642607864066805
