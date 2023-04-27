@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1871215262809869836, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1871215262809869836, guid: 81babf9742148034ca27e17bd85366f9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -465,7 +465,7 @@ RectTransform:
   m_Children:
   - {fileID: 233889045}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4140,6 +4140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea8d84779244974c82ab71e69d65fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectInteractable: 0
+  player: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
 --- !u!4 &261980389
 Transform:
   m_ObjectHideFlags: 0
@@ -4206,7 +4208,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &355003737
 MonoBehaviour:
@@ -6396,7 +6398,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 8d1ee721e1dd4fd4eaa91cd925bac10b, type: 3}
     - target: {fileID: 8673267102728782050, guid: 8856121a73dba5844bf56d34968b8968, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8673267102728782050, guid: 8856121a73dba5844bf56d34968b8968, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8187,7 +8189,7 @@ GameObject:
   - component: {fileID: 1543085273}
   m_Layer: 0
   m_Name: Bartender
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8375,7 +8377,7 @@ PrefabInstance:
       objectReference: {fileID: 1926991634}
     - target: {fileID: 242963053610387944, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 242963053610387944, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8839,7 +8841,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1972433810 stripped
 GameObject:
