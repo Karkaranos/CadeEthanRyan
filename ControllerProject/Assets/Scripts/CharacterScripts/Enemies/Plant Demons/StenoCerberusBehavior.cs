@@ -77,7 +77,7 @@ public class StenoCerberusBehavior : MonoBehaviour
             if (distance.magnitude <= range)
             {
                 attackingHead = Random.Range(1, 4);
-                if (attackingHead == 1)
+                if (attackingHead == 1&&!explodeStarted)
                 {
                     objectSpawned = (Instantiate(spike, atkPoint1.transform.position,
                         Quaternion.identity));
@@ -85,7 +85,7 @@ public class StenoCerberusBehavior : MonoBehaviour
                     objectSpawned.GetComponent<CactusSpikeBehavior>().
                         GetTarget(targetObject);
                 }
-                else if (attackingHead == 2)
+                else if (attackingHead == 2&&!explodeStarted)
                 {
                     objectSpawned = (Instantiate(spike, atkPoint2.transform.position,
                         Quaternion.identity));
@@ -93,7 +93,7 @@ public class StenoCerberusBehavior : MonoBehaviour
                     objectSpawned.GetComponent<CactusSpikeBehavior>().
                         GetTarget(targetObject);
                 }
-                else
+                else if (attackingHead==3&&!explodeStarted)
                 {
                     objectSpawned = (Instantiate(spike, atkPoint3.transform.position,
                         Quaternion.identity));
@@ -171,7 +171,7 @@ public class StenoCerberusBehavior : MonoBehaviour
             {
                 if (!explodeStarted)
                 {
-                    //explode.Flash();
+                    explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explodeStarted = true;
                 }
@@ -214,7 +214,7 @@ public class StenoCerberusBehavior : MonoBehaviour
             {
                 if (!explodeStarted)
                 {
-                    //explode.Flash();
+                    explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explodeStarted = true;
                 }
