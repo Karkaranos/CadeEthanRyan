@@ -354,6 +354,7 @@ public class BossBehavior : MonoBehaviour
             }
             if (collision.gameObject.tag == "explodey")
             {
+                print("explode hit");
                 if (collision.name.Contains("Fire"))
                 {
                     FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();

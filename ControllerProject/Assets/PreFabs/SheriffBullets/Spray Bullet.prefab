@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7982973026215660038}
   - component: {fileID: 7988809243408158523}
   - component: {fileID: 6192824765636025446}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spray Bullet
   m_TagString: bullet
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6217047579522872379}
   - component: {fileID: 6217047579522872357}
   - component: {fileID: 6217047579522872378}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grayboxed Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}

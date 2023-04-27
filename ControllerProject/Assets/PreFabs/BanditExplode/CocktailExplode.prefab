@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2617751338531825712}
   - component: {fileID: 5097423382502623516}
   - component: {fileID: 1861217754068259946}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CocktailExplode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
