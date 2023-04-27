@@ -46,6 +46,7 @@ public class Player1UIBehavior : MonoBehaviour
             }
             if (player1Obj != null)
             {
+                print("found");
                 gc = GameObject.Find("Game Controller").GetComponent<GameController>();
                 player1 = GameObject.Find("Grayboxed Sheriff(Clone)").
                     GetComponent<SheriffBehavior>();
