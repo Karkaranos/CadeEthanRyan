@@ -427,6 +427,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed30b8d3b7044c4c8d122dcdd7c5592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInteract:
+    m_Name: Player Interact
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 904902a5-49f0-477d-ac23-bf2b4e8f73df
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   scope: {fileID: 8803561457647647484}
   weapon: {fileID: 11400000, guid: ef21717a0cbbbb94e8f53adbfe18c068, type: 2}
   gun: {fileID: 8803561458639646723}
