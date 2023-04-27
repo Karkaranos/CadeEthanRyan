@@ -1170,12 +1170,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shield: {fileID: 5204469853131220585, guid: f2d3f0f342ffe3c429baff5bdde45408, type: 3}
   tower: {fileID: 3981518984779973386, guid: c50513576d220e246baf4b1720dcc8fb, type: 3}
-  pistolBullet: {fileID: 0}
-  shotgunBullet: {fileID: 0}
-  revolverBullet: {fileID: 0}
-  dynamite: {fileID: 0}
-  firecracker: {fileID: 0}
-  cocktail: {fileID: 0}
+  pistolBullet: {fileID: 8809106737771665756, guid: ae1c34ad93e582e488c9ae8012241856, type: 3}
+  shotgunBullet: {fileID: 5812975587884874350, guid: 4ca1c0d494a80184599bb8aec495812d, type: 3}
+  revolverBullet: {fileID: 6654295249230590641, guid: 6e13fa98b814dc5419c4a97e987dbba5, type: 3}
+  dynamite: {fileID: 2859473220056204481, guid: 454b5caae2d20f74e9981313afaf0da6, type: 3}
+  firecracker: {fileID: 5733515255665031954, guid: 9ad0175d4ac01be489471fcef7dc2284, type: 3}
+  cocktail: {fileID: 1859233750919071300, guid: 7f1fdd8b5e3ab5c48b5186c99be26562, type: 3}
   health: 200
   BossPhase: 0
 --- !u!50 &1441239407

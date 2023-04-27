@@ -198,6 +198,25 @@ public class BossBehavior : MonoBehaviour
 
     private void BossAttack()
     {
+        targetNum = Random.Range(1, 3);
+        if (targetNum == 1)
+        {
+            target = player1;
+            print("Target 1");
+        }
+        else
+        {
+            if (player2 != null)
+            {
+                target = player2;
+                print("Target 2");
+            }
+            else
+            {
+                target = player1;
+                print("Target Switched to 1");
+            }
+        }
         attacking = true;
         attackType = Random.Range(1, 5);
         if (attackType == 2)
@@ -208,22 +227,6 @@ public class BossBehavior : MonoBehaviour
         {
             GunAttack();
         }
-        targetNum = Random.Range(1, 3);
-        if (targetNum == 1)
-        {
-            target = player1;
-        }
-        else
-        {
-            if (player2 != null)
-            {
-                target = player2;
-            }
-            else
-            {
-                target = player1;
-            }
-        }
     }
 
     private void GunAttack()
@@ -231,15 +234,27 @@ public class BossBehavior : MonoBehaviour
         attackType = Random.Range(1, 4);
         if (attackType == 1)
         {
-            print("Revolver attack");
+            temp = Instantiate(revolverBullet, transform.position,
+                Quaternion.identity);
+            temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                revolverDmg;
+            temp.GetComponent<SheriffBulletBehavior>().Shoot(target);
         }
         if (attackType == 2)
         {
-            print("Shotgun attack");
+            temp = Instantiate(shotgunBullet, transform.position,
+                Quaternion.identity);
+            temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
+                shotgunDmg;
+            temp.GetComponent<ShotgunBulletBehavior>().Shoot(target);
         }
         if (attackType == 3)
         {
-            print("Pistol attack");
+            temp = Instantiate(pistolBullet, transform.position,
+                Quaternion.identity);
+            temp.GetComponent<PistolBulletBehavior>().damageDealt =
+                pistolDmg;
+            temp.GetComponent<PistolBulletBehavior>().Shoot(target);
         }
         attacking = false;
         moveToNextPhase = true;
