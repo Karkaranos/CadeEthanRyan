@@ -98,6 +98,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""b6ffe70a-489d-4a2c-8ea3-0384200f9ee6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -186,6 +195,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e848e7a-3fe3-421b-9ba1-493e8216f91d"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -332,6 +352,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Player1Actions_SwitchPowerup = m_Player1Actions.FindAction("SwitchPowerup", throwIfNotFound: true);
         m_Player1Actions_PauseMenu = m_Player1Actions.FindAction("PauseMenu", throwIfNotFound: true);
         m_Player1Actions_Quit = m_Player1Actions.FindAction("Quit", throwIfNotFound: true);
+        m_Player1Actions_Interact = m_Player1Actions.FindAction("Interact", throwIfNotFound: true);
         // Player1Actions1
         m_Player1Actions1 = asset.FindActionMap("Player1Actions1", throwIfNotFound: true);
         m_Player1Actions1_Movement = m_Player1Actions1.FindAction("Movement", throwIfNotFound: true);
@@ -407,6 +428,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player1Actions_SwitchPowerup;
     private readonly InputAction m_Player1Actions_PauseMenu;
     private readonly InputAction m_Player1Actions_Quit;
+    private readonly InputAction m_Player1Actions_Interact;
     public struct Player1ActionsActions
     {
         private @PlayerActions m_Wrapper;
@@ -419,6 +441,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @SwitchPowerup => m_Wrapper.m_Player1Actions_SwitchPowerup;
         public InputAction @PauseMenu => m_Wrapper.m_Player1Actions_PauseMenu;
         public InputAction @Quit => m_Wrapper.m_Player1Actions_Quit;
+        public InputAction @Interact => m_Wrapper.m_Player1Actions_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player1Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -452,6 +475,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Quit.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnQuit;
                 @Quit.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnQuit;
                 @Quit.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnQuit;
+                @Interact.started -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_Player1ActionsActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_Player1ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -480,6 +506,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Quit.started += instance.OnQuit;
                 @Quit.performed += instance.OnQuit;
                 @Quit.canceled += instance.OnQuit;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -567,6 +596,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnSwitchPowerup(InputAction.CallbackContext context);
         void OnPauseMenu(InputAction.CallbackContext context);
         void OnQuit(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IPlayer1Actions1Actions
     {

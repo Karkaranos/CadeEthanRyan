@@ -30,6 +30,7 @@ public class SheriffBehavior : MonoBehaviour
     InputAction switchWeapon;
     InputAction switchPowerUp;
     InputAction pauseMenu;
+    InputAction playerInteract;
 
     //Temporary Variables
     Vector2 movement;
@@ -65,6 +66,7 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private int cells;
 
     private UIManagerBehavior uim;
+    private DialogueManager dm;
 
     public int Playerhealth { get => playerhealth; set => playerhealth = value; }
 
@@ -95,6 +97,7 @@ public class SheriffBehavior : MonoBehaviour
         chargeAttack = inputMap.FindAction("ImpactAttack");
         switchPowerUp = inputMap.FindAction("SwitchPowerup");
         pauseMenu = inputMap.FindAction("PauseMenu");
+        playerInteract = inputMap.FindAction("Interact");
 
         Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
@@ -104,7 +107,7 @@ public class SheriffBehavior : MonoBehaviour
 
         gunImage = gun.GetComponent<SpriteRenderer>();
         gunImage.sprite = revolver;
-
+        /*
         //Movement - Left Stick
         //Reads in input from the Left Stick and saves it to a temporary variable
         playerMovement.performed += contx => movement = contx.ReadValue<Vector2>();
@@ -126,7 +129,7 @@ public class SheriffBehavior : MonoBehaviour
         quickAttack.canceled += contx => StopShooting();
 
         //Charged Attack - B Button
-        chargeAttack.performed += contx => stopMe=StartCoroutine(ChargeAtk());
+        chargeAttack.started += contx => stopMe=StartCoroutine(ChargeAtk());
         chargeAttack.canceled += contx => StopShooting();
 
         //Powerup Switching - Right Trigger
@@ -134,7 +137,7 @@ public class SheriffBehavior : MonoBehaviour
 
         //Pause Menu - Start Button
         pauseMenu.performed += contx => uim.PauseMenu();
-
+        */
     }
 
     /// <summary>
@@ -142,7 +145,26 @@ public class SheriffBehavior : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        inputMap.Enable();
+        playerMovement.performed += contx => movement = contx.ReadValue<Vector2>();
+        playerMovement.canceled += contx => movement = Vector2.zero;
+        playerMovement.Enable();
+        scopeMovement.performed += contx => scopePos = contx.ReadValue<Vector2>();
+        scopeMovement.canceled += contx => scopePos = Vector2.zero;
+        scopeMovement.Enable();
+        switchWeapon.performed += contx => SwitchWeapon();
+        switchWeapon.Enable();
+        quickAttack.started += contx => stopMe = StartCoroutine(QuickAtk());
+        quickAttack.canceled += contx => StopShooting();
+        quickAttack.Enable();
+        chargeAttack.started += contx => stopMe = StartCoroutine(ChargeAtk());
+        chargeAttack.canceled += contx => StopShooting();
+        chargeAttack.Enable();
+        switchPowerUp.performed += contx => SwitchPowerUp();
+        switchPowerUp.Enable();
+        pauseMenu.performed += contx => uim.PauseMenu();
+        pauseMenu.Enable();
+        playerInteract.performed += contx => dm.Interact();
+        playerInteract.Enable();
     }
 
     /// <summary>
@@ -150,8 +172,29 @@ public class SheriffBehavior : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        inputMap.Disable();
+        playerMovement.performed -= contx => movement = contx.ReadValue<Vector2>();
+        playerMovement.canceled -= contx => movement = Vector2.zero;
+        playerMovement.Disable();
+        scopeMovement.performed -= contx => scopePos = contx.ReadValue<Vector2>();
+        scopeMovement.canceled -= contx => scopePos = Vector2.zero;
+        scopeMovement.Disable();
+        switchWeapon.performed -= contx => SwitchWeapon();
+        switchWeapon.Disable();
+        quickAttack.started -= contx => stopMe = StartCoroutine(QuickAtk());
+        quickAttack.canceled -= contx => StopShooting();
+        quickAttack.Disable();
+        chargeAttack.started -= contx => stopMe = StartCoroutine(ChargeAtk());
+        chargeAttack.canceled -= contx => StopShooting();
+        chargeAttack.Disable();
+        switchPowerUp.performed -= contx => SwitchPowerUp();
+        switchPowerUp.Disable();
+        pauseMenu.performed -= contx => uim.PauseMenu();
+        pauseMenu.Disable();
+        playerInteract.performed -= contx => dm.Interact();
+        playerInteract.Disable();
     }
+
+    
     #endregion Set Up
 
     //Handles player attacks and switching weapons
