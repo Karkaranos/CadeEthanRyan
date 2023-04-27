@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossBehavior : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class BossBehavior : MonoBehaviour
     private bool attacking = false;
     private int attackType;
     private int targetNum;
+    private int attackNum;
 
     //Movement and positioning
     Vector3 towerSpawn;
@@ -82,6 +84,10 @@ public class BossBehavior : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (activeShield != null)
+        {
+            activeShield.transform.position = transform.position;
+        }
         Vector3 difference = transform.position - targetMovePos;
         if (towerList.Count == 0&&moveToNextPhase)
         {
@@ -127,6 +133,7 @@ public class BossBehavior : MonoBehaviour
         //Attacking Phase
         if (BossPhase == 4&&!attacking)
         {
+            attackNum = Random.Range(1, 6);
             BossAttack();
         }
     }
@@ -148,11 +155,16 @@ public class BossBehavior : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Occurs when boss dies; removes the last enemy and goes to win screen
+    /// </summary>
     private void BossDeath()
     {
         GameController gc = GameObject.Find("Game Controller").
             GetComponent<GameController>();
+        gc.RemoveEnemy();
+        print("You win");
+        SceneManager.LoadScene(5);
 
     }
 
@@ -197,6 +209,9 @@ public class BossBehavior : MonoBehaviour
         moveToNextPhase = true;
     }
 
+    /// <summary>
+    /// Selects a target and what type of attack it will be
+    /// </summary>
     private void BossAttack()
     {
         targetNum = Random.Range(1, 3);
@@ -222,75 +237,88 @@ public class BossBehavior : MonoBehaviour
         attackType = Random.Range(1, 5);
         if (attackType == 2)
         {
-            ExplosionAttack();
+            StartCoroutine(ExplosionAttack());
         }
         else
         {
-            GunAttack();
+            StartCoroutine(GunAttack());
         }
     }
 
-    private void GunAttack()
+    /// <summary>
+    /// Spawns a swarm of bullets dictated by the randon number assigned. Shoots
+    /// at its target
+    /// </summary>
+    /// <returns>Time between fires</returns>
+    IEnumerator GunAttack()
     {
         attackType = Random.Range(1, 4);
-        if (attackType == 1)
+        for(int i=0; i<attackNum; i++)
         {
-            temp = Instantiate(revolverBullet, transform.position,
-                Quaternion.identity);
-            temp.GetComponent<SheriffBulletBehavior>().damageDealt =
-                revolverDmg;
-            temp.GetComponent<SheriffBulletBehavior>().Shoot(target);
-        }
-        if (attackType == 2)
-        {
-            temp = Instantiate(shotgunBullet, transform.position,
-                Quaternion.identity);
-            temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
-                shotgunDmg;
-            temp.GetComponent<ShotgunBulletBehavior>().Shoot(target);
-        }
-        if (attackType == 3)
-        {
-            temp = Instantiate(pistolBullet, transform.position,
-                Quaternion.identity);
-            temp.GetComponent<PistolBulletBehavior>().damageDealt =
-                pistolDmg;
-            temp.GetComponent<PistolBulletBehavior>().Shoot(target);
+            if (attackType == 1)
+            {
+                temp = Instantiate(revolverBullet, transform.position,
+                    Quaternion.identity);
+                temp.GetComponent<SheriffBulletBehavior>().damageDealt =
+                    revolverDmg;
+                temp.GetComponent<SheriffBulletBehavior>().Shoot(target);
+            }
+            if (attackType == 2)
+            {
+                temp = Instantiate(shotgunBullet, transform.position,
+                    Quaternion.identity);
+                temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
+                    shotgunDmg;
+                temp.GetComponent<ShotgunBulletBehavior>().Shoot(target);
+            }
+            if (attackType == 3)
+            {
+                temp = Instantiate(pistolBullet, transform.position,
+                    Quaternion.identity);
+                temp.GetComponent<PistolBulletBehavior>().damageDealt =
+                    pistolDmg;
+                temp.GetComponent<PistolBulletBehavior>().Shoot(target);
+            }
+            yield return new WaitForSeconds(.5f);
         }
         attacking = false;
         moveToNextPhase = true;
     }
 
-    private void ExplosionAttack()
+    IEnumerator ExplosionAttack()
     {
         attackType = Random.Range(1, 4);
-        if (attackType == 1)
+        for(int i=0; i<attackNum; i++)
         {
-            temp = Instantiate(dynamite, target.transform.position,
-                            Quaternion.identity);
-            temp.GetComponent<BanditExplodeBehavior>().damageDealt = dynamiteDmg;
-            temp.GetComponent<BanditExplodeBehavior>().Flash();
-            StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
-                Kaboom(dynamiteTimer));
-        }
-        if (attackType == 2)
-        {
-            temp = Instantiate(cocktail, target.transform.position,
-                Quaternion.identity);
-            temp.GetComponent<CocktailExplodeBehavior>().damageDealt = cocktailDmg;
-            temp.GetComponent<CocktailExplodeBehavior>().Flash();
-            StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
-                Kaboom(cocktailTimer));
-        }
-        if (attackType == 3)
-        {
-            temp = Instantiate(firecracker, target.transform.position,
-                Quaternion.identity);
-            temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt = 
-                firecrackerDmg;
-            temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
-            StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>().
-                Kaboom(firecrackerTimer));
+            if (attackType == 1)
+            {
+                temp = Instantiate(dynamite, target.transform.position,
+                                Quaternion.identity);
+                temp.GetComponent<BanditExplodeBehavior>().damageDealt = dynamiteDmg;
+                temp.GetComponent<BanditExplodeBehavior>().Flash();
+                StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
+                    Kaboom(dynamiteTimer));
+            }
+            if (attackType == 2)
+            {
+                temp = Instantiate(cocktail, target.transform.position,
+                    Quaternion.identity);
+                temp.GetComponent<CocktailExplodeBehavior>().damageDealt = cocktailDmg;
+                temp.GetComponent<CocktailExplodeBehavior>().Flash();
+                StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
+                    Kaboom(cocktailTimer));
+            }
+            if (attackType == 3)
+            {
+                temp = Instantiate(firecracker, target.transform.position,
+                    Quaternion.identity);
+                temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
+                    firecrackerDmg;
+                temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
+                StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>().
+                    Kaboom(firecrackerTimer));
+            }
+            yield return new WaitForSeconds(1f);
         }
         attacking = false;
         moveToNextPhase = true;
@@ -350,6 +378,7 @@ public class BossBehavior : MonoBehaviour
                 if (health <= 0 && !destroyed)
                 {
                     destroyed = true;
+                    BossDeath();
                 }
             }
             if (collision.gameObject.tag == "explodey")
@@ -369,6 +398,7 @@ public class BossBehavior : MonoBehaviour
                 if (health <= 0 && !destroyed)
                 {
                     destroyed = true;
+                    BossDeath();
 
                 }
             }
