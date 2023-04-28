@@ -68,6 +68,7 @@ public class SheriffBehavior : MonoBehaviour
 
     private UIManagerBehavior uim;
     private NPC npc;
+    private PlayerInputManagerBehavior pimb;
 
     public int Playerhealth { get => playerhealth; set => playerhealth = value; }
 
@@ -100,11 +101,6 @@ public class SheriffBehavior : MonoBehaviour
         pauseMenu = inputMap.FindAction("PauseMenu");
         playerInteract = inputMap.FindAction("Interact");
 
-        if(SceneManager.GetActiveScene().buildIndex == 4)
-        {
-            npc = GameObject.Find("Bartender").GetComponent<NPC>();
-        }
-        
         Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
         uim = GameObject.Find("UIManager").GetComponent<UIManagerBehavior>();
@@ -113,6 +109,16 @@ public class SheriffBehavior : MonoBehaviour
 
         gunImage = gun.GetComponent<SpriteRenderer>();
         gunImage.sprite = revolver;
+
+        if (SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            npc = GameObject.Find("Bartender").GetComponent<NPC>();
+            
+           
+        }
+
+        
+        
         /*
         //Movement - Left Stick
         //Reads in input from the Left Stick and saves it to a temporary variable

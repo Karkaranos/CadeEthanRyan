@@ -23,7 +23,7 @@ public class PlayerInputManagerBehavior : MonoBehaviour
     /// <summary>
     /// Sets the input Manager
     /// </summary>
-    private void Start()
+    private void Awake()
     {
         inputManager = GetComponent<PlayerInputManager>();
     }
