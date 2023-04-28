@@ -139,6 +139,7 @@ public class GameController : MonoBehaviour
             enemySpawnNum = 0;
             if (wave == 1)
             {
+                yield return new WaitForSeconds(5f);
                 numToSpawn = wave1Enemies;
                 canSpawn = true;
                 Wave1Spawn();

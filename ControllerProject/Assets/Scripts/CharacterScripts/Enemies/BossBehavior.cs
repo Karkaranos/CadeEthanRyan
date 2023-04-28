@@ -164,7 +164,7 @@ public class BossBehavior : MonoBehaviour
             GetComponent<GameController>();
         gc.RemoveEnemy();
         print("You win");
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene("WinScreen");
 
     }
 

@@ -427,15 +427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed30b8d3b7044c4c8d122dcdd7c5592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInteract:
-    m_Name: Player Interact
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 904902a5-49f0-477d-ac23-bf2b4e8f73df
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   scope: {fileID: 8803561457647647484}
   weapon: {fileID: 11400000, guid: ef21717a0cbbbb94e8f53adbfe18c068, type: 2}
   gun: {fileID: 8803561458639646723}
@@ -449,7 +440,7 @@ MonoBehaviour:
   shotgunBullet: {fileID: 5812975587884874350, guid: 4ca1c0d494a80184599bb8aec495812d, type: 3}
   pistolBullet: {fileID: 8809106737771665756, guid: ae1c34ad93e582e488c9ae8012241856, type: 3}
   atkPoint: {fileID: 4171786032498521643}
-  playerhealth: 100
+  playerhealth: 200
   cells: 0
 --- !u!114 &8803561459048492055
 MonoBehaviour:
