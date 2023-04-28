@@ -322,9 +322,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'You conquered the Horde!
+  m_Text: 'You have been defeated by the horde.
 
-    Hell''s Gate is safe... for now.'
+    Hell''s Gate has fallen.'
 --- !u!222 &420794243
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -800,7 +800,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Play Again?
+  m_Text: Try Again?
 --- !u!222 &1098192935
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1014,7 +1014,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: VICTORY!!!
+  m_Text: GAME OVER
 --- !u!222 &1809791325
 CanvasRenderer:
   m_ObjectHideFlags: 0
