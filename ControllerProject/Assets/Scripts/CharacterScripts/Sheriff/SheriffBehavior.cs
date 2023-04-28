@@ -32,6 +32,7 @@ public class SheriffBehavior : MonoBehaviour
     InputAction switchPowerUp;
     InputAction pauseMenu;
     InputAction playerInteract;
+    
 
     //Temporary Variables
     Vector2 movement;
@@ -65,10 +66,14 @@ public class SheriffBehavior : MonoBehaviour
     private int weaponNumber = 1;
     Coroutine stopMe;
     [SerializeField] private int cells;
+    //public static SheriffBehavior instance;
+    //public static GameObject player;
+    //public static List<GameObject> playerList = new List<GameObject>();
+
 
     private UIManagerBehavior uim;
     private NPC npc;
-    private PlayerInputManagerBehavior pimb;
+    
 
     public int Playerhealth { get => playerhealth; set => playerhealth = value; }
 
@@ -90,6 +95,7 @@ public class SheriffBehavior : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+       
         inputAsset = this.GetComponent<PlayerInput>().actions;
         inputMap = inputAsset.FindActionMap("Player1Actions");
         playerMovement = inputMap.FindAction("Movement");
@@ -100,7 +106,7 @@ public class SheriffBehavior : MonoBehaviour
         switchPowerUp = inputMap.FindAction("SwitchPowerup");
         pauseMenu = inputMap.FindAction("PauseMenu");
         playerInteract = inputMap.FindAction("Interact");
-
+       
         Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
         uim = GameObject.Find("UIManager").GetComponent<UIManagerBehavior>();
@@ -110,14 +116,23 @@ public class SheriffBehavior : MonoBehaviour
         gunImage = gun.GetComponent<SpriteRenderer>();
         gunImage.sprite = revolver;
 
+        //player = GameObject.Find("Grayboxed Sheriff");
+
+       
         if (SceneManager.GetActiveScene().buildIndex == 4)
         {
             npc = GameObject.Find("Bartender").GetComponent<NPC>();
-            
-           
         }
-
-        
+        /*
+        if (instance != null && instance != this)
+            Destroy(this.gameObject);
+        else
+        {
+            instance = this;
+            playerList.AddRange(GameObject.FindGameObjectsWithTag("player"));
+            DontDestroyOnLoad(player);
+        }
+        */
         
         /*
         //Movement - Left Stick
