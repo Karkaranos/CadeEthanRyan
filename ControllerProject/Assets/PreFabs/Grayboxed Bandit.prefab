@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2700782505059181931}
   - component: {fileID: 2700782505059181924}
   - component: {fileID: 2700782505059181925}
+  - component: {fileID: 5400318858713804165}
   m_Layer: 6
   m_Name: Grayboxed Bandit
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +87,7 @@ MonoBehaviour:
   firecrackerExplosive: {fileID: 5733515255665031954, guid: 9ad0175d4ac01be489471fcef7dc2284, type: 3}
   cocktailExplosive: {fileID: 1859233750919071300, guid: 7f1fdd8b5e3ab5c48b5186c99be26562, type: 3}
   atkPoint: {fileID: 2700782506300072433}
-  playerhealth: 100
+  playerhealth: 200
   cells: 0
 --- !u!114 &2700782505059181925
 MonoBehaviour:
@@ -118,6 +119,27 @@ MonoBehaviour:
   m_DefaultActionMap: Player1Actions
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!50 &5400318858713804165
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2700782505059181928}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &2700782505134199321
 GameObject:
   m_ObjectHideFlags: 0
