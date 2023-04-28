@@ -20,7 +20,7 @@ public class BossTowerBehavior : MonoBehaviour
     /// </summary>
     void Start()
     {
-        bb = GameObject.Find("Grayboxed Boss").GetComponent<BossBehavior>();
+        bb = GameObject.Find("Grayboxed Boss(Clone)").GetComponent<BossBehavior>();
     }
 
     /// <summary>
