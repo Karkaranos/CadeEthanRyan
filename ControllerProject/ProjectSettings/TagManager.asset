@@ -14,6 +14,7 @@ TagManager:
   - World Objects
   - Shield
   - NPC
+  - UIManager
   layers:
   - Default
   - TransparentFX

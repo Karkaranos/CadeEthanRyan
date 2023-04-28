@@ -12,6 +12,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputManagerBehavior : MonoBehaviour
 {
+
     private PlayerInputManager inputManager;
     [SerializeField] 
     private GameObject sheriff;
@@ -26,6 +27,7 @@ public class PlayerInputManagerBehavior : MonoBehaviour
     private void Awake()
     {
         inputManager = GetComponent<PlayerInputManager>();
+
     }
 
     /// <summary>
