@@ -19,6 +19,9 @@ public class UIManagerBehavior : MonoBehaviour
     [SerializeField] private GameObject secondScreen;
     [SerializeField] private GameObject firstSelected;
 
+   
+
+   
     /// <summary>
     /// Opens PauseMenu
     /// </summary>
