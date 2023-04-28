@@ -119,7 +119,7 @@ public class GameController : MonoBehaviour
 
             if (player1.Playerhealth <= 0 && player1Obj != null)
             {
-                SceneManager.LoadScene("Lose");
+                SceneManager.LoadScene("LoseScreen");
             }
         }
     }
