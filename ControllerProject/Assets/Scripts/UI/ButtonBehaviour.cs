@@ -22,7 +22,7 @@ public class ButtonBehaviour : MonoBehaviour
    
     public void StartButton()
     {
-        SceneManager.LoadScene("TutorialLevel");
+        SceneManager.LoadScene("Level1");
     }
 
     public void HowToPlay()
