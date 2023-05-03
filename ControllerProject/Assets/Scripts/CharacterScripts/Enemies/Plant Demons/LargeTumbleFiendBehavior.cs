@@ -17,7 +17,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     [SerializeField] private GameObject smallTumble;
 
     //References to players and setting targets
-    private int target;
+    [SerializeField] private int target;
     private GameObject targetObject;
     [SerializeField] GameObject player1;
     [SerializeField] GameObject player2;
@@ -40,15 +40,30 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     {
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
         player2 = GameObject.Find("Grayboxed Bandit(Clone)");
-        target = 1;
-        target = Random.Range(1, 2);
+        target = Random.Range(1, 3);
         if (target == 1)
         {
-            targetObject = player1;
+            if (player1 != null)
+            {
+                targetObject = player1;
+                print("target found");
+            }
+            else
+            {
+                targetObject = player2;
+            }
         }
         else
         {
-            targetObject = player2;
+            if (player2 != null)
+            {
+                targetObject = player2;
+                print("target found");
+            }
+            else
+            {
+                targetObject = player1;
+            }
         }
         offset.x = 3;
         offset.y = 3;
@@ -64,7 +79,23 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     /// </summary>
     void Update()
     {
-        TrackTargetPlayer(targetObject);
+        if (targetObject == null)
+        {
+            print("target lost");
+            if (player1 != null)
+            {
+                targetObject = player1;
+            }
+            else if (player2!=null)
+            {
+                targetObject = player2;
+            }
+            
+        }
+        if (targetObject != null)
+        {
+            TrackTargetPlayer(targetObject);
+        }
     }
 
     /// <summary>

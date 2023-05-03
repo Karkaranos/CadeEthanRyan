@@ -50,18 +50,28 @@ public class KamicactusBehavior : MonoBehaviour
     {
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
         player2 = GameObject.Find("Grayboxed Bandit(Clone");
-        target = 1;
-        if (player2 != null)
-        {
-            target = Random.Range(1, 2);
-        }
+        target = Random.Range(1,3);
         if (target == 1)
         {
-            targetObject = player1;
+            if (player1 != null)
+            {
+                targetObject = player1;
+            }
+            else
+            {
+                targetObject = player2;
+            }
         }
         else
         {
-            targetObject = player2;
+            if (player2 != null)
+            {
+                targetObject = player2;
+            }
+            else
+            {
+                targetObject = player1;
+            }
         }
         offset.x = 3;
         offset.y = 3;
@@ -80,6 +90,31 @@ public class KamicactusBehavior : MonoBehaviour
     void FixedUpdate()
     {
         TrackTargetPlayer(targetObject);
+        if (targetObject == null)
+        {
+            if (target == 1)
+            {
+                if (player1 != null)
+                {
+                    targetObject = player1;
+                }
+                else
+                {
+                    targetObject = player2;
+                }
+            }
+            else
+            {
+                if (player2 != null)
+                {
+                    targetObject = player2;
+                }
+                else
+                {
+                    targetObject = player1;
+                }
+            }
+        }
     }
 
     /// <summary>

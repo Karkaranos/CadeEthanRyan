@@ -69,6 +69,33 @@ public class StenoCerberusBehavior : MonoBehaviour
         GameObject objectSpawned;
         for (; ; )
         {
+            if (targetObject == null)
+            {
+                if (target == 1)
+                {
+                    if (player1 != null)
+                    {
+                        targetObject = player1;
+                    }
+                    else
+                    {
+                        targetObject = player2;
+                    }
+                    target = 2;
+                }
+                else
+                {
+                    if (player2 != null)
+                    {
+                        targetObject = player2;
+                    }
+                    else
+                    {
+                        targetObject = player1;
+                    }
+                    target = 1;
+                }
+            }
             targetPos = targetObject.transform.position;
             distance.x = transform.position.x - targetPos.x;
             distance.y = transform.position.y - targetPos.y;
@@ -114,16 +141,27 @@ public class StenoCerberusBehavior : MonoBehaviour
     {
         if (target == 1)
         {
+            if (player1 != null)
+            {
+                targetObject = player1;
+            }
+            else
+            {
+                targetObject = player2;
+            }
             target = 2;
+        }
+        else
+        {
             if (player2 != null)
             {
                 targetObject = player2;
             }
-        }
-        else
-        {
+            else
+            {
+                targetObject = player1;
+            }
             target = 1;
-            targetObject = player1;
         }
         targetSwitchTimer = Random.Range(2, 10);
         yield return new WaitForSeconds(targetSwitchTimer);

@@ -61,11 +61,13 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject shotgunBullet;
     [SerializeField] private GameObject pistolBullet;
     [SerializeField] private GameObject atkPoint;
-    [SerializeField] private int playerhealth = 100;
+    [SerializeField] private int playerhealth = 150;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
     Coroutine stopMe;
     [SerializeField] private int cells;
+    BanditBehavior player2;
+    GameObject player2Obj;
     //public static SheriffBehavior instance;
     //public static GameObject player;
     //public static List<GameObject> playerList = new List<GameObject>();
@@ -490,6 +492,15 @@ public class SheriffBehavior : MonoBehaviour
         else
         {
             canAttack = false;
+        }
+
+        if (playerhealth <= 0)
+        {
+            if (player2Obj != null)
+            {
+                player2.freeMove = true;
+            }
+            Destroy(gameObject);
         }
     }
 
