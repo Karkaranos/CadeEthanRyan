@@ -262,6 +262,7 @@ public class BossBehavior : MonoBehaviour
                 temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                     revolverDmg;
                 temp.GetComponent<SheriffBulletBehavior>().Shoot(target);
+                temp.GetComponent<SheriffBulletBehavior>().shotByPlayer = false;
             }
             if (attackType == 2)
             {
@@ -270,6 +271,7 @@ public class BossBehavior : MonoBehaviour
                 temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
                     shotgunDmg;
                 temp.GetComponent<ShotgunBulletBehavior>().Shoot(target);
+                temp.GetComponent<ShotgunBulletBehavior>().shotByPlayer = false;
             }
             if (attackType == 3)
             {
@@ -278,6 +280,7 @@ public class BossBehavior : MonoBehaviour
                 temp.GetComponent<PistolBulletBehavior>().damageDealt =
                     pistolDmg;
                 temp.GetComponent<PistolBulletBehavior>().Shoot(target);
+                temp.GetComponent<PistolBulletBehavior>().shotByPlayer = false;
             }
             yield return new WaitForSeconds(.5f);
         }

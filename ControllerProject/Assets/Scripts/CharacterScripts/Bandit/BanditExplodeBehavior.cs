@@ -14,12 +14,15 @@ public class BanditExplodeBehavior : FlashScript
     [SerializeField] GameObject kaboom;
     GameObject destroyThisObject;
     public float damageDealt;
+    public bool shotByPlayer = true;
 
     public override IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
         destroyThisObject = Instantiate(kaboom, transform.position, 
             transform.rotation);
+        destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().shotByPlayer =
+            shotByPlayer;
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt =
             damageDealt;
         yield return new WaitForSeconds(.1f);

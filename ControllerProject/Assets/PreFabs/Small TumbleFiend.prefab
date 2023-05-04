@@ -102,11 +102,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smallerTumblesSpawned: 0
   smallTumble: {fileID: 0}
+  target: 0
   player1: {fileID: 0}
   player2: {fileID: 0}
   speed: 3
   cellsForDeath: 0
   health: 5
+  damageDealt: 5
+  sDamageDealt: 2
 --- !u!58 &7471730578854874295
 CircleCollider2D:
   m_ObjectHideFlags: 0

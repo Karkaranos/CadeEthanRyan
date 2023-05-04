@@ -19,12 +19,14 @@ public class CocktailExplodeBehavior : MonoBehaviour
     int c = 0;
     public float damageDealt;
     GameObject temp;
+    public bool shotByPlayer = true;
 
 
     public virtual IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
         temp=Instantiate(fire, transform.position, transform.rotation);
+        temp.GetComponent<FireBehavior>().shotByPlayer = shotByPlayer;
         temp.GetComponent<FireBehavior>().damageDealt = damageDealt / 2;
         Destroy(gameObject);
     }

@@ -36,6 +36,7 @@ public class KamicactusBehavior : MonoBehaviour
     [SerializeField] private int explosionSize = 3;
     [SerializeField] GameObject explodeRange;
     public bool killed=false;
+    public float damageDealt=3;
 
     #endregion
 
@@ -151,6 +152,7 @@ public class KamicactusBehavior : MonoBehaviour
         if(difference.magnitude <= 5&&!explodeStarted)
         {
             explode.Flash();
+            explode.damageDealt = damageDealt;
             exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
             explodeStarted = true;
             health = 0;

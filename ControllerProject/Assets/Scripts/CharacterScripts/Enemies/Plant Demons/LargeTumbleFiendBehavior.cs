@@ -28,6 +28,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     [SerializeField] private int cellsForDeath;
     [SerializeField] private float health = 3;
     private bool dying = false;
+    public float damageDealt=5;
+
     #endregion Variables
 
     #region Functions
@@ -158,7 +160,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
                     collision.GetComponent<SprayShotgunBulletBehavior>();
                 health -= ssbb.damageDealt;
             }
-            if (collision.name.Contains("Shotgun"))
+            else if (collision.name.Contains("Shotgun"))
             {
                 ShotgunBulletBehavior shotbb =
                     collision.gameObject.GetComponent<ShotgunBulletBehavior>();
@@ -198,6 +200,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     /// </summary>
     public virtual void OnDeath()
     {
+        GameObject temp;
         GameController gc = GameObject.Find("Game Controller").
             GetComponent<GameController>();
         Vector2 spawnPos = transform.position;
@@ -205,7 +208,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         {
             spawnPos.x += Random.Range(-1, 1);
             spawnPos.y += Random.Range(-1, 1);
-            Instantiate(smallTumble, spawnPos, transform.rotation);
+            temp = Instantiate(smallTumble, spawnPos, transform.rotation);
+            temp.GetComponent<SmallTumbleFiendBehavior>().damageDealt = damageDealt;
             spawnPos = transform.position;
             gc.enemyCounter++;
         }

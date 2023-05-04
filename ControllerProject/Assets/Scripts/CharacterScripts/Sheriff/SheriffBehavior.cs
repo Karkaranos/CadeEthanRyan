@@ -61,7 +61,7 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject shotgunBullet;
     [SerializeField] private GameObject pistolBullet;
     [SerializeField] private GameObject atkPoint;
-    [SerializeField] private int playerhealth = 150;
+    [SerializeField] private float playerhealth = 200;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
     Coroutine stopMe;
@@ -77,7 +77,7 @@ public class SheriffBehavior : MonoBehaviour
     private NPC npc;
     
 
-    public int Playerhealth { get => playerhealth; set => playerhealth = value; }
+    public float Playerhealth { get => playerhealth; set => playerhealth = value; }
 
     public int Ammo { get => ammo; set => ammo = value; }
 
@@ -254,6 +254,8 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<SheriffBulletBehavior>().Shoot(scope);
+                        temp.GetComponent<SheriffBulletBehavior>().shotByPlayer = 
+                            true;
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
                     {
@@ -262,6 +264,8 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<ShotgunBulletBehavior>().Shoot(scope);
+                        temp.GetComponent<ShotgunBulletBehavior>().shotByPlayer =
+                            true;
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
                     {
@@ -270,10 +274,13 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<PistolBulletBehavior>().damageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<PistolBulletBehavior>().Shoot(scope);
+                        temp.GetComponent<SheriffBulletBehavior>().shotByPlayer =
+                            true;
                     }
                     chgAtkAvailable = false;
                     StartCoroutine(ChargeWeaponCoolDown());
                     weapon.Ammo--;
+
                     Ammo = weapon.Ammo;
                 }
                 else
@@ -312,8 +319,6 @@ public class SheriffBehavior : MonoBehaviour
                 if (atkAvailable && weapon && canAttack)
                 {
                     GameObject temp;
-                    //Attack, then start the cooldown timer
-                    //print(weapon.Weapon + " deals " + weapon.Dmg + " damage. " + weapon.Ammo + " shots remaining.");
                     if (weapon.Weapon == WeaponData.WeaponID.REVOLVER)
                     {
                         temp = Instantiate(revolverBullet, transform.position, 
@@ -321,11 +326,15 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<SheriffBulletBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<SheriffBulletBehavior>().Shoot(scope);
+                        temp.GetComponent<SheriffBulletBehavior>().shotByPlayer =
+                            true;
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
                     {
                         temp = Instantiate(shotgunBullet, transform.position, 
                             Quaternion.identity);
+                        temp.GetComponent<ShotgunBulletBehavior>().shotByPlayer =
+                            true;
                         temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<ShotgunBulletBehavior>().Shoot(scope);
@@ -337,6 +346,8 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<PistolBulletBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<PistolBulletBehavior>().Shoot(scope);
+                        temp.GetComponent<PistolBulletBehavior>().shotByPlayer =
+                            true;
                     }
                     atkAvailable = false;
                     StartCoroutine(WeaponCoolDown());
@@ -535,22 +546,24 @@ public class SheriffBehavior : MonoBehaviour
 
     #endregion
 
-    //Handles collisions with Enemies
+    //Handles collisions with Enemies and attacks
     #region Collisions
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Large TumbleFiend(Clone)" || collision.gameObject.name == "Large TumbleFiend")
+        if (collision.gameObject.name == "Large TumbleFiend(Clone)")
         {
             //take large tumble damage
-            Playerhealth -= 5;
-            print("Hit by Large Tumble");
+            LargeTumbleFiendBehavior ltfb = collision.gameObject.GetComponent
+                <LargeTumbleFiendBehavior>();
+            playerhealth -= ltfb.damageDealt;
         }
         if (collision.gameObject.name == "Small TumbleFiend(Clone)")
         {
             //take large tumble damage
-            print("Hit by Small Tumble");
-            Playerhealth -= 3;
+            SmallTumbleFiendBehavior stfb = collision.gameObject.GetComponent
+                <SmallTumbleFiendBehavior>();
+            playerhealth -= stfb.sDamageDealt;
         }
     }
 
@@ -558,15 +571,96 @@ public class SheriffBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "explosion")
         {
-            //Take explosion Damage
-            print("Hit by Explosion");
-            Playerhealth -= 3;
+            if (collision.name.Contains("Kami"))
+            {
+                DamageStoreExplodeBehavior dseb = collision.
+                    GetComponent<DamageStoreExplodeBehavior>();
+                playerhealth -= dseb.damageDealt;
+            }
+            if (collision.name.Contains("Spike"))
+            {
+                ExplodeSpikeBehavior esb = collision.GetComponent
+                    <ExplodeSpikeBehavior>();
+                playerhealth -= esb.damageDealt;
+            }
         }
         if (collision.gameObject.tag == "Spike")
         {
-            //Take turret damage
-            print("Hit by Cactus Spike");
-            Playerhealth -= 1;
+            CactusSpikeBehavior csb = collision.GetComponent<CactusSpikeBehavior>();
+            playerhealth -= csb.damageDealt;
+        }
+
+        //Boss Attack damage
+        if (collision.gameObject.tag == "bullet")
+        {
+            if (collision.name.Contains("Pistol"))
+            {
+                PistolBulletBehavior pbb =
+                    collision.gameObject.GetComponent<PistolBulletBehavior>();
+
+                //if bullet not shot by a player, take damage
+                if (!pbb.shotByPlayer)
+                {
+                    playerhealth -= pbb.damageDealt;
+                }
+            }
+            if (collision.name.Contains("Revolver"))
+            {
+                SheriffBulletBehavior sbb =
+                    collision.gameObject.GetComponent<SheriffBulletBehavior>();
+
+                //if bullet not shot by a player, take damage
+                if (!sbb.shotByPlayer)
+                {
+                    playerhealth -= sbb.damageDealt;
+                }
+            }
+            if (collision.name.Contains("Spray"))
+            {
+                SprayShotgunBulletBehavior ssbb =
+                    collision.GetComponent<SprayShotgunBulletBehavior>();
+
+                //if bullet not shot by a player, take damage
+                if (!ssbb.shotByPlayer)
+                {
+                    playerhealth -= ssbb.damageDealt;
+                }
+            }
+            else if (collision.name.Contains("Shotgun"))
+            {
+                ShotgunBulletBehavior shotbb =
+                    collision.gameObject.GetComponent<ShotgunBulletBehavior>();
+
+                //if bullet not shot by a player, take damage
+                if (!shotbb.shotByPlayer)
+                {
+                    playerhealth -= shotbb.damageDealt;
+                }
+            }
+        }
+        if (collision.gameObject.tag == "explodey")
+        {
+            if (collision.name.Contains("Fire"))
+            {
+                FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
+
+                //If explosion not created by player, take damage
+                if (!fb.shotByPlayer)
+                {
+                    playerhealth -= fb.damageDealt;
+                }
+            }
+            else if (collision.name.Contains("Kaboom"))
+            {
+                DamageStoreExplodeBehavior dseb = collision.gameObject.
+                    GetComponent<DamageStoreExplodeBehavior>();
+
+                //If explosion not created by player, take damage
+                if (!dseb.shotByPlayer)
+                {
+                    playerhealth -= dseb.damageDealt;
+                }
+            }
         }
     }
 
