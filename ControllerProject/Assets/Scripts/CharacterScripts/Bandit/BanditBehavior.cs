@@ -61,12 +61,13 @@ public class BanditBehavior : MonoBehaviour
     [SerializeField] private GameObject firecrackerExplosive;
     [SerializeField] private GameObject cocktailExplosive;
     [SerializeField] private GameObject atkPoint;
-    [SerializeField] private int playerhealth = 100;
+    [SerializeField] private int playerhealth = 150;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
     Coroutine stopMe;
     private GameObject player1;
     [SerializeField] private int cells;
+    public bool freeMove;
 
     private UIManagerBehavior uim;
 
@@ -435,6 +436,10 @@ public class BanditBehavior : MonoBehaviour
             canAttack = false;
         }
         ClampPlayer(transform.position);
+        if (playerhealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
@@ -447,7 +452,7 @@ public class BanditBehavior : MonoBehaviour
     {
         Vector2 playerBind = pos;
 
-        if (player1 != null)
+        if (player1 != null && !freeMove)
         {
             Vector2 camPos = player1.transform.position;
             if (camPos.x - pos.x > 8f)
