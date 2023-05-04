@@ -7,6 +7,7 @@ public class SmallFirecrackerBehavior : MonoBehaviour
     [SerializeField] GameObject kaboom;
     public float damageDealt;
     GameObject destroyThisObject;
+    public bool shotByPlayer = true;
 
     Color flash1 = new Color(255, 255, 255);
     Color flash2 = new Color(255, 0, 0);
@@ -25,6 +26,8 @@ public class SmallFirecrackerBehavior : MonoBehaviour
         yield return new WaitForSeconds(explodeCountdown);
         destroyThisObject=Instantiate(kaboom, transform.position, Quaternion.
             identity);
+        destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().shotByPlayer
+            = shotByPlayer;
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt 
             = damageDealt;
         yield return new WaitForSeconds(.1f);

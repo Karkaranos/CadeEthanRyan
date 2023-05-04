@@ -198,8 +198,8 @@ public class StenoCerberusBehavior : MonoBehaviour
                 SprayShotgunBulletBehavior ssbb =
                     collision.GetComponent<SprayShotgunBulletBehavior>();
                 health -= ssbb.damageDealt;
-            }
-            if (collision.name.Contains("Shotgun"))
+            } 
+            else if (collision.name.Contains("Shotgun"))
             {
                 ShotgunBulletBehavior shotbb =
                     collision.gameObject.GetComponent<ShotgunBulletBehavior>();
@@ -220,8 +220,9 @@ public class StenoCerberusBehavior : MonoBehaviour
                     {
                         StopCoroutine(exploding);
                         gc.RemoveEnemy();
-                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
-                            GetComponent<LootTableAndDropBehavior>();
+                        LootTableAndDropBehavior loot = GameObject.Find
+                            ("Game Controller"). GetComponent
+                            <LootTableAndDropBehavior>();
                         loot.DropLoot(transform.position);
                         killed = true;
                         GameObject destroyMe;
@@ -263,7 +264,8 @@ public class StenoCerberusBehavior : MonoBehaviour
                     {
                         StopCoroutine(exploding);
                         gc.RemoveEnemy();
-                        LootTableAndDropBehavior loot = GameObject.Find("Game Controller").
+                        LootTableAndDropBehavior loot = GameObject.Find
+                            ("Game Controller").
                             GetComponent<LootTableAndDropBehavior>();
                         loot.DropLoot(transform.position);
                         killed = true;

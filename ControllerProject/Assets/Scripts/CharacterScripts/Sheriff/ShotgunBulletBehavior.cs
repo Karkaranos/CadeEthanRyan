@@ -20,6 +20,7 @@ public class ShotgunBulletBehavior : MonoBehaviour
     Vector2 moveForce = Vector2.zero;
     [SerializeField] GameObject bulletSpray;
     GameObject temp;
+    public bool shotByPlayer=true;
 
     //Storing the damage this deals
     public float damageDealt;
@@ -51,6 +52,8 @@ public class ShotgunBulletBehavior : MonoBehaviour
         angle += 30;
         temp = Instantiate(bulletSpray, transform.position,
             Quaternion.AngleAxis(angle, Vector3.forward));
+        temp.GetComponent<SprayShotgunBulletBehavior>().shotByPlayer = shotByPlayer;
+        temp.GetComponent<SprayShotgunBulletBehavior>().damageDealt = damageDealt;
         temp.GetComponent<Rigidbody2D>().AddForce(moveForce);
 
 
@@ -62,6 +65,8 @@ public class ShotgunBulletBehavior : MonoBehaviour
         angle -= 60;
         temp = Instantiate(bulletSpray, transform.position,
             Quaternion.AngleAxis(angle, Vector3.forward));
+        temp.GetComponent<SprayShotgunBulletBehavior>().shotByPlayer = shotByPlayer;
+        temp.GetComponent<SprayShotgunBulletBehavior>().damageDealt = damageDealt;
         temp.GetComponent<Rigidbody2D>().AddForce(moveForce);
 
 
@@ -70,49 +75,21 @@ public class ShotgunBulletBehavior : MonoBehaviour
         moveForce.y = dir.y;
         moveForce *= speed;
         GetComponent<Rigidbody2D>().AddForce(moveForce);
+        StartCoroutine(CanDealDamage());
         StartCoroutine(DespawnTimer());
     }
-    /*public virtual void Awake()
+
+    /// <summary>
+    /// Waits so the shooter will not damage themselves on accident
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator CanDealDamage()
     {
-        scope = GameObject.Find("Scope");
-        Vector2 scopePos = scope.transform.position;
-
-        //Code from robertbu on Stack Overflow- it gets the direction of the scope
-        //Then converts it to an angle and sets it
-        Vector3 dir = scope.transform.position - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-
-        //Spawns one offshoot bullet above/to the right of the main bullet and adds
-        //force
-        moveForce.x = dir.x + .25f;
-        moveForce.y = dir.y + .25f;
-        moveForce *= speed;
-        angle += 30;
-        temp=Instantiate(bulletSpray, transform.position, 
-            Quaternion.AngleAxis(angle, Vector3.forward));
-        temp.GetComponent<Rigidbody2D>().AddForce(moveForce);
-
-
-        //Spawns one offshoot bullet below/to the left of the main bullet and adds
-        //force
-        moveForce.x = dir.x-.25f;
-        moveForce.y = dir.y-.25f;
-        moveForce *= speed;
-        angle -= 60;
-        temp=Instantiate(bulletSpray, transform.position,
-            Quaternion.AngleAxis(angle, Vector3.forward));
-        temp.GetComponent<Rigidbody2D>().AddForce(moveForce);
-
-
-        //Adds force to the main bullet
-        moveForce.x = dir.x;
-        moveForce.y = dir.y;
-        moveForce *= speed;
-        GetComponent<Rigidbody2D>().AddForce(moveForce);
-        StartCoroutine(DespawnTimer());
-    }*/
+        float store = damageDealt;
+        damageDealt = 0;
+        yield return new WaitForSeconds(.05f);
+        damageDealt = store;
+    }
 
     /// <summary>
     /// Destrous the bullet after a set time to reduce lag
@@ -144,7 +121,9 @@ public class ShotgunBulletBehavior : MonoBehaviour
     /// <param name="collision">The object collided with</param>
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "World Objects")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == 
+            "World Objects" || (collision.gameObject.tag=="player" && 
+            !shotByPlayer&&damageDealt>0))
         {
             Destroy(gameObject);
         }

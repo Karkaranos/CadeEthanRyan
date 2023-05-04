@@ -158,7 +158,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
                     collision.GetComponent<SprayShotgunBulletBehavior>();
                 health -= ssbb.damageDealt;
             }
-            if (collision.name.Contains("Shotgun"))
+            else if (collision.name.Contains("Shotgun"))
             {
                 ShotgunBulletBehavior shotbb =
                     collision.gameObject.GetComponent<ShotgunBulletBehavior>();

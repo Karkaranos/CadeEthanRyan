@@ -15,5 +15,6 @@ public class SprayShotgunBulletBehavior : ShotgunBulletBehavior
     public override void Shoot(GameObject attackMe)
     {
         StartCoroutine(DespawnTimer());
+        StartCoroutine(CanDealDamage());
     }
 }

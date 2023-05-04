@@ -72,9 +72,5 @@ public class CameraBehavior : MonoBehaviour
             newPos.z = -10;
             transform.position = newPos;
         }
-        if(player2Obj==null && player1Obj == null)
-        {
-            print("cam Stop");
-        }
     }
 }

@@ -12,6 +12,7 @@ using UnityEngine;
 
 public class FirecrackerExplodeBehavior : FlashScript
 {
+    #region Variables
     [SerializeField] GameObject kaboom;
     [SerializeField] GameObject smallerKabooms;
     private int smallerExplosionsSpawned=5;
@@ -20,6 +21,12 @@ public class FirecrackerExplodeBehavior : FlashScript
     Vector3 scale;
     Vector2 smallExplodePos;
     List<GameObject> smallExplosions = new List<GameObject>();
+    public bool shotByPlayer=true;
+
+    #endregion Variables
+
+    //Handles overrides for class FlashScript
+    #region Function Overrides
 
     public override IEnumerator Kaboom(float explodeCountdown)
     {
@@ -27,6 +34,8 @@ public class FirecrackerExplodeBehavior : FlashScript
         scale = transform.localScale;
         destroyThisObject = Instantiate(kaboom, transform.position, transform.
             rotation);
+        destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().shotByPlayer =
+            shotByPlayer;
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt = 
             damageDealt;
         yield return new WaitForSeconds(.1f);
@@ -43,9 +52,10 @@ public class FirecrackerExplodeBehavior : FlashScript
         foreach(GameObject i in smallExplosions)
         {
             i.GetComponent<SmallFirecrackerBehavior>().damageDealt = damageDealt / 5;
+            i.GetComponent<SmallFirecrackerBehavior>().shotByPlayer = shotByPlayer;
             i.GetComponent<SmallFirecrackerBehavior>().Flash(2f);
         }
         Destroy(gameObject);
     }
-
+    #endregion
 }

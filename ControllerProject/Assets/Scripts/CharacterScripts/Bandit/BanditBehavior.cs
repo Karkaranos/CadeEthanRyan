@@ -61,7 +61,7 @@ public class BanditBehavior : MonoBehaviour
     [SerializeField] private GameObject firecrackerExplosive;
     [SerializeField] private GameObject cocktailExplosive;
     [SerializeField] private GameObject atkPoint;
-    [SerializeField] private int playerhealth = 150;
+    [SerializeField] private float playerhealth = 150;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
     Coroutine stopMe;
@@ -71,7 +71,7 @@ public class BanditBehavior : MonoBehaviour
 
     private UIManagerBehavior uim;
 
-    public int Playerhealth { get => playerhealth; set => playerhealth = value; }
+    public float Playerhealth { get => playerhealth; set => playerhealth = value; }
 
     public int Ammo { get => ammo; set => ammo = value; }
 
@@ -185,6 +185,8 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(dynamiteExplosive, scope.transform.
                             position, Quaternion.identity);
+                        temp.GetComponent<BanditExplodeBehavior>().shotByPlayer =
+                            true;
                         temp.GetComponent<BanditExplodeBehavior>().damageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<BanditExplodeBehavior>().Flash();
@@ -195,6 +197,8 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(cocktailExplosive, scope.transform.
                             position, Quaternion.identity);
+                        temp.GetComponent<CocktailExplodeBehavior>().shotByPlayer =
+                            true;
                         temp.GetComponent<CocktailExplodeBehavior>().damageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<CocktailExplodeBehavior>().Flash();
@@ -205,8 +209,10 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(firecrackerExplosive, scope.transform.
                             position,Quaternion.identity);
-                        temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
-                            weapon.ChargeDmg;
+                        temp.GetComponent<FirecrackerExplodeBehavior>().shotByPlayer
+                            = true;
+                        temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt 
+                            = weapon.ChargeDmg;
                         temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
                         StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>
                             ().Kaboom(firecrackerIgnitionToExplode));
@@ -259,6 +265,8 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(dynamiteExplosive, scope.transform.
                             position,Quaternion.identity);
+                        temp.GetComponent<BanditExplodeBehavior>().shotByPlayer = 
+                            true;
                         temp.GetComponent<BanditExplodeBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<BanditExplodeBehavior>().Flash();
@@ -269,6 +277,8 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(cocktailExplosive, scope.transform.
                             position, Quaternion.identity);
+                        temp.GetComponent<CocktailExplodeBehavior>().shotByPlayer =
+                            true;
                         temp.GetComponent<CocktailExplodeBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<CocktailExplodeBehavior>().Flash();
@@ -279,6 +289,8 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(firecrackerExplosive, scope.transform.
                             position, Quaternion.identity);
+                        temp.GetComponent<FirecrackerExplodeBehavior>().shotByPlayer =
+                            true;
                         temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
@@ -472,28 +484,12 @@ public class BanditBehavior : MonoBehaviour
                 playerBind.y = camPos.y + 4f;
             }
         }
-        /*if (pos.x > 8.4f)
-        {
-            playerBind.x = 8.4f;
-        }
-        if (pos.x < -8.4f)
-        {
-            playerBind.x = -8.4f;
-        }
-        if (pos.y > 4.5f)
-        {
-            playerBind.y = 4.5f;
-        }
-        if (pos.y < -4.5f)
-        {
-            playerBind.y = -4.5f;
-        }*/
         transform.position = playerBind;
     }
 
     #endregion
 
-    //Handles collisions with Enemies
+    //Handles collisions with Enemies and Boss Attacks
     #region Collisions
 
 
@@ -526,6 +522,78 @@ public class BanditBehavior : MonoBehaviour
             //Take turret damage
             print("Hit by Cactus Spike");
             Playerhealth -= 1;
+        }
+        //Boss Attack damage
+        if (collision.gameObject.tag == "bullet")
+        {
+            if (collision.name.Contains("Pistol"))
+            {
+                PistolBulletBehavior pbb =
+                    collision.gameObject.GetComponent<PistolBulletBehavior>();
+
+                //if bullet not shot by a player, take damage
+                if (!pbb.shotByPlayer)
+                {
+                    playerhealth -= pbb.damageDealt;
+                }
+            }
+            if (collision.name.Contains("Revolver"))
+            {
+                SheriffBulletBehavior sbb =
+                    collision.gameObject.GetComponent<SheriffBulletBehavior>();
+
+                //if bullet not shot by a player, take damage
+                if (!sbb.shotByPlayer)
+                {
+                    playerhealth -= sbb.damageDealt;
+                }
+            }
+            if (collision.name.Contains("Spray"))
+            {
+                SprayShotgunBulletBehavior ssbb =
+                    collision.GetComponent<SprayShotgunBulletBehavior>();
+
+                //if bullet not shot by a player, take damage
+                if (!ssbb.shotByPlayer)
+                {
+                    playerhealth -= ssbb.damageDealt;
+                }
+            }
+            else if (collision.name.Contains("Shotgun"))
+            {
+                ShotgunBulletBehavior shotbb =
+                    collision.gameObject.GetComponent<ShotgunBulletBehavior>();
+
+                //if bullet not shot by a player, take damage
+                if (!shotbb.shotByPlayer)
+                {
+                    playerhealth -= shotbb.damageDealt;
+                }
+            }
+        }
+        if (collision.gameObject.tag == "explodey")
+        {
+            if (collision.name.Contains("Fire"))
+            {
+                FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
+
+                //If explosion not created by player, take damage
+                if (!fb.shotByPlayer)
+                {
+                    playerhealth -= fb.damageDealt;
+                }
+            }
+            else if (collision.name.Contains("Kaboom"))
+            {
+                DamageStoreExplodeBehavior dseb = collision.gameObject.
+                    GetComponent<DamageStoreExplodeBehavior>();
+
+                //If explosion not created by player, take damage
+                if (!dseb.shotByPlayer)
+                {
+                    playerhealth -= dseb.damageDealt;
+                }
+            }
         }
     }
 
