@@ -44,20 +44,8 @@ public class SheriffBulletBehavior : MonoBehaviour
         moveForce *= speed;
         GetComponent<Rigidbody2D>().AddForce(moveForce);
         StartCoroutine(DespawnTimer());
-        StartCoroutine(CanDealDamage());
     }
 
-    /// <summary>
-    /// Waits so the shooter will not damage themselves on accident
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator CanDealDamage()
-    {
-        float store = damageDealt;
-        damageDealt = 0;
-        yield return new WaitForSeconds(.05f);
-        damageDealt = store;
-    }
 
 
     /// <summary>

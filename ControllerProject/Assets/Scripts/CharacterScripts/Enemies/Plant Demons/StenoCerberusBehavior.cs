@@ -28,6 +28,8 @@ public class StenoCerberusBehavior : MonoBehaviour
     private int healthWhileExplode = 5;
     Coroutine exploding;
     private bool killed = false;
+    public float spikeDamage=1;
+    public float explodeDamage=3;
 
     //References to players and setting targets
     private int target;
@@ -111,6 +113,8 @@ public class StenoCerberusBehavior : MonoBehaviour
                     spikesShot.Add(objectSpawned);
                     objectSpawned.GetComponent<CactusSpikeBehavior>().
                         GetTarget(targetObject);
+                    objectSpawned.GetComponent<CactusSpikeBehavior>().damageDealt = 
+                        spikeDamage;
                 }
                 else if (attackingHead == 2&&!explodeStarted)
                 {
@@ -119,6 +123,8 @@ public class StenoCerberusBehavior : MonoBehaviour
                     spikesShot.Add(objectSpawned);
                     objectSpawned.GetComponent<CactusSpikeBehavior>().
                         GetTarget(targetObject);
+                    objectSpawned.GetComponent<CactusSpikeBehavior>().damageDealt = 
+                        spikeDamage;
                 }
                 else if (attackingHead==3&&!explodeStarted)
                 {
@@ -127,6 +133,8 @@ public class StenoCerberusBehavior : MonoBehaviour
                     spikesShot.Add(objectSpawned);
                     objectSpawned.GetComponent<CactusSpikeBehavior>().
                         GetTarget(targetObject);
+                    objectSpawned.GetComponent<CactusSpikeBehavior>().damageDealt = 
+                        spikeDamage;
                 }
             }
             yield return new WaitForSeconds(rateFired);
@@ -211,6 +219,7 @@ public class StenoCerberusBehavior : MonoBehaviour
                 {
                     explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
+                    explode.damageDealt = explodeDamage;
                     explodeStarted = true;
                 }
                 else

@@ -75,21 +75,9 @@ public class ShotgunBulletBehavior : MonoBehaviour
         moveForce.y = dir.y;
         moveForce *= speed;
         GetComponent<Rigidbody2D>().AddForce(moveForce);
-        StartCoroutine(CanDealDamage());
         StartCoroutine(DespawnTimer());
     }
 
-    /// <summary>
-    /// Waits so the shooter will not damage themselves on accident
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerator CanDealDamage()
-    {
-        float store = damageDealt;
-        damageDealt = 0;
-        yield return new WaitForSeconds(.05f);
-        damageDealt = store;
-    }
 
     /// <summary>
     /// Destrous the bullet after a set time to reduce lag

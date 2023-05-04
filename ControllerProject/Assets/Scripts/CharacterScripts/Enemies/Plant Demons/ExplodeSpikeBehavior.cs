@@ -15,6 +15,7 @@ public class ExplodeSpikeBehavior : MonoBehaviour
 
     Vector2 spikeTarget;
     [SerializeField] private float despawnTime = 2;
+    public float damageDealt;
     #endregion
 
     #region Functions
@@ -37,7 +38,7 @@ public class ExplodeSpikeBehavior : MonoBehaviour
     {
         int dir = Random.Range(1, 3);
         spikeTarget.x = Random.Range((transform.position.x + 3),
-    (transform.position.x + 10));
+            (transform.position.x + 10));
         if (dir == 1)
         {
             spikeTarget.x *= -1;
@@ -45,7 +46,7 @@ public class ExplodeSpikeBehavior : MonoBehaviour
 
         dir = Random.Range(1, 3);
         spikeTarget.y = Random.Range((transform.position.y + 3),
-    (transform.position.y + 10));
+            (transform.position.y + 10));
         if (dir == 1)
         {
             spikeTarget.y *= -1;

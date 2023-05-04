@@ -551,17 +551,19 @@ public class SheriffBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Large TumbleFiend(Clone)" || collision.gameObject.name == "Large TumbleFiend")
+        if (collision.gameObject.name == "Large TumbleFiend(Clone)")
         {
             //take large tumble damage
-            Playerhealth -= 5;
-            print("Hit by Large Tumble");
+            LargeTumbleFiendBehavior ltfb = collision.gameObject.GetComponent
+                <LargeTumbleFiendBehavior>();
+            playerhealth -= ltfb.damageDealt;
         }
         if (collision.gameObject.name == "Small TumbleFiend(Clone)")
         {
             //take large tumble damage
-            print("Hit by Small Tumble");
-            Playerhealth -= 3;
+            SmallTumbleFiendBehavior stfb = collision.gameObject.GetComponent
+                <SmallTumbleFiendBehavior>();
+            playerhealth -= stfb.sDamageDealt;
         }
     }
 
@@ -569,15 +571,23 @@ public class SheriffBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "explosion")
         {
-            //Take explosion Damage
-            print("Hit by Explosion");
-            Playerhealth -= 3;
+            if (collision.name.Contains("Kami"))
+            {
+                DamageStoreExplodeBehavior dseb = collision.
+                    GetComponent<DamageStoreExplodeBehavior>();
+                playerhealth -= dseb.damageDealt;
+            }
+            if (collision.name.Contains("Spike"))
+            {
+                ExplodeSpikeBehavior esb = collision.GetComponent
+                    <ExplodeSpikeBehavior>();
+                playerhealth -= esb.damageDealt;
+            }
         }
         if (collision.gameObject.tag == "Spike")
         {
-            //Take turret damage
-            print("Hit by Cactus Spike");
-            Playerhealth -= 1;
+            CactusSpikeBehavior csb = collision.GetComponent<CactusSpikeBehavior>();
+            playerhealth -= csb.damageDealt;
         }
 
         //Boss Attack damage
