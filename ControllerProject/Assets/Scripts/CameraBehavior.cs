@@ -15,6 +15,7 @@ public class CameraBehavior : MonoBehaviour
     GameObject player1Obj;
     bool followPlayer=false;
     Vector3 newPos;
+    GameObject player2Obj;
     /// <summary>
     /// Start is called before the first frame update. Checks for players
     /// </summary>
@@ -39,6 +40,10 @@ public class CameraBehavior : MonoBehaviour
             {
                 followPlayer = true;
             }
+            if (player2Obj == null)
+            {
+                player2Obj = GameObject.Find("Grayboxed Bandit(Clone)");
+            }
             yield return new WaitForSeconds(1);
         }
     }
@@ -49,9 +54,21 @@ public class CameraBehavior : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (followPlayer)
+        if (followPlayer&&player2Obj==null&&player1Obj!=null)
         {
             newPos = player1Obj.transform.position;
+            newPos.z = -10;
+            transform.position = newPos;
+        }
+        if (followPlayer && player2Obj != null && player1Obj!=null)
+        {
+            newPos = player1Obj.transform.position;
+            newPos.z = -10;
+            transform.position = newPos;
+        }
+        if (followPlayer && player2Obj!=null &&player1Obj==null)
+        {
+            newPos = player2Obj.transform.position;
             newPos.z = -10;
             transform.position = newPos;
         }

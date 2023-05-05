@@ -110,6 +110,7 @@ MonoBehaviour:
   explosionSize: 3
   explodeRange: {fileID: 8217712592793994439, guid: 708a5c635e135b24dbc2d9cf6d553c6c, type: 3}
   killed: 0
+  damageDealt: 3
 --- !u!114 &5630606698234742364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +129,8 @@ MonoBehaviour:
   destroyMe: {fileID: 0}
   numSpikesSpawned: 12
   explodeSpike: {fileID: 2167011491982744580, guid: 31757019c3b6a33439130689adec8bf7, type: 3}
+  damageDealt: 0
+  shotByPlayer: 0
 --- !u!50 &1090642607864066805
 Rigidbody2D:
   serializedVersion: 4

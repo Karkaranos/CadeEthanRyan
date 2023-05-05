@@ -17,6 +17,7 @@ public class SheriffBulletBehavior : MonoBehaviour
     GameObject target;
     private float speed = .1f;
     Vector2 moveForce = Vector2.zero;
+    public bool shotByPlayer=true;
 
     //Storing the damage this deals
     public float damageDealt;
@@ -44,6 +45,8 @@ public class SheriffBulletBehavior : MonoBehaviour
         GetComponent<Rigidbody2D>().AddForce(moveForce);
         StartCoroutine(DespawnTimer());
     }
+
+
 
     /// <summary>
     /// Destrous the bullet after a set time to reduce lag
@@ -74,7 +77,9 @@ public class SheriffBulletBehavior : MonoBehaviour
     /// <param name="collision">The object collided with</param>
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy"||collision.gameObject.tag=="World Objects")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag ==
+            "World Objects" || (collision.gameObject.tag == "player" &&
+            !shotByPlayer && damageDealt > 0))
         {
             Destroy(gameObject);
         }

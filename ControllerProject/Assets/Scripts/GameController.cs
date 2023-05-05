@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     private bool gameStarted=false;
     private int numToSpawn;
     private int spawnedAtOnce=6;
+    private bool startedSave;
 
 
     private int changeKamiRate;
@@ -36,6 +37,8 @@ public class GameController : MonoBehaviour
     //Player References
     GameObject player1Obj;
     SheriffBehavior player1;
+    GameObject player2Obj;
+    BanditBehavior player2;
 
 
     //Enemy Spawning
@@ -85,6 +88,10 @@ public class GameController : MonoBehaviour
             {
                 player1Obj = GameObject.Find("Grayboxed Sheriff(Clone)");
             }
+            if (player2Obj == null)
+            {
+                player2Obj = GameObject.Find("Grayboxed Bandit(Clone)");
+            }
             if (player1Obj != null&&!gameStarted)
             {
                 player1 = player1Obj.GetComponent<SheriffBehavior>();
@@ -101,6 +108,18 @@ public class GameController : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if(player1Obj==null && player2Obj == null && gameStarted)
+        {
+            SceneManager.LoadScene("LoseScreen");
+        }
+        if (player2Obj == null)
+        {
+            player2Obj = GameObject.Find("Grayboxed Bandit(Clone)");
+        }
+        if (player2Obj != null)
+        {
+            player2 = player2Obj.GetComponent<BanditBehavior>();
+        }
         if (player1Obj != null)
         {
             if (enemyCounter <= 2 && enemySpawnNum < numToSpawn)
@@ -109,7 +128,8 @@ public class GameController : MonoBehaviour
             }
             else
             {
-                if (enemyCounter == 0 && wave != 9 && !wavePause && player1Obj != null)
+                if (enemyCounter == 0 && wave != 9 && !wavePause && player1Obj != 
+                    null)
                 {
                     print("dsghjgd");
                     StartCoroutine(WaveBreak());
@@ -117,10 +137,22 @@ public class GameController : MonoBehaviour
                 }
             }
 
-            if (player1.Playerhealth <= 0 && player1Obj != null)
+            if (player1Obj != null && player1.Playerhealth <= 0 && player2Obj == 
+                null)
             {
                 SceneManager.LoadScene("LoseScreen");
             }
+
+            if (player2Obj != null && player2.Playerhealth <= 0 && player1Obj ==
+                null)
+            {
+                SceneManager.LoadScene("LoseScreen");
+            }
+            /*if(player1Obj!=null && player2Obj!=null && player1.Playerhealth<=0 && 
+                player2.Playerhealth <= 0)
+            {
+                SceneManager.LoadScene("LoseScreen");
+            }*/
         }
     }
 

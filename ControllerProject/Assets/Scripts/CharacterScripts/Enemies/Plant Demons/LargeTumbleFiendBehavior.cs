@@ -17,7 +17,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     [SerializeField] private GameObject smallTumble;
 
     //References to players and setting targets
-    private int target;
+    [SerializeField] private int target;
     private GameObject targetObject;
     [SerializeField] GameObject player1;
     [SerializeField] GameObject player2;
@@ -28,6 +28,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     [SerializeField] private int cellsForDeath;
     [SerializeField] private float health = 3;
     private bool dying = false;
+    public float damageDealt=5;
+
     #endregion Variables
 
     #region Functions
@@ -40,15 +42,30 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     {
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
         player2 = GameObject.Find("Grayboxed Bandit(Clone)");
-        target = 1;
-        target = Random.Range(1, 2);
+        target = Random.Range(1, 3);
         if (target == 1)
         {
-            targetObject = player1;
+            if (player1 != null)
+            {
+                targetObject = player1;
+                print("target found");
+            }
+            else
+            {
+                targetObject = player2;
+            }
         }
         else
         {
-            targetObject = player2;
+            if (player2 != null)
+            {
+                targetObject = player2;
+                print("target found");
+            }
+            else
+            {
+                targetObject = player1;
+            }
         }
         offset.x = 3;
         offset.y = 3;
@@ -64,7 +81,23 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     /// </summary>
     void Update()
     {
-        TrackTargetPlayer(targetObject);
+        if (targetObject == null)
+        {
+            print("target lost");
+            if (player1 != null)
+            {
+                targetObject = player1;
+            }
+            else if (player2!=null)
+            {
+                targetObject = player2;
+            }
+            
+        }
+        if (targetObject != null)
+        {
+            TrackTargetPlayer(targetObject);
+        }
     }
 
     /// <summary>
@@ -127,7 +160,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
                     collision.GetComponent<SprayShotgunBulletBehavior>();
                 health -= ssbb.damageDealt;
             }
-            if (collision.name.Contains("Shotgun"))
+            else if (collision.name.Contains("Shotgun"))
             {
                 ShotgunBulletBehavior shotbb =
                     collision.gameObject.GetComponent<ShotgunBulletBehavior>();
@@ -167,6 +200,7 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
     /// </summary>
     public virtual void OnDeath()
     {
+        GameObject temp;
         GameController gc = GameObject.Find("Game Controller").
             GetComponent<GameController>();
         Vector2 spawnPos = transform.position;
@@ -174,7 +208,8 @@ public class LargeTumbleFiendBehavior : MonoBehaviour
         {
             spawnPos.x += Random.Range(-1, 1);
             spawnPos.y += Random.Range(-1, 1);
-            Instantiate(smallTumble, spawnPos, transform.rotation);
+            temp = Instantiate(smallTumble, spawnPos, transform.rotation);
+            temp.GetComponent<SmallTumbleFiendBehavior>().damageDealt = damageDealt;
             spawnPos = transform.position;
             gc.enemyCounter++;
         }
