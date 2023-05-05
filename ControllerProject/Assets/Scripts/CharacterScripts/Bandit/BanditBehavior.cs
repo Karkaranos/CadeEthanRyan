@@ -185,9 +185,9 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(dynamiteExplosive, scope.transform.
                             position, Quaternion.identity);
-                        temp.GetComponent<BanditExplodeBehavior>().shotByPlayer =
+                        temp.GetComponent<BanditExplodeBehavior>().bShotByPlayer =
                             true;
-                        temp.GetComponent<BanditExplodeBehavior>().damageDealt =
+                        temp.GetComponent<BanditExplodeBehavior>().bDamageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<BanditExplodeBehavior>().Flash();
                         StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
@@ -199,7 +199,7 @@ public class BanditBehavior : MonoBehaviour
                             position, Quaternion.identity);
                         temp.GetComponent<CocktailExplodeBehavior>().shotByPlayer =
                             true;
-                        temp.GetComponent<CocktailExplodeBehavior>().damageDealt =
+                        temp.GetComponent<CocktailExplodeBehavior>().cDamageDealt =
                             weapon.ChargeDmg;
                         temp.GetComponent<CocktailExplodeBehavior>().Flash();
                         StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
@@ -209,9 +209,9 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(firecrackerExplosive, scope.transform.
                             position,Quaternion.identity);
-                        temp.GetComponent<FirecrackerExplodeBehavior>().shotByPlayer
+                        temp.GetComponent<FirecrackerExplodeBehavior>().fShotByPlayer
                             = true;
-                        temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt 
+                        temp.GetComponent<FirecrackerExplodeBehavior>().fDamageDealt 
                             = weapon.ChargeDmg;
                         temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
                         StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>
@@ -265,9 +265,9 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(dynamiteExplosive, scope.transform.
                             position,Quaternion.identity);
-                        temp.GetComponent<BanditExplodeBehavior>().shotByPlayer = 
+                        temp.GetComponent<BanditExplodeBehavior>().bShotByPlayer = 
                             true;
-                        temp.GetComponent<BanditExplodeBehavior>().damageDealt =
+                        temp.GetComponent<BanditExplodeBehavior>().bDamageDealt =
                             weapon.Dmg;
                         temp.GetComponent<BanditExplodeBehavior>().Flash();
                         StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
@@ -279,7 +279,7 @@ public class BanditBehavior : MonoBehaviour
                             position, Quaternion.identity);
                         temp.GetComponent<CocktailExplodeBehavior>().shotByPlayer =
                             true;
-                        temp.GetComponent<CocktailExplodeBehavior>().damageDealt =
+                        temp.GetComponent<CocktailExplodeBehavior>().cDamageDealt =
                             weapon.Dmg;
                         temp.GetComponent<CocktailExplodeBehavior>().Flash();
                         StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
@@ -289,9 +289,9 @@ public class BanditBehavior : MonoBehaviour
                     {
                         temp = Instantiate(firecrackerExplosive, scope.transform.
                             position, Quaternion.identity);
-                        temp.GetComponent<FirecrackerExplodeBehavior>().shotByPlayer
+                        temp.GetComponent<FirecrackerExplodeBehavior>().fShotByPlayer
                             = true;
-                        temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt 
+                        temp.GetComponent<FirecrackerExplodeBehavior>().fDamageDealt 
                             = weapon.Dmg;
                         temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
                         StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>

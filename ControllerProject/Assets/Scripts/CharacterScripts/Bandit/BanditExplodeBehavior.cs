@@ -13,8 +13,8 @@ public class BanditExplodeBehavior : FlashScript
 {
     [SerializeField] GameObject kaboom;
     GameObject destroyThisObject;
-    public float damageDealt;
-    public bool shotByPlayer = true;
+    public float bDamageDealt;
+    public bool bShotByPlayer = true;
 
     public override IEnumerator Kaboom(float explodeCountdown)
     {
