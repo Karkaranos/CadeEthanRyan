@@ -1412,7 +1412,7 @@ MonoBehaviour:
   smallTumble: {fileID: 7129858497728827855, guid: 2f12e81c83786eb469248fc50f5ac3dd, type: 3}
   boss: {fileID: 6217047579522872382, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
   enemyCounter: 0
-  wave: 1
+  wave: 5
   wave1Enemies: 3
   wave2Enemies: 6
   wave3Enemies: 4

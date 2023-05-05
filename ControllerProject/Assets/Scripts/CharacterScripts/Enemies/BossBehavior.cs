@@ -53,7 +53,8 @@ public class BossBehavior : MonoBehaviour
     Vector3 targetMovePos;
 
     //General variables
-    public float health = 200;
+    public float health = 300;
+    private float maxHealth;
     private float speed = 3;
     private bool moveToNextPhase = true;
     [SerializeField] private int BossPhase = 5;
@@ -63,12 +64,14 @@ public class BossBehavior : MonoBehaviour
 
     #region Functions
 
-
+    //Handles Start, Selecting a Phase, and Death behaviors
+    #region Set Up
     /// <summary>
     /// Spawns an initial tower for the boss
     /// </summary>
     void Start()
     {
+        maxHealth = health;
         towerSpawn = transform.position;
         towerSpawn.x -= 1;
         towerSpawn.y -= 3;
@@ -91,7 +94,16 @@ public class BossBehavior : MonoBehaviour
         Vector3 difference = transform.position - targetMovePos;
         if (towerList.Count == 0&&moveToNextPhase)
         {
-            BossPhase = Random.Range(1, 5);
+            //WEIGH THIS
+
+            if (health <= (maxHealth / 2))
+            {
+                BossPhase = Random.Range(1, 6);
+            }
+            else
+            {
+                BossPhase = Random.Range(1, 4);
+            }
             moveToNextPhase = false;
             waiting = false;
             //Move phase initialization
@@ -118,23 +130,23 @@ public class BossBehavior : MonoBehaviour
             }
         }
 
+        //Attacking Phase
+        if ((BossPhase == 2 || BossPhase == 3) && !attacking)
+        {
+            attackNum = Random.Range(1, 6);
+            BossAttack();
+        }
+
         //Tower Phase
-        if (BossPhase == 2&&towerList.Count==0)
+        if (BossPhase == 4&&towerList.Count==0)
         {
             SpawnTowers();
         }
 
         //Exhaustion Phase
-        if (BossPhase == 3 && !waiting)
+        if (BossPhase == 5 && !waiting)
         {
             StartCoroutine(BossExhaustion());
-        }
-
-        //Attacking Phase
-        if (BossPhase == 4&&!attacking)
-        {
-            attackNum = Random.Range(1, 6);
-            BossAttack();
         }
     }
 
@@ -167,6 +179,10 @@ public class BossBehavior : MonoBehaviour
         SceneManager.LoadScene("WinScreen");
 
     }
+    #endregion Set Up
+
+    //Handles actions for the boss's 4 phases
+    #region Boss Phases
 
     /// <summary>
     /// Moves the boss towards a previously chosen random location
@@ -297,7 +313,8 @@ public class BossBehavior : MonoBehaviour
             {
                 temp = Instantiate(dynamite, target.transform.position,
                                 Quaternion.identity);
-                temp.GetComponent<BanditExplodeBehavior>().damageDealt = dynamiteDmg;
+                temp.GetComponent<BanditExplodeBehavior>().bDamageDealt = 
+                    dynamiteDmg;
                 temp.GetComponent<BanditExplodeBehavior>().Flash();
                 StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
                     Kaboom(dynamiteTimer));
@@ -306,7 +323,8 @@ public class BossBehavior : MonoBehaviour
             {
                 temp = Instantiate(cocktail, target.transform.position,
                     Quaternion.identity);
-                temp.GetComponent<CocktailExplodeBehavior>().damageDealt = cocktailDmg;
+                temp.GetComponent<CocktailExplodeBehavior>().cDamageDealt = 
+                    cocktailDmg;
                 temp.GetComponent<CocktailExplodeBehavior>().Flash();
                 StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
                     Kaboom(cocktailTimer));
@@ -315,7 +333,7 @@ public class BossBehavior : MonoBehaviour
             {
                 temp = Instantiate(firecracker, target.transform.position,
                     Quaternion.identity);
-                temp.GetComponent<FirecrackerExplodeBehavior>().damageDealt =
+                temp.GetComponent<FirecrackerExplodeBehavior>().fDamageDealt =
                     firecrackerDmg;
                 temp.GetComponent<FirecrackerExplodeBehavior>().Flash();
                 StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>().
@@ -341,7 +359,9 @@ public class BossBehavior : MonoBehaviour
         }
         activeShield = Instantiate(shield, transform.position, Quaternion.identity);
     }
+    #endregion Boss Phases
 
+    //Handles collisions with player Attacks
     #region Collisions
     /// <summary>
     /// Handles collisions and triggers from player attacks
@@ -352,6 +372,88 @@ public class BossBehavior : MonoBehaviour
         if (canBeAttacked&&health>0)
         {
             if (collision.gameObject.tag == "bullet")
+            {
+                if (collision.name.Contains("Pistol"))
+                {
+                    PistolBulletBehavior pbb =
+                        collision.gameObject.GetComponent<PistolBulletBehavior>();
+
+                    //if bullet not shot by a player, take damage
+                    if (pbb.shotByPlayer)
+                    {
+                        health -= pbb.damageDealt;
+                    }
+                }
+                if (collision.name.Contains("Revolver"))
+                {
+                    SheriffBulletBehavior sbb =
+                        collision.gameObject.GetComponent<SheriffBulletBehavior>();
+
+                    //if bullet not shot by a player, take damage
+                    if (sbb.shotByPlayer)
+                    {
+                        health -= sbb.damageDealt;
+                    }
+                }
+                if (collision.name.Contains("Spray"))
+                {
+                    SprayShotgunBulletBehavior ssbb =
+                        collision.GetComponent<SprayShotgunBulletBehavior>();
+
+                    //if bullet not shot by a player, take damage
+                    if (ssbb.shotByPlayer)
+                    {
+                        health -= ssbb.damageDealt;
+                    }
+                }
+                else if (collision.name.Contains("Shotgun"))
+                {
+                    ShotgunBulletBehavior shotbb =
+                        collision.gameObject.GetComponent<ShotgunBulletBehavior>();
+
+                    //if bullet not shot by a player, take damage
+                    if (shotbb.shotByPlayer)
+                    {
+                        health -= shotbb.damageDealt;
+                    }
+                }
+                if (health <= 0 && !destroyed)
+                {
+                    destroyed = true;
+                    BossDeath();
+                }
+            }
+            if (collision.gameObject.tag == "explodey")
+            {
+                if (collision.name.Contains("Fire"))
+                {
+                    FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
+
+                    //If explosion not created by player, take damage
+                    if (fb.shotByPlayer)
+                    {
+                        health -= fb.damageDealt;
+                    }
+                }
+                else if (collision.name.Contains("Kaboom"))
+                {
+                    DamageStoreExplodeBehavior dseb = collision.gameObject.
+                        GetComponent<DamageStoreExplodeBehavior>();
+
+                    //If explosion not created by player, take damage
+                    if (dseb.shotByPlayer)
+                    {
+                        health -= dseb.damageDealt;
+                    }
+                }
+                if (health <= 0 && !destroyed)
+                {
+                    destroyed = true;
+                    BossDeath();
+                }
+            }
+
+            /*if (collision.gameObject.tag == "bullet")
             {
                 if (collision.name.Contains("Pistol"))
                 {
@@ -404,7 +506,7 @@ public class BossBehavior : MonoBehaviour
                     BossDeath();
 
                 }
-            }
+            }*/
         }
 
     }
