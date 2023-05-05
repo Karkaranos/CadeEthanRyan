@@ -96,13 +96,20 @@ public class BossBehavior : MonoBehaviour
         {
             //WEIGH THIS
 
-            if (health <= (maxHealth / 2))
+            if ((health <= (maxHealth / 2))&&(health>(maxHealth/4))) 
             {
                 BossPhase = Random.Range(1, 6);
             }
             else
             {
-                BossPhase = Random.Range(1, 4);
+                if (health <= maxHealth / 4)
+                {
+                    BossPhase = Random.Range(1, 7);
+                }
+                else
+                {
+                    BossPhase = Random.Range(1, 4);
+                }
             }
             moveToNextPhase = false;
             waiting = false;
@@ -133,20 +140,20 @@ public class BossBehavior : MonoBehaviour
         //Attacking Phase
         if ((BossPhase == 2 || BossPhase == 3) && !attacking)
         {
-            attackNum = Random.Range(1, 6);
+            attackNum = Random.Range(5, 10);
             BossAttack();
         }
 
-        //Tower Phase
-        if (BossPhase == 4&&towerList.Count==0)
-        {
-            SpawnTowers();
-        }
-
         //Exhaustion Phase
-        if (BossPhase == 5 && !waiting)
+        if (BossPhase == 4 && !waiting)
         {
             StartCoroutine(BossExhaustion());
+        }
+
+        //Tower Phase
+        if ((BossPhase == 5||BossPhase==6)&&towerList.Count==0)
+        {
+            SpawnTowers();
         }
     }
 
@@ -233,20 +240,24 @@ public class BossBehavior : MonoBehaviour
         targetNum = Random.Range(1, 3);
         if (targetNum == 1)
         {
-            target = player1;
-            print("Target 1");
+            if (player1 != null)
+            {
+                target = player1;
+            }
+            else
+            {
+                target = player2;
+            }
         }
         else
         {
             if (player2 != null)
             {
                 target = player2;
-                print("Target 2");
             }
             else
             {
                 target = player1;
-                print("Target Switched to 1");
             }
         }
         attacking = true;
