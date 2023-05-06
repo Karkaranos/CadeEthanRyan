@@ -29,6 +29,8 @@ public class FlashScript : MonoBehaviour
     float spawnAngle;
     public float damageDealt;
     public bool shotByPlayer=false;
+    public GameObject spawnedBy;
+    Quaternion angle;
 
     #endregion
 
@@ -52,6 +54,7 @@ public class FlashScript : MonoBehaviour
             shotByPlayer;
         destroyMe.GetComponent<DamageStoreExplodeBehavior>().damageDealt = 
             damageDealt;
+        StartCoroutine(CheckForNull());
         yield return new WaitForSeconds(.1f);
 
         //Spawns spikes that explode outward and sets their damage amount
@@ -62,7 +65,8 @@ public class FlashScript : MonoBehaviour
                 Quaternion.AngleAxis(spawnAngle, Vector3.forward)));
             spawnedSpikes[i].GetComponent<ExplodeSpikeBehavior>().damageDealt = 
                 damageDealt;
-
+            spawnedSpikes[i].GetComponent<ExplodeSpikeBehavior>().angle = 
+                spawnAngle;
         }
 
         //Destroy the enemy and explosion
@@ -83,6 +87,20 @@ public class FlashScript : MonoBehaviour
         StartCoroutine(ExplodeFlash());
     }
 
+
+    IEnumerator CheckForNull()
+    {
+        for(; ; )
+        {
+            if (spawnedBy == null)
+            {
+                Destroy(destroyMe);
+                print("Destroyed");
+            }
+            yield return new WaitForSeconds(.01f);
+        }
+
+    }
 
     /// <summary>
     /// Flashes the enemy's material between red and white while speeding up how

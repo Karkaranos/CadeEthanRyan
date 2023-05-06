@@ -16,6 +16,9 @@ public class ExplodeSpikeBehavior : MonoBehaviour
     Vector2 spikeTarget;
     [SerializeField] private float despawnTime = 2;
     public float damageDealt;
+    public float angle;
+    Vector3 eAngle;
+    Quaternion qAngle;
     #endregion
 
     #region Functions
@@ -36,22 +39,13 @@ public class ExplodeSpikeBehavior : MonoBehaviour
     /// </summary>
     public void SetTarget()
     {
-        int dir = Random.Range(1, 3);
-        spikeTarget.x = Random.Range((transform.position.x + 3),
-            (transform.position.x + 10));
-        if (dir == 1)
-        {
-            spikeTarget.x *= -1;
-        }
+        spikeTarget.x = Mathf.Cos(angle);
+        spikeTarget.y = Mathf.Sin(angle);
+        spikeTarget *= .1f;
 
-        dir = Random.Range(1, 3);
-        spikeTarget.y = Random.Range((transform.position.y + 3),
-            (transform.position.y + 10));
-        if (dir == 1)
-        {
-            spikeTarget.y *= -1;
-        }
-        spikeTarget *= .01f;
+        qAngle = Quaternion.Euler(spikeTarget.x*360, 0, spikeTarget.y*360);
+        transform.rotation = qAngle;
+
         GetComponent<Rigidbody2D>().AddForce(spikeTarget);
     }
 
