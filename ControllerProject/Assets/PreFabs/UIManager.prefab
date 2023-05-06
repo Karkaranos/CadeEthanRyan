@@ -64,9 +64,9 @@ MonoBehaviour:
   player1: {fileID: 0}
   healthBar: {fileID: 0}
   ammoBar: {fileID: 0}
-  pistol: {fileID: 21300000, guid: 6f6a09d8864de884e9547fea4e5a48a0, type: 3}
-  revolver: {fileID: 21300000, guid: b4574e8732f2bbd439b98b3b27392293, type: 3}
-  shotgun: {fileID: 21300000, guid: b2cef79c7d194dc419cdc6f0ccb8e44b, type: 3}
+  pistol: {fileID: 21300000, guid: 49887cb24f9d63f4a8236df905ba634c, type: 3}
+  revolver: {fileID: 21300000, guid: 48cb73b656234f34ea4679903c197aed, type: 3}
+  shotgun: {fileID: 21300000, guid: a3a13e9e0773ee54488d4c713a1c8c1b, type: 3}
   currWeapon: {fileID: 0}
   enemyCount: {fileID: 0}
   waveCount: {fileID: 0}
@@ -85,7 +85,7 @@ MonoBehaviour:
   player2: {fileID: 0}
   healthBar: {fileID: 0}
   ammoBar: {fileID: 0}
-  cocktail: {fileID: 21300000, guid: 5c12c4cc6a381cc45bf807ba91ab0dfa, type: 3}
-  dynamite: {fileID: 21300000, guid: bfb6158d2f2db044d8e241bbc82550c6, type: 3}
-  firecracker: {fileID: 21300000, guid: a40aa666eb9c3414583a0a611806fb82, type: 3}
+  cocktail: {fileID: 21300000, guid: addbed822f3d98c48919f3ea6fd0e467, type: 3}
+  dynamite: {fileID: 21300000, guid: 63af75316a3034040b316de5de5887ca, type: 3}
+  firecracker: {fileID: 21300000, guid: b0c1975eb44ebbc47a9494138c83ea42, type: 3}
   currWeapon: {fileID: 0}
