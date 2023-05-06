@@ -17,15 +17,17 @@ public class CocktailExplodeBehavior : MonoBehaviour
     [SerializeField] float flashInterval = .67f;
     [SerializeField] GameObject fire;
     int c = 0;
-    public float damageDealt;
+    public float cDamageDealt;
     GameObject temp;
+    public bool shotByPlayer = true;
 
 
     public virtual IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
         temp=Instantiate(fire, transform.position, transform.rotation);
-        temp.GetComponent<FireBehavior>().damageDealt = damageDealt / 2;
+        temp.GetComponent<FireBehavior>().shotByPlayer = shotByPlayer;
+        temp.GetComponent<FireBehavior>().damageDealt = cDamageDealt / 2;
         Destroy(gameObject);
     }
     public void Flash()

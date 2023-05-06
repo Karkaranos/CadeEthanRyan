@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 872037930168073440}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head3 AtkPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 872037930188857549}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head 1 AtkPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 872037930712580534}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head2 AtkPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 8656584842235155026}
   - component: {fileID: 680868467338227210}
   - component: {fileID: 7662861018807562572}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StenoCeberus
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -150,6 +150,8 @@ MonoBehaviour:
   atkPoint1: {fileID: 872037930188857548}
   atkPoint2: {fileID: 872037930712580533}
   atkPoint3: {fileID: 872037930168073455}
+  spikeDamage: 1
+  explodeDamage: 3
   player1: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
   player2: {fileID: 0}
   health: 16
@@ -171,6 +173,8 @@ MonoBehaviour:
   destroyMe: {fileID: 0}
   numSpikesSpawned: 12
   explodeSpike: {fileID: 2167011491982744580, guid: 31757019c3b6a33439130689adec8bf7, type: 3}
+  damageDealt: 0
+  shotByPlayer: 0
 --- !u!50 &2407197434869214690
 Rigidbody2D:
   serializedVersion: 4
@@ -252,14 +256,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -278836489, guid: 3bc96ffdda9309542b0fb213a0645455, type: 3}
-
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.2, y: 3.2}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -283,7 +286,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 2.8, y: 2.7}
-    newSize: {x: 3.2, y: 3.2}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

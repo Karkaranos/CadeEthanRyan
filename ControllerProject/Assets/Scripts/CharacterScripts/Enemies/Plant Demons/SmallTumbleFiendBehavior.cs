@@ -12,6 +12,11 @@ using UnityEngine;
 //Inherits from Large TumbleFiend Behavior
 public class SmallTumbleFiendBehavior : LargeTumbleFiendBehavior
 {
+    #region Variables
+    public float sDamageDealt=3;
+    #endregion
+
+
     //Contains Overrides for Large TumbleFiends
     #region Overrides
     /// <summary>

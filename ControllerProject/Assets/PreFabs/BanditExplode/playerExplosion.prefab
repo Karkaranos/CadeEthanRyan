@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bfb6158d2f2db044d8e241bbc82550c6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63af75316a3034040b316de5de5887ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,11 @@ MonoBehaviour:
   deathTimer: 5
   flashInterval: 0.67
   explode: {fileID: 0}
+  destroyMe: {fileID: 0}
   numSpikesSpawned: 12
   explodeSpike: {fileID: 0}
-  kaboom: {fileID: 1360213339838752088, guid: b6bf8f0297bab73499313d953ac10a68, type: 3}
   damageDealt: 0
+  shotByPlayer: 0
+  kaboom: {fileID: 1360213339838752088, guid: b6bf8f0297bab73499313d953ac10a68, type: 3}
+  bDamageDealt: 0
+  bShotByPlayer: 1

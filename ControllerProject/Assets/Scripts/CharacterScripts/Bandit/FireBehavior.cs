@@ -14,6 +14,7 @@ public class FireBehavior : MonoBehaviour
     Vector3 scale;
     float secondsToWait = .02f;
     public float damageDealt;
+    public bool shotByPlayer;
 
     /// <summary>
     /// Start is called before the first frame. Starts the despawn timer.

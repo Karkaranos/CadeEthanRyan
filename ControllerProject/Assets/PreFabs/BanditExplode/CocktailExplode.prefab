@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5c12c4cc6a381cc45bf807ba91ab0dfa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: addbed822f3d98c48919f3ea6fd0e467, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,4 +100,5 @@ MonoBehaviour:
   deathTimer: 5
   flashInterval: 0.67
   fire: {fileID: 7485977616413986338, guid: 8d7e12dd387d3014c941aad3dd82f7f4, type: 3}
-  damageDealt: 0
+  cDamageDealt: 0
+  shotByPlayer: 1
