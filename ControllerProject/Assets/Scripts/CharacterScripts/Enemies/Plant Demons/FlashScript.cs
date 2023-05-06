@@ -54,9 +54,9 @@ public class FlashScript : MonoBehaviour
             shotByPlayer;
         destroyMe.GetComponent<DamageStoreExplodeBehavior>().damageDealt = 
             damageDealt;
-        StartCoroutine(CheckForNull());
-        yield return new WaitForSeconds(.1f);
-
+        //StartCoroutine(CheckForNull());
+        yield return new WaitForSeconds(.2f);
+        transform.localScale = Vector3.zero;
         //Spawns spikes that explode outward and sets their damage amount
         for(int i = 0; i < numSpikesSpawned; i++)
         {
@@ -73,7 +73,6 @@ public class FlashScript : MonoBehaviour
         GameController gc = GameObject.Find("Game Controller").
             GetComponent<GameController>();
         gc.RemoveEnemy();
-        Destroy(destroyMe);
         Destroy(gameObject);
     }
 
@@ -94,8 +93,7 @@ public class FlashScript : MonoBehaviour
         {
             if (spawnedBy == null)
             {
-                Destroy(destroyMe);
-                print("Destroyed");
+                //Destroy(destroyMe);
             }
             yield return new WaitForSeconds(.01f);
         }
