@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject largeTumble;
     [SerializeField] GameObject smallTumble;
     [SerializeField] GameObject boss;
+    [SerializeField] GameObject spawnTest;
+    GameObject test;
     public int enemyCounter;
     public int wave = 1;
     private int enemySpawnNum;
@@ -28,6 +30,7 @@ public class GameController : MonoBehaviour
     private int numToSpawn;
     private int spawnedAtOnce=6;
     private bool startedSave;
+    private Vector2 spawnPos;
 
 
     private int changeKamiRate;
@@ -47,7 +50,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private int wave1Enemies;
     [Range(0, 10)]
     [SerializeField] private int wave2Enemies;
-    [Range(0, 10)]
+    [Range(0, 20)]
     [SerializeField] private int wave3Enemies;
     [Range(0, 20)]
     [SerializeField] private int wave4Enemies;
@@ -174,19 +177,19 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(5f);
                 numToSpawn = wave1Enemies;
                 canSpawn = true;
-                Wave1Spawn();
+                StartCoroutine(Wave1Spawn());
             }
             if (wave == 2)
             {
                 numToSpawn = wave2Enemies;
                 canSpawn = true;
-                Wave2Spawn();
+                StartCoroutine(Wave2Spawn());
             }
             if (wave == 3)
             {
                 numToSpawn = wave3Enemies;
                 canSpawn = true;
-                Wave3Spawn();
+                StartCoroutine(Wave3Spawn());
             }
             if (wave == 4)
             {
@@ -247,16 +250,24 @@ public class GameController : MonoBehaviour
     /// <summary>
     /// Spawns a wave of all large tumbles for the first wave
     /// </summary>
-    public void Wave1Spawn()
+    IEnumerator Wave1Spawn()
     {
-        for(int i=0; i < numToSpawn;i++)
+        for(int i=0; i < numToSpawn;)
         {
             if (canSpawn&&wave==1)
             {
-                print("Wave 1 spawn");
-                Instantiate(largeTumble, new Vector2(Random.Range(-20, 20),
-                    Random.Range(-20, 10)), Quaternion.identity);
-                AddEnemy();
+                spawnPos = new Vector2(Random.Range(-20, 20),
+                    Random.Range(-20, 10));
+                test = Instantiate(spawnTest, spawnPos, Quaternion.identity);
+                yield return new WaitForSeconds(.02f);
+                print(test.GetComponent<SpawnCheckBehavior>().isOverlapping);
+                if (test.GetComponent<SpawnCheckBehavior>().isOverlapping == false)
+                {
+                    Instantiate(largeTumble, spawnPos, Quaternion.identity);
+                    i++;
+                    AddEnemy();
+                }
+                Destroy(test);
                 if (enemySpawnNum == numToSpawn)
                 {
                     canSpawn = false;
@@ -268,16 +279,25 @@ public class GameController : MonoBehaviour
     /// <summary>
     /// Spawns a wave of all kamicactus for the second wave
     /// </summary>
-    public void Wave2Spawn()
+    IEnumerator Wave2Spawn()
     {
-        for (int i = 0; i < numToSpawn; i++)
+        for (int i = 0; i < numToSpawn;)
         {
             if (canSpawn && wave == 2)
             {
-                print("Wave 2 spawn");
-                Instantiate(kamicactus, new Vector2(Random.Range(-20, 20),
-                    Random.Range(-20, 10)), Quaternion.identity);
-                AddEnemy();
+                spawnPos = new Vector2(Random.Range(-20, 20),
+                    Random.Range(-20, 10));
+                test = Instantiate(spawnTest, spawnPos, Quaternion.identity);
+                yield return new WaitForSeconds(.02f);
+                print(test.GetComponent<SpawnCheckBehavior>().isOverlapping);
+                if (test.GetComponent<SpawnCheckBehavior>().isOverlapping == false)
+                {
+                    Instantiate(kamicactus, spawnPos, Quaternion.identity);
+                    i++;
+                    AddEnemy();
+                }
+                Destroy(test);
+
                 if (enemySpawnNum == numToSpawn)
                 {
                     canSpawn = false;
@@ -289,16 +309,26 @@ public class GameController : MonoBehaviour
     /// <summary>
     /// Spawns a wave of all Stenocerberus for the third wave
     /// </summary>
-    public void Wave3Spawn()
+    IEnumerator Wave3Spawn()
     {
-        for (int i = 0; i < numToSpawn; i++)
+        for (int i = 0; i < numToSpawn;)
         {
             if (canSpawn && wave == 3)
             {
-                print("Wave 3 spawn");
-                Instantiate(stenocerberus, new Vector2(Random.Range(-20, 20),
-                    Random.Range(-20, 10)), Quaternion.identity);
-                AddEnemy();
+                spawnPos = new Vector2(Random.Range(-20, 20),
+                    Random.Range(-20, 10));
+                test = Instantiate(spawnTest, spawnPos, Quaternion.identity);
+                yield return new WaitForSeconds(.02f);
+                print(test.GetComponent<SpawnCheckBehavior>().isOverlapping);
+                if (test.GetComponent<SpawnCheckBehavior>().isOverlapping == false)
+                {
+                    Instantiate(stenocerberus, spawnPos, Quaternion.identity);
+                    i++;
+                    AddEnemy();
+                }
+
+                Destroy(test);
+
                 if (enemySpawnNum == numToSpawn)
                 {
                     canSpawn = false;
@@ -326,21 +356,33 @@ public class GameController : MonoBehaviour
                     //Spawns a mix of Kamicactus and Tumbles for wave 4
                     if (wave == 4)
                     {
-                        print("Wave 4 spawn");
-                        enemyType = Random.Range(1, 3);
-                        print("Type Spawned: " + enemyType);
-                        if (enemyType == 1)
+                        spawnPos = new Vector2(Random.Range(-33, 40),
+                            Random.Range(-33, 40));
+                        test = Instantiate(spawnTest, spawnPos, Quaternion.
+                            identity);
+                        yield return new WaitForSeconds(.02f);
+                        print(test.GetComponent<SpawnCheckBehavior>().isOverlapping);
+                        if (test.GetComponent<SpawnCheckBehavior>().isOverlapping ==
+                            false)
                         {
-                            Instantiate(kamicactus, new Vector2(Random.Range(-33, 
-                                40),Random.Range(-32, 14)), Quaternion.identity);
-                            AddEnemy();
+                            enemyType = Random.Range(1, 3);
+                            print("Type Spawned: " + enemyType);
+                            if (enemyType == 1)
+                            {
+                                Instantiate(kamicactus, new Vector2(Random.Range(-33,
+                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                AddEnemy();
+                                i++;
+                            }
+                            else
+                            {
+                                Instantiate(largeTumble, new Vector2(Random.Range(-33,
+                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                AddEnemy();
+                                i++;
+                            }
                         }
-                        else
-                        {
-                            Instantiate(largeTumble, new Vector2(Random.Range(-33, 
-                                40),Random.Range(-32, 14)), Quaternion.identity);
-                            AddEnemy();
-                        }
+                        Destroy(test);
                         if (enemySpawnNum == numToSpawn)
                         {
                             canSpawn = false;
@@ -350,21 +392,32 @@ public class GameController : MonoBehaviour
                     //Spawns a wave of Stenos and Tumbles for wave 5
                     if (wave == 5)
                     {
-                        print("Wave 5 spawn");
-                        enemyType = Random.Range(1, 3);
-                        print("Type Spawned: " + enemyType);
-                        if (enemyType == 1)
+                        spawnPos = new Vector2(Random.Range(-33, 40),
+                            Random.Range(-33, 40));
+                        test = Instantiate(spawnTest, spawnPos, Quaternion.
+                            identity);
+                        yield return new WaitForSeconds(.02f);
+                        if (test.GetComponent<SpawnCheckBehavior>().isOverlapping ==
+                            false)
                         {
-                            Instantiate(stenocerberus, new Vector2(Random.Range(-33,
-                                40),Random.Range(-32, 14)), Quaternion.identity);
-                            AddEnemy();
+                            enemyType = Random.Range(1, 3);
+                            print("Type Spawned: " + enemyType);
+                            if (enemyType == 1)
+                            {
+                                Instantiate(stenocerberus, new Vector2(Random.Range(-33,
+                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                AddEnemy();
+                                i++;
+                            }
+                            else
+                            {
+                                Instantiate(largeTumble, new Vector2(Random.Range(-33,
+                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                AddEnemy();
+                                i++;
+                            }
                         }
-                        else
-                        {
-                            Instantiate(largeTumble, new Vector2(Random.Range(-33, 
-                                40), Random.Range(-32, 14)), Quaternion.identity);
-                            AddEnemy();
-                        }
+                        Destroy(test);
                         if (enemySpawnNum == numToSpawn)
                         {
                             canSpawn = false;
@@ -375,27 +428,41 @@ public class GameController : MonoBehaviour
                     //Spawns a mix of all enemy types for waves 6, 7, and 8
                     if (wave >=6 && wave <=8)
                     {
-                        print("Wave " + wave +  " spawn");
-                        enemyType = Random.Range(1, 4);
-                        print("Type Spawned: " + enemyType);
-                        if (enemyType == 1)
+
+                        spawnPos = new Vector2(Random.Range(-33, 40),
+                            Random.Range(-33, 40));
+                        test = Instantiate(spawnTest, spawnPos, Quaternion.
+                            identity);
+                        yield return new WaitForSeconds(.02f);
+                        if (test.GetComponent<SpawnCheckBehavior>().isOverlapping ==
+                            false)
                         {
-                            Instantiate(stenocerberus, new Vector2(Random.Range(-33,
-                                40), Random.Range(-32, 14)), Quaternion.identity);
-                            AddEnemy();
+                            enemyType = Random.Range(1, 4);
+                            print("Type Spawned: " + enemyType);
+                            if (enemyType == 1)
+                            {
+                                Instantiate(stenocerberus, new Vector2(Random.Range(-33,
+                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                AddEnemy();
+                                i++;
+                            }
+                            if (enemyType == 2)
+                            {
+                                Instantiate(kamicactus, new Vector2(Random.Range(-33,
+                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                AddEnemy();
+                                i++;
+                            }
+                            if (enemyType == 3)
+                            {
+                                Instantiate(largeTumble, new Vector2(Random.Range(-33,
+                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                AddEnemy();
+                                i++;
+                            }
                         }
-                        if (enemyType == 2)
-                        {
-                            Instantiate(kamicactus, new Vector2(Random.Range(-33, 
-                                40),Random.Range(-32, 14)), Quaternion.identity);
-                            AddEnemy();
-                        }
-                        if (enemyType == 3)
-                        {
-                            Instantiate(largeTumble, new Vector2(Random.Range(-33, 
-                                40), Random.Range(-32, 14)), Quaternion.identity);
-                            AddEnemy();
-                        }
+                        Destroy(test);
+
                         if (enemySpawnNum == numToSpawn)
                         {
                             canSpawn = false;
