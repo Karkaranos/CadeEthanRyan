@@ -204,6 +204,7 @@ public class KamicactusBehavior : MonoBehaviour
                     explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explodeStarted = true;
+                    explode.spawnedBy = this.gameObject;
                     speed = 2;
                 }
                 else
@@ -244,6 +245,7 @@ public class KamicactusBehavior : MonoBehaviour
                     explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explodeStarted = true;
+                    explode.spawnedBy = this.gameObject;
                     speed = 2;
                 }
                 else

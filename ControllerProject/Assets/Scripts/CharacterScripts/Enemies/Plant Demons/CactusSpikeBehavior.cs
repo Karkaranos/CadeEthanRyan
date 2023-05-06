@@ -35,7 +35,21 @@ public class CactusSpikeBehavior : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-
+        if (dir.magnitude <= 5)
+        {
+            speed = .03f;
+        }
+        else
+        {
+            if (dir.magnitude <= 10)
+            {
+                speed = .02f;
+            }
+            else
+            {
+                speed = .01f;
+            }
+        }
         moveForce.x = dir.x;
         moveForce.y = dir.y;
         moveForce *= speed;

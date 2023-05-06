@@ -12,14 +12,20 @@ public class LootTableAndDropBehavior : MonoBehaviour
     private int totalChances=1;
     private int totalPool=20;
 
+    /// <summary>
+    /// Has the potential to spawn items at the position where an enemy died
+    /// </summary>
+    /// <param name="pos">the dead enemy's position</param>
     public void DropLoot(Vector2 pos)
     {
-        Instantiate(cell, pos, Quaternion.identity);
+        GameController gc = GameObject.Find("Game Controller").
+            GetComponent<GameController>();
+        //Instantiate(cell, pos, Quaternion.identity);
         for(int i=0; i<totalChances; i++)
         {
             randomNum = Random.Range(1, totalPool+1);
 
-            //Spawn an extra cell with a 1 in 20 chance
+            //Spawn a cell with a 1 in 20 chance
             if(randomNum ==1)
             {
                 pos.x += Random.Range(-1, 1);
@@ -27,21 +33,31 @@ public class LootTableAndDropBehavior : MonoBehaviour
                 Instantiate(cell, pos, Quaternion.identity);
             }
 
-            //Spawn health with a 3 in 20 chance
-            if(randomNum >=5 && randomNum <= 7)
+            //Spawn health with a 3 in 20 chance if in the first half of waves
+            if(randomNum >=5 && randomNum <= 7 && gc.wave <= 4)
             {
                 pos.x += Random.Range(-1, 1);
                 pos.y += Random.Range(-1, 1);
                 Instantiate(health, pos, Quaternion.identity);
             }
 
-            //Spawn ammo with a 2 in 10 chance
-            if(randomNum>=12 && randomNum <= 15)
+            //Spawn health with a 2 in 5 chance if in the second half of waves
+            if (randomNum >= 5 && randomNum <= 8 && gc.wave > 4)
+            {
+                pos.x += Random.Range(-1, 1);
+                pos.y += Random.Range(-1, 1);
+                Instantiate(health, pos, Quaternion.identity);
+            }
+
+            //Spawn ammo with a 3 in 20 chance 
+            if (randomNum>=12 && randomNum <= 15)
             {
                 pos.x += Random.Range(-1, 1);
                 pos.y += Random.Range(-1, 1);
                 Instantiate(ammo, pos, Quaternion.identity);
             }
+
+
         }
     }
 }
