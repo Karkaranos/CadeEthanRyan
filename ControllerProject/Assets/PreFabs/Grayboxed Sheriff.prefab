@@ -235,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8803561458639646723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5755291, y: -0.07400878, z: 0}
+  m_LocalPosition: {x: 0.762, y: -0.228, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -284,7 +284,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b4574e8732f2bbd439b98b3b27392293, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 48cb73b656234f34ea4679903c197aed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -433,9 +433,9 @@ MonoBehaviour:
   scopeDistance: 0
   dmgShot: 0
   sheriff: {fileID: 8803561458009023020}
-  revolver: {fileID: 21300000, guid: b4574e8732f2bbd439b98b3b27392293, type: 3}
-  shotgun: {fileID: 21300000, guid: b2cef79c7d194dc419cdc6f0ccb8e44b, type: 3}
-  pistol: {fileID: 21300000, guid: 6f6a09d8864de884e9547fea4e5a48a0, type: 3}
+  revolver: {fileID: 21300000, guid: 48cb73b656234f34ea4679903c197aed, type: 3}
+  shotgun: {fileID: 21300000, guid: a3a13e9e0773ee54488d4c713a1c8c1b, type: 3}
+  pistol: {fileID: 21300000, guid: 49887cb24f9d63f4a8236df905ba634c, type: 3}
   revolverBullet: {fileID: 6654295249230590641, guid: 6e13fa98b814dc5419c4a97e987dbba5, type: 3}
   shotgunBullet: {fileID: 5812975587884874350, guid: 4ca1c0d494a80184599bb8aec495812d, type: 3}
   pistolBullet: {fileID: 8809106737771665756, guid: ae1c34ad93e582e488c9ae8012241856, type: 3}
