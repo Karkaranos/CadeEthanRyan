@@ -12,8 +12,10 @@ using UnityEngine;
 [System.Serializable]
 public class Dialogue 
 {
+    //name of the npc
     public string name;
 
+    //NPC sentences
     [TextArea(3, 10)]
     public string[] sentences;
 }
