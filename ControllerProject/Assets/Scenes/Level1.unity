@@ -1339,14 +1339,14 @@ MonoBehaviour:
   spawnTest: {fileID: 86713797488954534, guid: c14b14830ab3cf74fb6f8dcd6d050005, type: 3}
   enemyCounter: 0
   wave: 1
-  wave1Enemies: 1
-  wave2Enemies: 1
-  wave3Enemies: 2
-  wave4Enemies: 1
-  wave5Enemies: 1
-  wave6Enemies: 3
-  wave7Enemies: 3
-  wave8Enemies: 4
+  wave1Enemies: 3
+  wave2Enemies: 6
+  wave3Enemies: 4
+  wave4Enemies: 5
+  wave5Enemies: 8
+  wave6Enemies: 11
+  wave7Enemies: 16
+  wave8Enemies: 20
   kamicactusSpawnMultiplier: 3
   stenocerberusSpawnMultiplier: 3
   largeTumbleSpawnMultiplier: 3
