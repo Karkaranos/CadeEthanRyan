@@ -68,7 +68,6 @@ public class SheriffBulletBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
 
     /// <summary>

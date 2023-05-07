@@ -28,10 +28,39 @@ public class IncreaseStat : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        sb = GameObject.Find("Grayboxed Sheriff(Clone)").GetComponent<SheriffBehavior>();
+        StartCoroutine(CheckForPlayers());
+       /* sb = GameObject.Find("Grayboxed Sheriff(Clone)").GetComponent<SheriffBehavior>();
         if(GameObject.Find("Grayboxed Bandit(Clone)") != null)
         {
             bb = GameObject.Find("Grayboxed Bandit(Clone)").GetComponent<BanditBehavior>();
+        }*/
+    }
+
+    IEnumerator CheckForPlayers()
+    {
+        GameObject sheriff = GameObject.Find("Grayboxed Sheriff(Clone)");
+        GameObject bandit = GameObject.Find("Grayboxed Bandit(Clone)");
+        for (; ; )
+        {
+            if (sheriff == null)
+            {
+                sheriff = GameObject.Find("Grayboxed Sheriff(Clone)");
+            }
+            if (bandit == null)
+            {
+                bandit = GameObject.Find("Grayboxed Bandit(Clone)");
+            }
+            if (sheriff != null)
+            {
+                sb = sheriff.GetComponent<SheriffBehavior>();
+                StopCoroutine(CheckForPlayers());
+            }
+            if (bandit != null)
+            {
+                bb = bandit.GetComponent <BanditBehavior>();
+                StopCoroutine(CheckForPlayers());
+            }
+            yield return new WaitForSeconds(1);
         }
     }
 
