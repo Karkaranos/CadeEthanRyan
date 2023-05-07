@@ -31,6 +31,7 @@ public class FlashScript : MonoBehaviour
     public bool shotByPlayer=false;
     public GameObject spawnedBy;
     Quaternion angle;
+    [SerializeField] AudioClip explosion;
 
     #endregion
 
@@ -54,6 +55,7 @@ public class FlashScript : MonoBehaviour
             shotByPlayer;
         destroyMe.GetComponent<DamageStoreExplodeBehavior>().damageDealt = 
             damageDealt;
+        AudioSource.PlayClipAtPoint(explosion, transform.position, 3f);
         //StartCoroutine(CheckForNull());
         yield return new WaitForSeconds(.2f);
         transform.localScale = Vector3.zero;

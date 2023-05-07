@@ -109,3 +109,4 @@ MonoBehaviour:
   kaboom: {fileID: 9141792753175779565, guid: 8eafadbb312fc0547a1d173b324be570, type: 3}
   bDamageDealt: 0
   bShotByPlayer: 1
+  basicBoom: {fileID: 8300000, guid: 5c008d9647e566f4d9aa26c0eb6688ae, type: 3}

@@ -68,6 +68,7 @@ public class BanditBehavior : MonoBehaviour
     private GameObject player1;
     [SerializeField] private int cells;
     public bool freeMove;
+    [SerializeField] AudioClip damage;
 
     private UIManagerBehavior uim;
 
@@ -501,6 +502,7 @@ public class BanditBehavior : MonoBehaviour
             LargeTumbleFiendBehavior ltfb = collision.gameObject.GetComponent
                 <LargeTumbleFiendBehavior>();
             playerhealth -= ltfb.damageDealt;
+            AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
         }
         if (collision.gameObject.name == "Small TumbleFiend(Clone)")
         {
@@ -508,6 +510,7 @@ public class BanditBehavior : MonoBehaviour
             SmallTumbleFiendBehavior stfb = collision.gameObject.GetComponent
                 <SmallTumbleFiendBehavior>();
             playerhealth -= stfb.sDamageDealt;
+            AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
         }
     }
 
@@ -520,18 +523,21 @@ public class BanditBehavior : MonoBehaviour
                 DamageStoreExplodeBehavior dseb = collision.
                     GetComponent<DamageStoreExplodeBehavior>();
                 playerhealth -= dseb.damageDealt;
+                AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
             }
             if (collision.name.Contains("Spike"))
             {
                 ExplodeSpikeBehavior esb = collision.GetComponent
                     <ExplodeSpikeBehavior>();
                 playerhealth -= esb.damageDealt;
+                AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
             }
         }
         if (collision.gameObject.tag == "Spike")
         {
             CactusSpikeBehavior csb = collision.GetComponent<CactusSpikeBehavior>();
             playerhealth -= csb.damageDealt;
+            AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
         }
 
         //Boss Attack damage
@@ -546,6 +552,7 @@ public class BanditBehavior : MonoBehaviour
                 if (!pbb.shotByPlayer)
                 {
                     playerhealth -= pbb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
             if (collision.name.Contains("Revolver"))
@@ -557,6 +564,7 @@ public class BanditBehavior : MonoBehaviour
                 if (!sbb.shotByPlayer)
                 {
                     playerhealth -= sbb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
             if (collision.name.Contains("Spray"))
@@ -568,6 +576,7 @@ public class BanditBehavior : MonoBehaviour
                 if (!ssbb.shotByPlayer)
                 {
                     playerhealth -= ssbb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
             else if (collision.name.Contains("Shotgun"))
@@ -579,6 +588,7 @@ public class BanditBehavior : MonoBehaviour
                 if (!shotbb.shotByPlayer)
                 {
                     playerhealth -= shotbb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
         }
@@ -592,6 +602,7 @@ public class BanditBehavior : MonoBehaviour
                 if (!fb.shotByPlayer)
                 {
                     playerhealth -= fb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
             else if (collision.name.Contains("Kaboom"))
@@ -603,6 +614,7 @@ public class BanditBehavior : MonoBehaviour
                 if (!dseb.shotByPlayer)
                 {
                     playerhealth -= dseb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
         }

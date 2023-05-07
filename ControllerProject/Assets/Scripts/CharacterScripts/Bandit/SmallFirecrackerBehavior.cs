@@ -15,6 +15,7 @@ public class SmallFirecrackerBehavior : MonoBehaviour
     [SerializeField] float flashInterval = .67f;
     [SerializeField] GameObject explode;
     int c = 0;
+    [SerializeField] AudioClip firecrackerBoom;
 
 
 
@@ -24,7 +25,8 @@ public class SmallFirecrackerBehavior : MonoBehaviour
     public IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
-        destroyThisObject=Instantiate(kaboom, transform.position, Quaternion.
+        AudioSource.PlayClipAtPoint(firecrackerBoom, transform.position, .4f);
+        destroyThisObject =Instantiate(kaboom, transform.position, Quaternion.
             identity);
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().shotByPlayer
             = shotByPlayer;

@@ -22,6 +22,7 @@ public class FirecrackerExplodeBehavior : FlashScript
     Vector2 smallExplodePos;
     List<GameObject> smallExplosions = new List<GameObject>();
     public bool fShotByPlayer=true;
+    [SerializeField] AudioClip firecrackerBoom;
 
     #endregion Variables
 
@@ -33,12 +34,14 @@ public class FirecrackerExplodeBehavior : FlashScript
     {
         yield return new WaitForSeconds(explodeCountdown);
         scale = transform.localScale;
+
         destroyThisObject = Instantiate(kaboom, transform.position, transform.
             rotation);
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().shotByPlayer =
             shotByPlayer;
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt = 
             fDamageDealt;
+        AudioSource.PlayClipAtPoint(firecrackerBoom, transform.position, 1f);
         yield return new WaitForSeconds(.2f);
         scale = Vector3.zero;
         transform.localScale = scale;
