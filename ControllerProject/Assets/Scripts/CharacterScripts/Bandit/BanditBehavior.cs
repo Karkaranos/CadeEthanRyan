@@ -61,7 +61,8 @@ public class BanditBehavior : MonoBehaviour
     [SerializeField] private GameObject firecrackerExplosive;
     [SerializeField] private GameObject cocktailExplosive;
     [SerializeField] private GameObject atkPoint;
-    [SerializeField] private float playerhealth = 150;
+    [SerializeField] private float playerhealth = 200;
+    [SerializeField] private float maxHealth;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
     Coroutine stopMe;
@@ -80,6 +81,7 @@ public class BanditBehavior : MonoBehaviour
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
     public int WeaponNumber { get => weaponNumber; set => weaponNumber = value; }
     public int Cells { get => cells; set => cells = value; }
+    public float MaxHealth { get => maxHealth; set => maxHealth = value; }
     #endregion
 
     #region Functions
@@ -103,6 +105,7 @@ public class BanditBehavior : MonoBehaviour
 
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
 
+        maxHealth = playerhealth;
         Ammo = weapon.Ammo;
         maxAmmo = weapon.MaxAmmo;
         uim = GameObject.Find("UIManager").GetComponent<UIManagerBehavior>();

@@ -80,6 +80,10 @@ public class IncreaseStat : MonoBehaviour
                     sb.Playerhealth += healthAdded;
                     print(sb.Playerhealth);
                     valAdded = true;
+                    if (sb.Playerhealth > sb.MaxHealth)
+                    {
+                        sb.Playerhealth = sb.MaxHealth;
+                    }
                 }
                 if (name.Contains("ammo") && !valAdded)
                 {
@@ -103,6 +107,10 @@ public class IncreaseStat : MonoBehaviour
                     bb.Playerhealth += healthAdded;
                     print(bb.Playerhealth);
                     valAdded = true;
+                    if (bb.Playerhealth > bb.MaxHealth)
+                    {
+                        bb.Playerhealth = bb.MaxHealth;
+                    }
                 }
                 if (name.Contains("ammo") && !valAdded)
                 {

@@ -47,6 +47,8 @@ public class StenoCerberusBehavior : MonoBehaviour
 
     #region Functions
 
+    //Handles events that occur when enemy spawns
+    #region Set Up
     /// <summary>
     /// Called before the first frame update; sets initial target and starts attack
     /// </summary>
@@ -60,7 +62,10 @@ public class StenoCerberusBehavior : MonoBehaviour
         StartCoroutine(SwitchTarget());
     }
 
+    #endregion
 
+    //Handles enemy attacking and target switching
+    #region Attacks
 
     /// <summary>
     /// Creates a turret-like behavior and spawns a spike per a specified time
@@ -71,6 +76,7 @@ public class StenoCerberusBehavior : MonoBehaviour
         GameObject objectSpawned;
         for (; ; )
         {
+            //Checks if the target is null. If it is, switch to the other target. 
             if (targetObject == null)
             {
                 if (target == 1)
@@ -98,38 +104,50 @@ public class StenoCerberusBehavior : MonoBehaviour
                     target = 1;
                 }
             }
+
+            //Get the target's position and find the difference between them
             targetPos = targetObject.transform.position;
             distance.x = transform.position.x - targetPos.x;
             distance.y = transform.position.y - targetPos.y;
             distance.x = Mathf.Abs(distance.x);
             distance.y = Mathf.Abs(distance.y);
+
+            //If the target is within range, attack
             if (distance.magnitude <= range)
             {
+                //Choose a random head to attack from
                 attackingHead = Random.Range(1, 4);
+
+                //If head 1 attacks and enemy is not exploding
                 if (attackingHead == 1&&!explodeStarted)
                 {
-                    objectSpawned = (Instantiate(spike, atkPoint1.transform.position,
-                        Quaternion.identity));
+                    //Spawn a spike. Add it to a list and set its target and damage
+                    objectSpawned = (Instantiate(spike, atkPoint1.transform.position
+                        , Quaternion.identity));
                     spikesShot.Add(objectSpawned);
                     objectSpawned.GetComponent<CactusSpikeBehavior>().
                         GetTarget(targetObject);
                     objectSpawned.GetComponent<CactusSpikeBehavior>().damageDealt = 
                         spikeDamage;
                 }
+                //If head 2 attacks and enemy is not exploding
                 else if (attackingHead == 2&&!explodeStarted)
                 {
-                    objectSpawned = (Instantiate(spike, atkPoint2.transform.position,
-                        Quaternion.identity));
+                    //Spawn a spike. Add it to a list and set its target and damage
+                    objectSpawned = (Instantiate(spike, atkPoint2.transform.position
+                        , Quaternion.identity));
                     spikesShot.Add(objectSpawned);
                     objectSpawned.GetComponent<CactusSpikeBehavior>().
                         GetTarget(targetObject);
                     objectSpawned.GetComponent<CactusSpikeBehavior>().damageDealt = 
                         spikeDamage;
                 }
+                //If head 3 attacks and enemy is not exploding
                 else if (attackingHead==3&&!explodeStarted)
                 {
-                    objectSpawned = (Instantiate(spike, atkPoint3.transform.position,
-                        Quaternion.identity));
+                    //Spawn a spike. Add it to a list and set its target and damage
+                    objectSpawned = (Instantiate(spike, atkPoint3.transform.position
+                        , Quaternion.identity));
                     spikesShot.Add(objectSpawned);
                     objectSpawned.GetComponent<CactusSpikeBehavior>().
                         GetTarget(targetObject);
@@ -147,35 +165,45 @@ public class StenoCerberusBehavior : MonoBehaviour
     /// <returns>How often the cactus changes target</returns>
     IEnumerator SwitchTarget()
     {
-        if (target == 1)
+        for(; ; )
         {
-            if (player1 != null)
+            //If its current target is 1 and Player 1 exists, target Player 1
+            if (target == 1)
             {
-                targetObject = player1;
+                if (player1 != null)
+                {
+                    targetObject = player1;
+                }
+                else
+                {
+                    targetObject = player2;
+                }
+                target = 2;
             }
+            //If its current target is 2 and Player 2 exists, target Player 2
             else
             {
-                targetObject = player2;
+                if (player2 != null)
+                {
+                    targetObject = player2;
+                }
+                else
+                {
+                    targetObject = player1;
+                }
+                target = 1;
             }
-            target = 2;
+
+            //Set a time to randomly wait for, then wait for it
+            targetSwitchTimer = Random.Range(2, 10);
+            yield return new WaitForSeconds(targetSwitchTimer);
         }
-        else
-        {
-            if (player2 != null)
-            {
-                targetObject = player2;
-            }
-            else
-            {
-                targetObject = player1;
-            }
-            target = 1;
-        }
-        targetSwitchTimer = Random.Range(2, 10);
-        yield return new WaitForSeconds(targetSwitchTimer);
     }
 
+    #endregion
 
+    //Handles collisions and enemy death
+    #region Collisions and Death
     /// <summary>
     /// Checks if the Cactus has been hit by a bullet. 
     /// Upon Death, starts the Cactus's explosion and destroys all existing spikes
@@ -183,11 +211,15 @@ public class StenoCerberusBehavior : MonoBehaviour
     /// <param name="collision">The object collided with</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Get a reference to the explosion script and the game controller
         FlashScript explode = GetComponent<FlashScript>();
         GameController gc = GameObject.Find("Game Controller").
             GetComponent<GameController>();
+
+        //If hit by a bullet
         if (collision.gameObject.tag == "bullet")
         {
+            //If hit by a pistol bullet, take pistol damage
             if (collision.name.Contains("Pistol"))
             {
                 PistolBulletBehavior pbb =
@@ -195,12 +227,16 @@ public class StenoCerberusBehavior : MonoBehaviour
                 health -= pbb.damageDealt;
 
             }
+
+            //if hit by a revolver bullet, take revolver damage
             if (collision.name.Contains("Revolver"))
             {
                 SheriffBulletBehavior sbb =
                     collision.gameObject.GetComponent<SheriffBulletBehavior>();
                 health -= sbb.damageDealt;
             }
+
+            //if hit by a shotgun/shotgun spray bullet, take shotgun damage
             if (collision.name.Contains("Spray"))
             {
                 SprayShotgunBulletBehavior ssbb =
@@ -213,8 +249,11 @@ public class StenoCerberusBehavior : MonoBehaviour
                     collision.gameObject.GetComponent<ShotgunBulletBehavior>();
                 health -= shotbb.damageDealt;
             }
+
+            //If health is less than 0 
             if (health <= 0)
             {
+                //If not exploding, start exploding
                 if (!explodeStarted)
                 {
                     explode.Flash();
@@ -223,9 +262,11 @@ public class StenoCerberusBehavior : MonoBehaviour
                     explodeStarted = true;
                     explode.spawnedBy = this.gameObject;
                 }
+                //Otherwise, reduce it's health while exploding
                 else
                 {
                     healthWhileExplode--;
+                    //If its health while exploding is 0 or less, kill it
                     if (healthWhileExplode <= 0 && exploding != null && !killed)
                     {
                         StopCoroutine(exploding);
@@ -236,6 +277,8 @@ public class StenoCerberusBehavior : MonoBehaviour
                         loot.DropLoot(transform.position);
                         killed = true;
                         GameObject destroyMe;
+
+                        //Destroy any remaining shot spikes
                         foreach (GameObject c in spikesShot)
                         {
                             destroyMe = c;
@@ -246,21 +289,29 @@ public class StenoCerberusBehavior : MonoBehaviour
                 }
             }
         }
+
+        //if hit by a player explosion
         if (collision.gameObject.tag == "explodey")
         {
+            //If hit by a molotov, take molotov damage
             if (collision.name.Contains("Fire"))
             {
                 FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
                 health -= fb.damageDealt;
             }
+
+            //If hit by a firecracker or dynamite, take the corresponding damage
             else if (collision.name.Contains("Kaboom"))
             {
                 DamageStoreExplodeBehavior dseb = collision.gameObject.
                     GetComponent<DamageStoreExplodeBehavior>();
                 health -= dseb.damageDealt;
             }
+
+            //if health is 0 or less
             if (health <= 0)
             {
+                //If not exploding, start exploding
                 if (!explodeStarted)
                 {
                     explode.Flash();
@@ -271,6 +322,7 @@ public class StenoCerberusBehavior : MonoBehaviour
                 else
                 {
                     healthWhileExplode--;
+                    //If its health while exploding is 0 or less, kill it
                     if (healthWhileExplode <= 0 && exploding != null && !killed)
                     {
                         StopCoroutine(exploding);
@@ -281,6 +333,8 @@ public class StenoCerberusBehavior : MonoBehaviour
                         loot.DropLoot(transform.position);
                         killed = true;
                         GameObject destroyMe;
+
+                        //Remove all lingering spikes
                         foreach (GameObject c in spikesShot)
                         {
                             destroyMe = c;
@@ -293,6 +347,7 @@ public class StenoCerberusBehavior : MonoBehaviour
             }
         }
     }
+    #endregion
 
     #endregion Functions
 }

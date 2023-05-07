@@ -11,11 +11,14 @@ using UnityEngine;
 
 public class FireBehavior : MonoBehaviour
 {
+    #region Variables
     Vector3 scale;
     float secondsToWait = .02f;
     public float damageDealt;
     public bool shotByPlayer;
+    #endregion
 
+    #region Functions
     /// <summary>
     /// Start is called before the first frame. Starts the despawn timer.
     /// </summary>
@@ -25,17 +28,20 @@ public class FireBehavior : MonoBehaviour
     }
 
     /// <summary>
-    /// Shrinks the range of fire and deletes it after a set time
+    /// Increases the range of fire and deletes it after a set time
     /// </summary>
-    /// <returns>How long in between shrinks</returns>
+    /// <returns>How long in between growth</returns>
     IEnumerator FireGone()
     {
         for(; ; )
         {
+            //Get the current scale and increase it
             scale = transform.localScale;
             scale *= 1.1f;
             transform.localScale = scale;
             yield return new WaitForSeconds(secondsToWait);
+
+            //If the current fire is larger than 4, wait and destroy it
             if (scale.magnitude >= 4)
             {
                 yield return new WaitForSeconds(2.7f);
@@ -43,5 +49,5 @@ public class FireBehavior : MonoBehaviour
             }
         }
     }
-
+    #endregion
 }

@@ -12,13 +12,23 @@ using UnityEngine;
 
 public class PistolBulletBehavior : SheriffBulletBehavior
 {
+    #region Overrides
+    /// <summary>
+    /// Overrides all collisions for Pistol
+    /// </summary>
+    /// <param name="collision">object collided with</param>
     public override void OnCollisionEnter2D(Collision2D collision)
     {
         //Do Nothing
     }
 
+    /// <summary>
+    /// Overrides all collisions for Pistol
+    /// </summary>
+    /// <param name="collision">object collided with</param>
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         //Do Nothing
     }
+    #endregion
 }

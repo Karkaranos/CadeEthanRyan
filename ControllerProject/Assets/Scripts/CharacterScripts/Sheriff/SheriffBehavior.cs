@@ -68,6 +68,7 @@ public class SheriffBehavior : MonoBehaviour
     [SerializeField] private GameObject pistolBullet;
     [SerializeField] private GameObject atkPoint;
     [SerializeField] private float playerhealth = 200;
+    [SerializeField] private float maxHealth;
     private bool weaponChanged = false;
     private int weaponNumber = 1;
     Coroutine stopMe;
@@ -92,6 +93,7 @@ public class SheriffBehavior : MonoBehaviour
     public int WeaponNumber { get => weaponNumber; set => weaponNumber = value; }
 
     public int Cells { get => cells; set => cells = value; }
+    public float MaxHealth { get => maxHealth; set => maxHealth = value; }
     #endregion
 
     #region Functions
@@ -116,6 +118,7 @@ public class SheriffBehavior : MonoBehaviour
         playerInteract = inputMap.FindAction("Interact");
        
         Ammo = weapon.Ammo;
+        maxHealth = playerhealth;
         maxAmmo = weapon.MaxAmmo;
         uim = GameObject.Find("UIManager").GetComponent<UIManagerBehavior>();
         pInput = GetComponent<PlayerInput>();
