@@ -13,7 +13,7 @@ public class NPC : MonoBehaviour
 {
     [SerializeField] private bool objectInteractable = false;
     private bool interacting = false;
-    private bool controlMenuActive;
+   
 
     public bool Interacting { get => interacting; set => interacting = value; }
 
@@ -21,23 +21,28 @@ public class NPC : MonoBehaviour
 
     public Dialogue dialogue;
 
+    /// <summary>
+    /// allows the player to interact with an npc
+    /// </summary>
     public void TriggerDialogue ()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
-        if (objectInteractable && !controlMenuActive)
+        
+        if (objectInteractable) 
         {
             Interacting = true;
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+            
         }
     }
 
     /// <summary>
     /// Allows player to interact when near an object.
     /// </summary>
-    /// <param name="collision"></param>
+    /// <param name="collision">the player</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Only allows players to interact with object tagged properly.
-        if (collision.gameObject.CompareTag("NPC"))
+        if (collision.gameObject.CompareTag("player"))
         {
             objectInteractable = true;
         }
@@ -46,7 +51,7 @@ public class NPC : MonoBehaviour
     /// <summary>
     /// Disallows player to interact when not near an object.
     /// </summary>
-    /// <param name="collision"></param>
+    /// <param name="collision">the player</param>
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (objectInteractable)
