@@ -29,13 +29,7 @@ public class GameController : MonoBehaviour
     private bool gameStarted=false;
     private int numToSpawn;
     private int spawnedAtOnce=6;
-    private bool startedSave;
     private Vector2 spawnPos;
-
-
-    private int changeKamiRate;
-    private int changeTumbleRate;
-    private int changeStenoRate;
 
     //Player References
     GameObject player1Obj;
@@ -75,6 +69,8 @@ public class GameController : MonoBehaviour
 
     #region Functions
 
+    //Handles finding players and starting the game
+    #region Set Up
     /// <summary>
     /// Start is called before the first frame update. Sets Wave 1 to spawn
     /// </summary>
@@ -83,18 +79,30 @@ public class GameController : MonoBehaviour
         StartCoroutine(CheckForPlayers());
     }
 
+
+    /// <summary>
+    /// This Coroutine will repeat and check if Player 1 is null, then find Player 1
+    /// and set a reference. Once it finds Player 1, it will start the game.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator CheckForPlayers()
     {
         for (; ; )
         {
+            //If the game object for Player 1 is null, find it
             if (player1Obj == null)
             {
                 player1Obj = GameObject.Find("Grayboxed Sheriff(Clone)");
             }
+
+            //If the game object for Player 2 is null, find it
             if (player2Obj == null)
             {
                 player2Obj = GameObject.Find("Grayboxed Bandit(Clone)");
             }
+
+            //If Player 1 has been found and the game hasn't started, start it and
+            //end this check
             if (player1Obj != null&&!gameStarted)
             {
                 player1 = player1Obj.GetComponent<SheriffBehavior>();
@@ -106,33 +114,47 @@ public class GameController : MonoBehaviour
         }
     }
 
+    #endregion Set Up
+
+    //Handles events that occur every frame or when enemy number changes
+    #region Updates and Counters
+
     /// <summary>
     /// Occurs every frame. Checks if there are no enemies and calls wave spawning
     /// </summary>
     void Update()
     {
+        //If both players have been destroyed and game started, go to lose screen
         if(player1Obj==null && player2Obj == null && gameStarted)
         {
             SceneManager.LoadScene("LoseScreen");
         }
+
+        //Checks for Player 2 if player 2 is null
         if (player2Obj == null)
         {
             player2Obj = GameObject.Find("Grayboxed Bandit(Clone)");
         }
+
+        //Sets Player 2 script if Player 2 is found
         if (player2Obj != null)
         {
             player2 = player2Obj.GetComponent<BanditBehavior>();
         }
-        if (player1Obj != null)
+
+        //If there is an active player, start these checks
+        if (player1Obj != null || player2Obj!=null)
         {
+            //Check if can spawn enemies
             if (enemyCounter <= 2 && enemySpawnNum < numToSpawn)
             {
                 //Wait to spawn more
             }
             else
             {
-                if (enemyCounter == 0 && wave != 9 && !wavePause && player1Obj != 
-                    null)
+                //If wave is complete and at least one player, start the break
+                if (enemyCounter == 0 && wave != 9 && !wavePause && (player1Obj != 
+                    null||player2Obj!=null))
                 {
                     print("dsghjgd");
                     StartCoroutine(WaveBreak());
@@ -140,12 +162,16 @@ public class GameController : MonoBehaviour
                 }
             }
 
+            //If Player 1 exists and Player 2 does not, and if Player 1 is dead,
+            //lose
             if (player1Obj != null && player1.Playerhealth <= 0 && player2Obj == 
                 null)
             {
                 SceneManager.LoadScene("LoseScreen");
             }
 
+            //If Player 2 exists and Player 1 does not, and if Player 2 is dead, 
+            //lose
             if (player2Obj != null && player2.Playerhealth <= 0 && player1Obj ==
                 null)
             {
@@ -156,73 +182,6 @@ public class GameController : MonoBehaviour
             {
                 SceneManager.LoadScene("LoseScreen");
             }*/
-        }
-    }
-
-
-    /// <summary>
-    /// Pause between waves. Calls wave spawning.
-    /// </summary>
-    /// <returns>Time between waves</returns>
-    IEnumerator WaveBreak()
-    {
-        if (enemyCounter <= 0)
-        {
-            enemyCounter = 0;
-            wavePause = true;
-            yield return new WaitForSeconds(3f);
-            enemySpawnNum = 0;
-            if (wave == 1)
-            {
-                yield return new WaitForSeconds(5f);
-                numToSpawn = wave1Enemies;
-                canSpawn = true;
-                StartCoroutine(Wave1Spawn());
-            }
-            if (wave == 2)
-            {
-                numToSpawn = wave2Enemies;
-                canSpawn = true;
-                StartCoroutine(Wave2Spawn());
-            }
-            if (wave == 3)
-            {
-                numToSpawn = wave3Enemies;
-                canSpawn = true;
-                StartCoroutine(Wave3Spawn());
-            }
-            if (wave == 4)
-            {
-                numToSpawn = wave4Enemies;
-                canSpawn = true;
-                StartCoroutine(StaggeredSpawningWaves45678());
-            }
-            if (wave == 5)
-            {
-                numToSpawn = wave5Enemies;
-                canSpawn = true;
-            }
-            if (wave == 6)
-            {
-                numToSpawn = wave6Enemies;
-                canSpawn = true;
-            }
-            if (wave == 7)
-            {
-                numToSpawn = wave7Enemies;
-                canSpawn = true;
-            }
-            if (wave == 8)
-            {
-                numToSpawn = wave8Enemies;
-                canSpawn = true;
-            }
-            if (wave == 9)
-            {
-                numToSpawn = 1;
-                canSpawn = true;
-            }
-            wavePause = false;
         }
     }
 
@@ -245,7 +204,96 @@ public class GameController : MonoBehaviour
         enemyCounter--;
     }
 
+    #endregion
+
+    //Handles wave spawning, Wave Breaks, and setting enemy counters
     #region Wave Manager
+
+    /// <summary>
+    /// Pause between waves. Calls wave spawning.
+    /// </summary>
+    /// <returns>Time between waves</returns>
+    IEnumerator WaveBreak()
+    {
+        if (enemyCounter <= 0)
+        {
+            //Resets counters and starts pause
+            enemyCounter = 0;
+            wavePause = true;
+            yield return new WaitForSeconds(3f);
+            enemySpawnNum = 0;
+
+            //If The current wave is 1, set number of enemies and start spawning
+            if (wave == 1)
+            {
+                yield return new WaitForSeconds(5f);
+                numToSpawn = wave1Enemies;
+                canSpawn = true;
+                StartCoroutine(Wave1Spawn());
+            }
+
+            //If the current wave is 2, set number of enemies and start spawning
+            if (wave == 2)
+            {
+                numToSpawn = wave2Enemies;
+                canSpawn = true;
+                StartCoroutine(Wave2Spawn());
+            }
+
+            //If the current wave is 3, set number of enemies and start spawning
+            if (wave == 3)
+            {
+                numToSpawn = wave3Enemies;
+                canSpawn = true;
+                StartCoroutine(Wave3Spawn());
+            }
+
+            //If the current wave is 4, set number of enemies and start spawning
+            if (wave == 4)
+            {
+                numToSpawn = wave4Enemies;
+                canSpawn = true;
+                StartCoroutine(StaggeredSpawningWaves45678());
+            }
+
+            //If the current wave is 5, set number of enemies and allow spawning
+            if (wave == 5)
+            {
+                numToSpawn = wave5Enemies;
+                canSpawn = true;
+            }
+
+            //If the current wave is 5, set number of enemies and allow spawning
+            if (wave == 6)
+            {
+                numToSpawn = wave6Enemies;
+                canSpawn = true;
+            }
+
+            //If the current wave is 5, set number of enemies and allow spawning
+            if (wave == 7)
+            {
+                numToSpawn = wave7Enemies;
+                canSpawn = true;
+            }
+
+            //If the current wave is 5, set number of enemies and allow spawning
+            if (wave == 8)
+            {
+                numToSpawn = wave8Enemies;
+                canSpawn = true;
+            }
+
+            //If the current wave is 5, set number of enemies and allow spawning
+            if (wave == 9)
+            {
+                numToSpawn = 1;
+                canSpawn = true;
+            }
+            wavePause = false;
+        }
+    }
+
 
     /// <summary>
     /// Spawns a wave of all large tumbles for the first wave
@@ -254,13 +302,17 @@ public class GameController : MonoBehaviour
     {
         for(int i=0; i < numToSpawn;)
         {
+            //Checks if enemies can spawn
             if (canSpawn&&wave==1)
             {
+                //Check to make sure enemies don't spawn in buildings
                 spawnPos = new Vector2(Random.Range(-20, 20),
                     Random.Range(-20, 10));
                 test = Instantiate(spawnTest, spawnPos, Quaternion.identity);
                 yield return new WaitForSeconds(.02f);
                 print(test.GetComponent<SpawnCheckBehavior>().isOverlapping);
+
+                //If the test is not in a building, spawn an enemy
                 if (test.GetComponent<SpawnCheckBehavior>().isOverlapping == false)
                 {
                     Instantiate(largeTumble, spawnPos, Quaternion.identity);
@@ -268,6 +320,8 @@ public class GameController : MonoBehaviour
                     AddEnemy();
                 }
                 Destroy(test);
+
+                //If all enemies have been spawned, disable spawning
                 if (enemySpawnNum == numToSpawn)
                 {
                     canSpawn = false;
@@ -283,13 +337,17 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < numToSpawn;)
         {
+            //Checks if enemies can spawn
             if (canSpawn && wave == 2)
             {
+                //Checks to make sure enemies don't spawn in buildings
                 spawnPos = new Vector2(Random.Range(-20, 20),
                     Random.Range(-20, 10));
                 test = Instantiate(spawnTest, spawnPos, Quaternion.identity);
                 yield return new WaitForSeconds(.02f);
                 print(test.GetComponent<SpawnCheckBehavior>().isOverlapping);
+
+                //If the test is not in a building, spawn an enemy
                 if (test.GetComponent<SpawnCheckBehavior>().isOverlapping == false)
                 {
                     Instantiate(kamicactus, spawnPos, Quaternion.identity);
@@ -298,6 +356,7 @@ public class GameController : MonoBehaviour
                 }
                 Destroy(test);
 
+                //Once all enemies have been spawned, disable spawning
                 if (enemySpawnNum == numToSpawn)
                 {
                     canSpawn = false;
@@ -313,22 +372,26 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < numToSpawn;)
         {
+            //Checks if enemies can spawn
             if (canSpawn && wave == 3)
             {
+                //Checks to make sure enemies do not spawn in building
                 spawnPos = new Vector2(Random.Range(-20, 20),
                     Random.Range(-20, 10));
                 test = Instantiate(spawnTest, spawnPos, Quaternion.identity);
                 yield return new WaitForSeconds(.02f);
                 print(test.GetComponent<SpawnCheckBehavior>().isOverlapping);
+
+                //If the test spawn is not in a building, spawn an enemy
                 if (test.GetComponent<SpawnCheckBehavior>().isOverlapping == false)
                 {
                     Instantiate(stenocerberus, spawnPos, Quaternion.identity);
                     i++;
                     AddEnemy();
                 }
-
                 Destroy(test);
 
+                //Once all enemies have been spawned, disable spawning
                 if (enemySpawnNum == numToSpawn)
                 {
                     canSpawn = false;
@@ -356,33 +419,43 @@ public class GameController : MonoBehaviour
                     //Spawns a mix of Kamicactus and Tumbles for wave 4
                     if (wave == 4)
                     {
+                        //Checks to make sure enemies do not spawn in building
                         spawnPos = new Vector2(Random.Range(-33, 40),
-                            Random.Range(-33, 40));
+                            Random.Range(-25, 12));
                         test = Instantiate(spawnTest, spawnPos, Quaternion.
                             identity);
                         yield return new WaitForSeconds(.02f);
-                        print(test.GetComponent<SpawnCheckBehavior>().isOverlapping);
+                        print(test.GetComponent<SpawnCheckBehavior>().
+                            isOverlapping);
+
+                        //If test spawn is not in building, spawn a random enemy
                         if (test.GetComponent<SpawnCheckBehavior>().isOverlapping ==
                             false)
                         {
+                            //Sets a random enemy type to spawn
                             enemyType = Random.Range(1, 3);
                             print("Type Spawned: " + enemyType);
+
+                            //If enemy type is 1, spawn a Kamicactus
                             if (enemyType == 1)
                             {
-                                Instantiate(kamicactus, new Vector2(Random.Range(-33,
-                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                Instantiate(kamicactus, spawnPos, 
+                                    Quaternion.identity);
                                 AddEnemy();
                                 i++;
                             }
                             else
                             {
-                                Instantiate(largeTumble, new Vector2(Random.Range(-33,
-                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                //Else, spawn an Large Tumblefiend
+                                Instantiate(largeTumble, spawnPos, 
+                                    Quaternion.identity);
                                 AddEnemy();
                                 i++;
                             }
                         }
                         Destroy(test);
+
+                        //If all enemies spawned, disable spawning
                         if (enemySpawnNum == numToSpawn)
                         {
                             canSpawn = false;
@@ -392,77 +465,95 @@ public class GameController : MonoBehaviour
                     //Spawns a wave of Stenos and Tumbles for wave 5
                     if (wave == 5)
                     {
+                        //Checks to make sure enemies don't spawn in buildings
                         spawnPos = new Vector2(Random.Range(-33, 40),
-                            Random.Range(-33, 40));
+                            Random.Range(-25, 12));
                         test = Instantiate(spawnTest, spawnPos, Quaternion.
                             identity);
                         yield return new WaitForSeconds(.02f);
+
+                        //If enemy won't spawn in a building
                         if (test.GetComponent<SpawnCheckBehavior>().isOverlapping ==
                             false)
                         {
+                            //Sets a random enemy type
                             enemyType = Random.Range(1, 3);
                             print("Type Spawned: " + enemyType);
+
+                            //If enemy type is 1, spawn a stenocerberus
                             if (enemyType == 1)
                             {
-                                Instantiate(stenocerberus, new Vector2(Random.Range(-33,
-                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                Instantiate(stenocerberus, spawnPos, 
+                                    Quaternion.identity);
                                 AddEnemy();
                                 i++;
                             }
                             else
                             {
-                                Instantiate(largeTumble, new Vector2(Random.Range(-33,
-                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                //Otherwise, spawn a Large Tumblefiend
+                                Instantiate(largeTumble, spawnPos, 
+                                    Quaternion.identity);
                                 AddEnemy();
                                 i++;
                             }
                         }
                         Destroy(test);
+
+                        //If all enemies spawned, disable spawning
                         if (enemySpawnNum == numToSpawn)
                         {
                             canSpawn = false;
                         }
                     }
 
-
                     //Spawns a mix of all enemy types for waves 6, 7, and 8
                     if (wave >=6 && wave <=8)
                     {
-
+                        //Check to make sure enemies won't spawn in buildings
                         spawnPos = new Vector2(Random.Range(-33, 40),
-                            Random.Range(-33, 40));
+                            Random.Range(-25, 12));
                         test = Instantiate(spawnTest, spawnPos, Quaternion.
                             identity);
                         yield return new WaitForSeconds(.02f);
+
+                        //If enemy won't spawn in a building
                         if (test.GetComponent<SpawnCheckBehavior>().isOverlapping ==
                             false)
                         {
+                            //Set a random enemy type
                             enemyType = Random.Range(1, 4);
                             print("Type Spawned: " + enemyType);
+
+                            //If enemy type is 1, spawn a Stenocerberus
                             if (enemyType == 1)
                             {
-                                Instantiate(stenocerberus, new Vector2(Random.Range(-33,
-                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                Instantiate(stenocerberus, spawnPos, 
+                                    Quaternion.identity);
                                 AddEnemy();
                                 i++;
                             }
+
+                            //If Enemy type is 2, spawn a Kamicactus
                             if (enemyType == 2)
                             {
-                                Instantiate(kamicactus, new Vector2(Random.Range(-33,
-                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                Instantiate(kamicactus, spawnPos, 
+                                    Quaternion.identity);
                                 AddEnemy();
                                 i++;
                             }
+
+                            //If enemy type is 3, spawn a Large Tumblefiend
                             if (enemyType == 3)
                             {
-                                Instantiate(largeTumble, new Vector2(Random.Range(-33,
-                                    40), Random.Range(-32, 14)), Quaternion.identity);
+                                Instantiate(largeTumble, spawnPos, 
+                                    Quaternion.identity);
                                 AddEnemy();
                                 i++;
                             }
                         }
                         Destroy(test);
 
+                        //If all enemies for wave spawned, disable spawning
                         if (enemySpawnNum == numToSpawn)
                         {
                             canSpawn = false;
@@ -471,6 +562,7 @@ public class GameController : MonoBehaviour
 
                     if (wave == 9)
                     {
+                        //Spawn the boss!
                         Instantiate(boss, new Vector2(0,0), Quaternion.identity);
                         AddEnemy();
                     }

@@ -44,6 +44,7 @@ public class BossBehavior : MonoBehaviour
     private int attackType;
     private int targetNum;
     private int attackNum;
+    [SerializeField] GameObject test;
 
     //Movement and positioning
     Vector3 towerSpawn;
@@ -71,12 +72,15 @@ public class BossBehavior : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //Spawn a tower to start
         maxHealth = health;
         towerSpawn = transform.position;
         towerSpawn.x -= 1;
         towerSpawn.y -= 3;
         towerList.Add(Instantiate(tower, towerSpawn, Quaternion.identity));
         activeShield = Instantiate(shield, transform.position, Quaternion.identity);
+
+        //Find both players and set an initial target
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
         player2 = GameObject.Find("Grayboxed Bandit(Clone)");
         target = player1;
@@ -87,40 +91,50 @@ public class BossBehavior : MonoBehaviour
     /// </summary>
     void Update()
     {
+        //Moves boss
+        Vector3 difference = transform.position - targetMovePos;
+
+
+        //If there is a shield, set it to the boss's position
         if (activeShield != null)
         {
             activeShield.transform.position = transform.position;
         }
-        Vector3 difference = transform.position - targetMovePos;
+
+        //if there are no towers and can move to a new phase
         if (towerList.Count == 0&&moveToNextPhase)
         {
-            //WEIGH THIS
-
+            //If boss health is between 50% and 25%, use this weighted set
             if ((health <= (maxHealth / 2))&&(health>(maxHealth/4))) 
             {
                 BossPhase = Random.Range(1, 6);
             }
             else
             {
+                //If boss health is less than 25%, use this weighted set
                 if (health <= maxHealth / 4)
                 {
                     BossPhase = Random.Range(1, 7);
                 }
+                //If boss health is above 50%, use this weighted set
                 else
                 {
                     BossPhase = Random.Range(1, 4);
                 }
             }
+
             moveToNextPhase = false;
             waiting = false;
-            //Move phase initialization
+
+            //Move phase initialization- set a position to target
             if (BossPhase == 1)
             {
                 targetMovePos.x = Random.Range(-25, 32);
                 targetMovePos.y = Random.Range(-25, 8);
             }
-            //Tower Phase initialization
-            if (BossPhase == 2 && towersToSpawn < 4)
+
+            //Tower Phase initialization- add another tower
+            if (BossPhase == 5||BossPhase==6 && towersToSpawn < 4)
             {
                 towersToSpawn++;
             }
@@ -131,6 +145,7 @@ public class BossBehavior : MonoBehaviour
         {
             BossMove();
 
+            //If close to its target, move to next phase
             if (difference.magnitude <= 3)
             {
                 moveToNextPhase = true;
@@ -140,6 +155,7 @@ public class BossBehavior : MonoBehaviour
         //Attacking Phase
         if ((BossPhase == 2 || BossPhase == 3) && !attacking)
         {
+            //Set a number of attacks and start attacking
             attackNum = Random.Range(5, 10);
             BossAttack();
         }
@@ -147,13 +163,14 @@ public class BossBehavior : MonoBehaviour
         //Exhaustion Phase
         if (BossPhase == 4 && !waiting)
         {
+            //Start being exhausted
             StartCoroutine(BossExhaustion());
         }
 
         //Tower Phase
         if ((BossPhase == 5||BossPhase==6)&&towerList.Count==0)
         {
-            SpawnTowers();
+            StartCoroutine(SpawnTowers());
         }
     }
 
@@ -166,6 +183,8 @@ public class BossBehavior : MonoBehaviour
         towerList.Remove(destroyedTower);
         Destroy(destroyedTower);
         print("Towers left " + towerList.Count);
+
+        //If no towers, remove shield
         if (towerList.Count == 0)
         {
             Destroy(activeShield);
@@ -183,6 +202,8 @@ public class BossBehavior : MonoBehaviour
             GetComponent<GameController>();
         gc.RemoveEnemy();
         print("You win");
+
+        //move to the win screen
         SceneManager.LoadScene("WinScreen");
 
     }
@@ -201,6 +222,9 @@ public class BossBehavior : MonoBehaviour
 
         difference.x = targetMovePos.x - transform.position.x;
         difference.y = targetMovePos.y - transform.position.y;
+
+        //Add force depending on the difference between the boss's position and its
+        //target
         if (difference.x < 0)
         {
             moveForce.x += -1 * speed * Time.deltaTime;
@@ -217,6 +241,8 @@ public class BossBehavior : MonoBehaviour
         {
             moveForce.y += 1 * speed * Time.deltaTime;
         }
+
+        //Move the boss
         transform.Translate(moveForce, Space.Self);
 
     }
@@ -237,7 +263,10 @@ public class BossBehavior : MonoBehaviour
     /// </summary>
     private void BossAttack()
     {
+        //picks a target
         targetNum = Random.Range(1, 3);
+
+        //Sets the target object if it is not null
         if (targetNum == 1)
         {
             if (player1 != null)
@@ -260,6 +289,8 @@ public class BossBehavior : MonoBehaviour
                 target = player1;
             }
         }
+
+        //Start attacking and set an attack type
         attacking = true;
         attackType = Random.Range(1, 5);
         if (attackType == 2)
@@ -279,9 +310,11 @@ public class BossBehavior : MonoBehaviour
     /// <returns>Time between fires</returns>
     IEnumerator GunAttack()
     {
+        //Sets a random attack type
         attackType = Random.Range(1, 4);
         for(int i=0; i<attackNum; i++)
         {
+            //If attack is 1, do a revolver attack
             if (attackType == 1)
             {
                 temp = Instantiate(revolverBullet, transform.position,
@@ -291,6 +324,8 @@ public class BossBehavior : MonoBehaviour
                 temp.GetComponent<SheriffBulletBehavior>().Shoot(target);
                 temp.GetComponent<SheriffBulletBehavior>().shotByPlayer = false;
             }
+
+            //If attack is 2, do a shotgun attack
             if (attackType == 2)
             {
                 temp = Instantiate(shotgunBullet, transform.position,
@@ -300,6 +335,8 @@ public class BossBehavior : MonoBehaviour
                 temp.GetComponent<ShotgunBulletBehavior>().Shoot(target);
                 temp.GetComponent<ShotgunBulletBehavior>().shotByPlayer = false;
             }
+
+            //If attack is 3, do a pistol attack
             if (attackType == 3)
             {
                 temp = Instantiate(pistolBullet, transform.position,
@@ -309,17 +346,27 @@ public class BossBehavior : MonoBehaviour
                 temp.GetComponent<PistolBulletBehavior>().Shoot(target);
                 temp.GetComponent<PistolBulletBehavior>().shotByPlayer = false;
             }
+
+            //wait, then attack again
             yield return new WaitForSeconds(.5f);
         }
         attacking = false;
         moveToNextPhase = true;
     }
 
+
+    /// <summary>
+    /// Spawns explosives directed at its target
+    /// </summary>
+    /// <returns> Time between fires </returns>
     IEnumerator ExplosionAttack()
     {
+        //set a random attack type
         attackType = Random.Range(1, 4);
+
         for(int i=0; i<attackNum; i++)
         {
+            //If attack is 1, spawn dynamite
             if (attackType == 1)
             {
                 temp = Instantiate(dynamite, target.transform.position,
@@ -330,6 +377,8 @@ public class BossBehavior : MonoBehaviour
                 StartCoroutine(temp.GetComponent<BanditExplodeBehavior>().
                     Kaboom(dynamiteTimer));
             }
+
+            //If attack is 2, spawn a molotov cocktail
             if (attackType == 2)
             {
                 temp = Instantiate(cocktail, target.transform.position,
@@ -340,6 +389,8 @@ public class BossBehavior : MonoBehaviour
                 StartCoroutine(temp.GetComponent<CocktailExplodeBehavior>().
                     Kaboom(cocktailTimer));
             }
+
+            //If attack is 3, spawn a firecracker
             if (attackType == 3)
             {
                 temp = Instantiate(firecracker, target.transform.position,
@@ -350,6 +401,8 @@ public class BossBehavior : MonoBehaviour
                 StartCoroutine(temp.GetComponent<FirecrackerExplodeBehavior>().
                     Kaboom(firecrackerTimer));
             }
+
+            //wait before attacking again
             yield return new WaitForSeconds(1f);
         }
         attacking = false;
@@ -359,14 +412,30 @@ public class BossBehavior : MonoBehaviour
     /// <summary>
     /// Spawns towers to protect the boss
     /// </summary>
-    private void SpawnTowers()
+    IEnumerator SpawnTowers()
     {
-        for(int i=0; i<towersToSpawn; i++)
+        for(int i=0; i<towersToSpawn;)
         {
-            towerSpawn = transform.position;
+            //Spawn a test object to make sure tower is not in building
+            towerSpawn = new Vector2((transform.position.x+Random.Range(-5, 5)),
+                    (transform.position.y+Random.Range(-5, 5)));
+            test = Instantiate(test, towerSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(.02f);
+            print(test.GetComponent<SpawnCheckBehavior>().isOverlapping);
+
+            //If the test is not in a building, spawn a tower
+            if (test.GetComponent<SpawnCheckBehavior>().isOverlapping == false)
+            {
+                towerList.Add(Instantiate(tower, towerSpawn, Quaternion.identity));
+                i++;
+            }
+            Destroy(test);
+
+            //spawn a tower at a random position
+            /*towerSpawn = transform.position;
             towerSpawn.x+=Random.Range(-5f,5f);
             towerSpawn.y += Random.Range(-5f, 5f);
-            towerList.Add(Instantiate(tower, towerSpawn, Quaternion.identity));
+            towerList.Add(Instantiate(tower, towerSpawn, Quaternion.identity));*/
         }
         activeShield = Instantiate(shield, transform.position, Quaternion.identity);
     }
@@ -380,32 +449,39 @@ public class BossBehavior : MonoBehaviour
     /// <param name="collision">The attack collided with</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //If the boss can be attacked
         if (canBeAttacked&&health>0)
         {
+            //If attacked by a gun
             if (collision.gameObject.tag == "bullet")
             {
+                //If shot by a pistol
                 if (collision.name.Contains("Pistol"))
                 {
                     PistolBulletBehavior pbb =
                         collision.gameObject.GetComponent<PistolBulletBehavior>();
 
-                    //if bullet not shot by a player, take damage
+                    //if bullet shot by a player, take damage
                     if (pbb.shotByPlayer)
                     {
                         health -= pbb.damageDealt;
                     }
                 }
+
+                //If shot by a revolver
                 if (collision.name.Contains("Revolver"))
                 {
                     SheriffBulletBehavior sbb =
                         collision.gameObject.GetComponent<SheriffBulletBehavior>();
 
-                    //if bullet not shot by a player, take damage
+                    //if bullet shot by a player, take damage
                     if (sbb.shotByPlayer)
                     {
                         health -= sbb.damageDealt;
                     }
                 }
+
+                //If shot by a shotgun or shotgun spray bullet
                 if (collision.name.Contains("Spray"))
                 {
                     SprayShotgunBulletBehavior ssbb =
@@ -428,96 +504,50 @@ public class BossBehavior : MonoBehaviour
                         health -= shotbb.damageDealt;
                     }
                 }
+
+                //If health is 0 or less and not destroyed, die
                 if (health <= 0 && !destroyed)
                 {
                     destroyed = true;
                     BossDeath();
                 }
             }
+
+            //If attacked by an explosive
             if (collision.gameObject.tag == "explodey")
             {
+                //If hit by a molotov cocktail
                 if (collision.name.Contains("Fire"))
                 {
                     FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
 
-                    //If explosion not created by player, take damage
+                    //If explosion created by player, take damage
                     if (fb.shotByPlayer)
                     {
                         health -= fb.damageDealt;
                     }
                 }
+
+                //If hit by a firecracker or dynamite
                 else if (collision.name.Contains("Kaboom"))
                 {
                     DamageStoreExplodeBehavior dseb = collision.gameObject.
                         GetComponent<DamageStoreExplodeBehavior>();
 
-                    //If explosion not created by player, take damage
+                    //If explosion created by player, take damage
                     if (dseb.shotByPlayer)
                     {
                         health -= dseb.damageDealt;
                     }
                 }
+
+                //if health is 0 or less and not destroyed, die
                 if (health <= 0 && !destroyed)
                 {
                     destroyed = true;
                     BossDeath();
                 }
             }
-
-            /*if (collision.gameObject.tag == "bullet")
-            {
-                if (collision.name.Contains("Pistol"))
-                {
-                    PistolBulletBehavior pbb =
-                        collision.gameObject.GetComponent<PistolBulletBehavior>();
-                    health -= pbb.damageDealt;
-
-                }
-                if (collision.name.Contains("Revolver"))
-                {
-                    SheriffBulletBehavior sbb =
-                        collision.gameObject.GetComponent<SheriffBulletBehavior>();
-                    health -= sbb.damageDealt;
-                }
-                if (collision.name.Contains("Spray"))
-                {
-                    SprayShotgunBulletBehavior ssbb =
-                        collision.GetComponent<SprayShotgunBulletBehavior>();
-                    health -= ssbb.damageDealt;
-                }
-                if (collision.name.Contains("Shotgun"))
-                {
-                    ShotgunBulletBehavior shotbb =
-                        collision.gameObject.GetComponent<ShotgunBulletBehavior>();
-                    health -= shotbb.damageDealt;
-                }
-                if (health <= 0 && !destroyed)
-                {
-                    destroyed = true;
-                    BossDeath();
-                }
-            }
-            if (collision.gameObject.tag == "explodey")
-            {
-                print("explode hit");
-                if (collision.name.Contains("Fire"))
-                {
-                    FireBehavior fb = collision.gameObject.GetComponent<FireBehavior>();
-                    health -= fb.damageDealt;
-                }
-                else if (collision.name.Contains("Kaboom"))
-                {
-                    DamageStoreExplodeBehavior dseb = collision.gameObject.
-                        GetComponent<DamageStoreExplodeBehavior>();
-                    health -= dseb.damageDealt;
-                }
-                if (health <= 0 && !destroyed)
-                {
-                    destroyed = true;
-                    BossDeath();
-
-                }
-            }*/
         }
 
     }

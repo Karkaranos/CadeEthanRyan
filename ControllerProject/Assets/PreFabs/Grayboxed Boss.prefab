@@ -108,6 +108,7 @@ MonoBehaviour:
   dynamite: {fileID: 2859473220056204481, guid: 454b5caae2d20f74e9981313afaf0da6, type: 3}
   firecracker: {fileID: 5733515255665031954, guid: 9ad0175d4ac01be489471fcef7dc2284, type: 3}
   cocktail: {fileID: 1859233750919071300, guid: 7f1fdd8b5e3ab5c48b5186c99be26562, type: 3}
+  test: {fileID: 86713797488954534, guid: c14b14830ab3cf74fb6f8dcd6d050005, type: 3}
   player1: {fileID: 0}
   player2: {fileID: 0}
   target: {fileID: 0}

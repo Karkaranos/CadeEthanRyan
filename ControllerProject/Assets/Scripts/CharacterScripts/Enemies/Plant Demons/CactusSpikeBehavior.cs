@@ -21,6 +21,8 @@ public class CactusSpikeBehavior : MonoBehaviour
 
     //Handles getting a target and adding force
     #region Attacks
+
+
     /// <summary>
     /// Gets the position of the target and launches towards it
     /// </summary>
@@ -35,21 +37,29 @@ public class CactusSpikeBehavior : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
+        //Since the speed depends on the distance, this next section makes the speed
+        //more consistent
+
+        //If the target is close, set a faster speed adjustment
         if (dir.magnitude <= 5)
         {
             speed = .03f;
         }
         else
         {
+            //If the target is at a medium distance, set a medium speed adjustment
             if (dir.magnitude <= 10)
             {
                 speed = .02f;
             }
             else
             {
+                //if the target is far, set a slower speed adjustment
                 speed = .01f;
             }
         }
+
+        //apply the direction and speed multiplier to the enemy
         moveForce.x = dir.x;
         moveForce.y = dir.y;
         moveForce *= speed;
@@ -58,6 +68,7 @@ public class CactusSpikeBehavior : MonoBehaviour
 
     #endregion Attacks
 
+    //Handles collisions
     #region Collisions
 
     /// <summary>
@@ -66,8 +77,11 @@ public class CactusSpikeBehavior : MonoBehaviour
     /// <param name="collision">The object collided with</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //If the spike collides with a player, player attack, or world object, 
+        //destroy it
         if (collision.gameObject.tag == "player" || collision.gameObject.tag ==
-            "bullet" || collision.gameObject.tag == "World Objects")
+            "bullet" || collision.gameObject.tag == "World Objects" || 
+            collision.gameObject.tag=="explodey")
         {
 
             Destroy(gameObject);

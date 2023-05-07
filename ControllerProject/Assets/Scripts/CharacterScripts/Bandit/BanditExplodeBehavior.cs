@@ -20,7 +20,7 @@ public class BanditExplodeBehavior : FlashScript
     public override IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
-        AudioSource.PlayClipAtPoint(basicBoom, transform.position, 2f);
+        AudioSource.PlayClipAtPoint(basicBoom, transform.position, 3f);
         destroyThisObject = Instantiate(kaboom, transform.position, 
             transform.rotation);
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().shotByPlayer =

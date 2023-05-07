@@ -11,11 +11,16 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
 {
-
+    #region Variables
     GameObject player1Obj;
     bool followPlayer=false;
     Vector3 newPos;
     GameObject player2Obj;
+
+    #endregion
+
+    #region Functions
+
     /// <summary>
     /// Start is called before the first frame update. Checks for players
     /// </summary>
@@ -32,14 +37,19 @@ public class CameraBehavior : MonoBehaviour
     {
         for (; ; )
         {
+            //If player 1 is null, try finding it
             if (player1Obj == null)
             {
                 player1Obj = GameObject.Find("Grayboxed Sheriff(Clone)");
             }
+
+            //If Player 1 is found, start following the player
             if (player1Obj != null)
             {
                 followPlayer = true;
             }
+
+            //If player 2 is null, try finding it
             if (player2Obj == null)
             {
                 player2Obj = GameObject.Find("Grayboxed Bandit(Clone)");
@@ -50,22 +60,29 @@ public class CameraBehavior : MonoBehaviour
 
 
     /// <summary>
-    /// Sets the camera to follow player 1
+    /// Occurs every frame; Sets the camera to follow a player
     /// </summary>
     private void Update()
     {
+        //If set to follow a player and Player 1, but not Player 2, exists, follow
+        //Player 1
         if (followPlayer&&player2Obj==null&&player1Obj!=null)
         {
             newPos = player1Obj.transform.position;
             newPos.z = -10;
             transform.position = newPos;
         }
+
+        //If set to follow a player and both players exist, follow Player 1
         if (followPlayer && player2Obj != null && player1Obj!=null)
         {
             newPos = player1Obj.transform.position;
             newPos.z = -10;
             transform.position = newPos;
         }
+
+        //If set to follow a player and Player 2, but not Player 1, exists, follow
+        //Player 1
         if (followPlayer && player2Obj!=null &&player1Obj==null)
         {
             newPos = player2Obj.transform.position;
@@ -73,4 +90,5 @@ public class CameraBehavior : MonoBehaviour
             transform.position = newPos;
         }
     }
+    #endregion
 }
