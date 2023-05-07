@@ -84,15 +84,15 @@ MonoBehaviour:
 
     Right Stick -> Scope Movement
 
-    Y
-    -> Switch Weapon
-
-    B -> Switch PowerUp
+    Left
+    Bumper -> Switch Weapon
 
     Right Trigger -> Light Attack
 
-    Right
-    Bumper -> Heavy Attack'
+    Right Bumper
+    -> Heavy Attack
+
+    X -> Interact '
 --- !u!114 &804134770485728931
 MonoBehaviour:
   m_ObjectHideFlags: 0
