@@ -52,6 +52,12 @@ public class SheriffBehavior : MonoBehaviour
     private int maxAmmo;
     private bool canAttack;
 
+    //Sounds
+    [SerializeField] AudioClip revolverShot;
+    [SerializeField] AudioClip pistolShot;
+    [SerializeField] AudioClip shotgunShot;
+    [SerializeField] AudioClip damage;
+
     //Other Variables
     [SerializeField] private GameObject sheriff;
     [SerializeField] private Sprite revolver;
@@ -256,6 +262,7 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<SheriffBulletBehavior>().Shoot(scope);
                         temp.GetComponent<SheriffBulletBehavior>().shotByPlayer = 
                             true;
+                        AudioSource.PlayClipAtPoint(revolverShot, transform.position, .7f);
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
                     {
@@ -266,6 +273,7 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<ShotgunBulletBehavior>().Shoot(scope);
                         temp.GetComponent<ShotgunBulletBehavior>().shotByPlayer =
                             true;
+                        AudioSource.PlayClipAtPoint(shotgunShot, transform.position, 5f);
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
                     {
@@ -276,6 +284,7 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<PistolBulletBehavior>().Shoot(scope);
                         temp.GetComponent<SheriffBulletBehavior>().shotByPlayer =
                             true;
+                        AudioSource.PlayClipAtPoint(pistolShot, transform.position, .6f);
                     }
                     chgAtkAvailable = false;
                     StartCoroutine(ChargeWeaponCoolDown());
@@ -328,6 +337,7 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<SheriffBulletBehavior>().Shoot(scope);
                         temp.GetComponent<SheriffBulletBehavior>().shotByPlayer =
                             true;
+                        AudioSource.PlayClipAtPoint(revolverShot, transform.position, .7f);
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.SHOTGUN)
                     {
@@ -338,6 +348,7 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<ShotgunBulletBehavior>().damageDealt =
                             weapon.Dmg;
                         temp.GetComponent<ShotgunBulletBehavior>().Shoot(scope);
+                        AudioSource.PlayClipAtPoint(shotgunShot, transform.position, 5f);
                     }
                     if (weapon.Weapon == WeaponData.WeaponID.PISTOL)
                     {
@@ -348,6 +359,7 @@ public class SheriffBehavior : MonoBehaviour
                         temp.GetComponent<PistolBulletBehavior>().Shoot(scope);
                         temp.GetComponent<PistolBulletBehavior>().shotByPlayer =
                             true;
+                        AudioSource.PlayClipAtPoint(pistolShot, transform.position, .6f);
                     }
                     atkAvailable = false;
                     StartCoroutine(WeaponCoolDown());
@@ -557,6 +569,7 @@ public class SheriffBehavior : MonoBehaviour
             LargeTumbleFiendBehavior ltfb = collision.gameObject.GetComponent
                 <LargeTumbleFiendBehavior>();
             playerhealth -= ltfb.damageDealt;
+            AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
         }
         if (collision.gameObject.name == "Small TumbleFiend(Clone)")
         {
@@ -564,6 +577,7 @@ public class SheriffBehavior : MonoBehaviour
             SmallTumbleFiendBehavior stfb = collision.gameObject.GetComponent
                 <SmallTumbleFiendBehavior>();
             playerhealth -= stfb.sDamageDealt;
+            AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
         }
     }
 
@@ -576,18 +590,21 @@ public class SheriffBehavior : MonoBehaviour
                 DamageStoreExplodeBehavior dseb = collision.
                     GetComponent<DamageStoreExplodeBehavior>();
                 playerhealth -= dseb.damageDealt;
+                AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
             }
             if (collision.name.Contains("Spike"))
             {
                 ExplodeSpikeBehavior esb = collision.GetComponent
                     <ExplodeSpikeBehavior>();
-                playerhealth -= esb.damageDealt;
+                playerhealth -= esb.damageDealt; 
+                AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
             }
         }
         if (collision.gameObject.tag == "Spike")
         {
             CactusSpikeBehavior csb = collision.GetComponent<CactusSpikeBehavior>();
             playerhealth -= csb.damageDealt;
+            AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
         }
 
         //Boss Attack damage
@@ -602,6 +619,7 @@ public class SheriffBehavior : MonoBehaviour
                 if (!pbb.shotByPlayer)
                 {
                     playerhealth -= pbb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
             if (collision.name.Contains("Revolver"))
@@ -613,6 +631,7 @@ public class SheriffBehavior : MonoBehaviour
                 if (!sbb.shotByPlayer)
                 {
                     playerhealth -= sbb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
             if (collision.name.Contains("Spray"))
@@ -624,6 +643,7 @@ public class SheriffBehavior : MonoBehaviour
                 if (!ssbb.shotByPlayer)
                 {
                     playerhealth -= ssbb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
             else if (collision.name.Contains("Shotgun"))
@@ -635,6 +655,7 @@ public class SheriffBehavior : MonoBehaviour
                 if (!shotbb.shotByPlayer)
                 {
                     playerhealth -= shotbb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
         }
@@ -648,6 +669,7 @@ public class SheriffBehavior : MonoBehaviour
                 if (!fb.shotByPlayer)
                 {
                     playerhealth -= fb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
             else if (collision.name.Contains("Kaboom"))
@@ -659,6 +681,7 @@ public class SheriffBehavior : MonoBehaviour
                 if (!dseb.shotByPlayer)
                 {
                     playerhealth -= dseb.damageDealt;
+                    AudioSource.PlayClipAtPoint(damage, transform.position, 2f);
                 }
             }
         }

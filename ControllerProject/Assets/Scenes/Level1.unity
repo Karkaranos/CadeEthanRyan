@@ -364,7 +364,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 8803561459048492042, guid: dff5b6569c2adc6458febc4235e70943, type: 3}
+  m_PlayerPrefab: {fileID: 2700782505059181928, guid: 963bcab5ba964cf4caad1529d41d90e4, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -795,6 +795,10 @@ PrefabInstance:
       propertyPath: sounds.Array.data[0].clip
       value: 
       objectReference: {fileID: 8300000, guid: 504a07f278fe9fd4a93beff2d6c8a258, type: 3}
+    - target: {fileID: 8673267102728782049, guid: 8856121a73dba5844bf56d34968b8968, type: 3}
+      propertyPath: sounds.Array.data[0].volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8673267102728782050, guid: 8856121a73dba5844bf56d34968b8968, type: 3}
       propertyPath: m_RootOrder
       value: 2

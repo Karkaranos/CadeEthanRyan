@@ -15,10 +15,12 @@ public class BanditExplodeBehavior : FlashScript
     GameObject destroyThisObject;
     public float bDamageDealt;
     public bool bShotByPlayer = true;
+    [SerializeField] AudioClip basicBoom;
 
     public override IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
+        AudioSource.PlayClipAtPoint(basicBoom, transform.position, 2f);
         destroyThisObject = Instantiate(kaboom, transform.position, 
             transform.rotation);
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().shotByPlayer =

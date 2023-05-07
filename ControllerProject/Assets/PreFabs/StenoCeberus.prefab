@@ -176,6 +176,7 @@ MonoBehaviour:
   damageDealt: 0
   shotByPlayer: 0
   spawnedBy: {fileID: 0}
+  explosion: {fileID: 8300000, guid: 911e6c9ccb2cb3442bd33526aec974f5, type: 3}
 --- !u!50 &2407197434869214690
 Rigidbody2D:
   serializedVersion: 4

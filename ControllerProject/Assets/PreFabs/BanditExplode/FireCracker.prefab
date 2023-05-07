@@ -110,3 +110,4 @@ MonoBehaviour:
   smallerKabooms: {fileID: 1068510098980812213, guid: 4851877a82de6a6479a8b81aa8214fe3, type: 3}
   fDamageDealt: 0
   fShotByPlayer: 1
+  firecrackerBoom: {fileID: 8300000, guid: 3e914a809c428ad46b70329ad78c9fd5, type: 3}

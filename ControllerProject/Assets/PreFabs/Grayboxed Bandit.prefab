@@ -90,6 +90,7 @@ MonoBehaviour:
   playerhealth: 200
   cells: 0
   freeMove: 0
+  damage: {fileID: 8300000, guid: ec933f24259bdbd4c9c8e1fd4fab6969, type: 3}
 --- !u!114 &2700782505059181925
 MonoBehaviour:
   m_ObjectHideFlags: 0

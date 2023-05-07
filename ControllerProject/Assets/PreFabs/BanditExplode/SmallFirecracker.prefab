@@ -103,3 +103,4 @@ MonoBehaviour:
   deathTimer: 5
   flashInterval: 0.67
   explode: {fileID: 469343620011908240, guid: 91fdbd2b56d8d5e428a7e5dc94829824, type: 3}
+  firecrackerBoom: {fileID: 8300000, guid: 3e914a809c428ad46b70329ad78c9fd5, type: 3}

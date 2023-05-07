@@ -432,6 +432,10 @@ MonoBehaviour:
   gun: {fileID: 8803561458639646723}
   scopeDistance: 0
   dmgShot: 0
+  revolverShot: {fileID: 8300000, guid: 2182b5e3a0c9b214a96fecb225f70e4a, type: 3}
+  pistolShot: {fileID: 8300000, guid: 427f853f514b08e4baefd914beafc122, type: 3}
+  shotgunShot: {fileID: 8300000, guid: fc81fab6b9ed66442b0b075c9293fcef, type: 3}
+  damage: {fileID: 8300000, guid: ec933f24259bdbd4c9c8e1fd4fab6969, type: 3}
   sheriff: {fileID: 8803561458009023020}
   revolver: {fileID: 21300000, guid: 48cb73b656234f34ea4679903c197aed, type: 3}
   shotgun: {fileID: 21300000, guid: a3a13e9e0773ee54488d4c713a1c8c1b, type: 3}

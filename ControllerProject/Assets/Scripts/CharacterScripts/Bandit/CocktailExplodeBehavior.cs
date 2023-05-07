@@ -20,10 +20,15 @@ public class CocktailExplodeBehavior : MonoBehaviour
     public float cDamageDealt;
     GameObject temp;
     public bool shotByPlayer = true;
+    [SerializeField] AudioClip molotovThrow;
+
+
     public virtual IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
-        temp=Instantiate(fire, transform.position, transform.rotation);
+        AudioSource.PlayClipAtPoint(molotovThrow, transform.position,
+            .9f);
+        temp =Instantiate(fire, transform.position, transform.rotation);
         temp.GetComponent<FireBehavior>().shotByPlayer = shotByPlayer;
         temp.GetComponent<FireBehavior>().damageDealt = cDamageDealt / 2;
         Destroy(gameObject);
