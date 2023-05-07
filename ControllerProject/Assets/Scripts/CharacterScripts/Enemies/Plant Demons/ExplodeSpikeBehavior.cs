@@ -39,10 +39,12 @@ public class ExplodeSpikeBehavior : MonoBehaviour
     /// </summary>
     public void SetTarget()
     {
+        //Gets the spike's angle and adds force in that direction
         spikeTarget.x = Mathf.Cos(angle);
         spikeTarget.y = Mathf.Sin(angle);
         spikeTarget *= .1f;
 
+        //ensures the angle stays the same
         qAngle = Quaternion.Euler(spikeTarget.x*360, 0, spikeTarget.y*360);
         transform.rotation = qAngle;
 

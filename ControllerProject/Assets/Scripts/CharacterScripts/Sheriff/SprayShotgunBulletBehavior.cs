@@ -12,6 +12,10 @@ using UnityEngine;
 
 public class SprayShotgunBulletBehavior : ShotgunBulletBehavior
 {
+    /// <summary>
+    /// Handles overrides for Shotgun Bullet Behavior
+    /// </summary>
+    /// <param name="attackMe">Target object-not used</param>
     public override void Shoot(GameObject attackMe)
     {
         StartCoroutine(DespawnTimer());

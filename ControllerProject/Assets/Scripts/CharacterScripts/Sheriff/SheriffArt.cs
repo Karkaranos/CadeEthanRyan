@@ -11,6 +11,11 @@ using UnityEngine;
 
 public class SheriffArt : MonoBehaviour
 {
+    /// <summary>
+    /// Detects what direction the Sheriff is moving in and changes its color
+    /// </summary>
+    /// <param name="pos">Sheriff's position change</param>
+    /// <param name="rot">Sheriff's rotation</param>
     public void SetDirection(Vector2 pos, Quaternion rot)
     {
         if (pos.x > 0.05 && pos.x < 1)

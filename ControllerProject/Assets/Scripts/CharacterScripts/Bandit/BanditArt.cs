@@ -11,6 +11,11 @@ using UnityEngine;
 
 public class BanditArt : MonoBehaviour
 {
+    /// <summary>
+    /// Tracks the direction the bandit is moving in and changes its appearance
+    /// </summary>
+    /// <param name="pos">Bandit's position change</param>
+    /// <param name="rot">Bandit's rotation</param>
     public void SetDirection(Vector2 pos, Quaternion rot)
     {
         if (pos.x > 0.05 && pos.x < 1)

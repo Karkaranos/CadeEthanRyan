@@ -19,5 +19,5 @@ MonoBehaviour:
   chargeDmg: 3
   chargeCD: 4
   standardCD: 0.2
-  ammo: 2723
+  ammo: 3000
   maxAmmo: 3000
