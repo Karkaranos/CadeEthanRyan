@@ -1,9 +1,17 @@
+/*****************************************************************************
+// File Name :         LootTableAndDropBehavior.cs
+// Author :            Cade R. Naylor
+// Creation Date :     April 23, 2023
+//
+// Brief Description : Handles summoning loot upon enemy death
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LootTableAndDropBehavior : MonoBehaviour
 {
+    #region Variables
     [SerializeField] GameObject cell;
     [SerializeField] GameObject health;
     [SerializeField] GameObject ammo;
@@ -11,6 +19,9 @@ public class LootTableAndDropBehavior : MonoBehaviour
     private int randomNum;
     private int totalChances=1;
     private int totalPool=20;
+    #endregion
+
+    #region Functions
 
     /// <summary>
     /// Has the potential to spawn items at the position where an enemy died
@@ -60,4 +71,5 @@ public class LootTableAndDropBehavior : MonoBehaviour
 
         }
     }
+    #endregion
 }
