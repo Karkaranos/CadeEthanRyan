@@ -20,9 +20,14 @@ public class ButtonBehaviour : MonoBehaviour
     public GameObject second;
     
    
-    public void StartButton()
+    public void TutorialButton()
     {
         SceneManager.LoadScene("TutorialLevel");
+    }
+
+    public void StartButton()
+    {
+        SceneManager.LoadScene("Level1");
     }
 
     public void HowToPlay()
