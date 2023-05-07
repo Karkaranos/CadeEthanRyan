@@ -28,6 +28,7 @@ public class FirecrackerExplodeBehavior : FlashScript
     //Handles overrides for class FlashScript
     #region Function Overrides
 
+
     public override IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
@@ -38,8 +39,7 @@ public class FirecrackerExplodeBehavior : FlashScript
             shotByPlayer;
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt = 
             fDamageDealt;
-        yield return new WaitForSeconds(.1f);
-        Destroy(destroyThisObject);
+        yield return new WaitForSeconds(.2f);
         scale = Vector3.zero;
         transform.localScale = scale;
         for (int i=0; i<smallerExplosionsSpawned; i++)

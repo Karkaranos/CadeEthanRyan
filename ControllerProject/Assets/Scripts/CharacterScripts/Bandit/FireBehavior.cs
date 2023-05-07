@@ -38,7 +38,7 @@ public class FireBehavior : MonoBehaviour
             yield return new WaitForSeconds(secondsToWait);
             if (scale.magnitude >= 4)
             {
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(2.7f);
                 Destroy(gameObject);
             }
         }

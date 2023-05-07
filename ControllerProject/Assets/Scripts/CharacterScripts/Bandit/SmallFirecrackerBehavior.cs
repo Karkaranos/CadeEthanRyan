@@ -30,8 +30,7 @@ public class SmallFirecrackerBehavior : MonoBehaviour
             = shotByPlayer;
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt 
             = damageDealt;
-        yield return new WaitForSeconds(.1f);
-        Destroy(destroyThisObject);
+        yield return new WaitForSeconds(.2f);
         Destroy(gameObject);
     }
     public void Flash(float countdown)

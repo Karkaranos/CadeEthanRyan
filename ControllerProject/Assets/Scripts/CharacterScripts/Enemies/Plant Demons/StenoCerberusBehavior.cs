@@ -221,6 +221,7 @@ public class StenoCerberusBehavior : MonoBehaviour
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explode.damageDealt = explodeDamage;
                     explodeStarted = true;
+                    explode.spawnedBy = this.gameObject;
                 }
                 else
                 {
@@ -265,6 +266,7 @@ public class StenoCerberusBehavior : MonoBehaviour
                     explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explodeStarted = true;
+                    explode.spawnedBy = this.gameObject;
                 }
                 else
                 {

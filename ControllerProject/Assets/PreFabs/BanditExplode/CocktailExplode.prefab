@@ -99,6 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathTimer: 5
   flashInterval: 0.67
-  fire: {fileID: 7485977616413986338, guid: 8d7e12dd387d3014c941aad3dd82f7f4, type: 3}
+  fire: {fileID: 983592834058797608, guid: 7a3ad7566c7a2dc49a2973bfa19ee180, type: 3}
   cDamageDealt: 0
   shotByPlayer: 1

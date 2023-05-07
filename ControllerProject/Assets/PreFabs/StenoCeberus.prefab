@@ -169,12 +169,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathTimer: 5
   flashInterval: 0.67
-  explode: {fileID: 8217712592793994439, guid: 708a5c635e135b24dbc2d9cf6d553c6c, type: 3}
+  explode: {fileID: 5454235741162870449, guid: 8df5501c833b2e34693a1006ede39480, type: 3}
   destroyMe: {fileID: 0}
   numSpikesSpawned: 12
   explodeSpike: {fileID: 2167011491982744580, guid: 31757019c3b6a33439130689adec8bf7, type: 3}
   damageDealt: 0
   shotByPlayer: 0
+  spawnedBy: {fileID: 0}
 --- !u!50 &2407197434869214690
 Rigidbody2D:
   serializedVersion: 4

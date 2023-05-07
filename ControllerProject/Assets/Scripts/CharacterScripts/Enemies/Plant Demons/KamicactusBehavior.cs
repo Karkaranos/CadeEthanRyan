@@ -50,7 +50,7 @@ public class KamicactusBehavior : MonoBehaviour
     void Start()
     {
         player1 = GameObject.Find("Grayboxed Sheriff(Clone)");
-        player2 = GameObject.Find("Grayboxed Bandit(Clone");
+        player2 = GameObject.Find("Grayboxed Bandit(Clone)");
         target = Random.Range(1,3);
         if (target == 1)
         {
@@ -155,6 +155,7 @@ public class KamicactusBehavior : MonoBehaviour
             explode.damageDealt = damageDealt;
             exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
             explodeStarted = true;
+            explode.spawnedBy = gameObject;
             health = 0;
             speed = 2;
         }
@@ -204,6 +205,7 @@ public class KamicactusBehavior : MonoBehaviour
                     explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explodeStarted = true;
+                    explode.spawnedBy = gameObject;
                     speed = 2;
                 }
                 else
@@ -244,6 +246,7 @@ public class KamicactusBehavior : MonoBehaviour
                     explode.Flash();
                     exploding = StartCoroutine(explode.Kaboom(ignitionToExplode));
                     explodeStarted = true;
+                    explode.spawnedBy = gameObject;
                     speed = 2;
                 }
                 else
