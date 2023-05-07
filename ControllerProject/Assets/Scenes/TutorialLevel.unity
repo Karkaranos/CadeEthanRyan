@@ -8541,8 +8541,7 @@ MonoBehaviour:
   dialogue:
     name: Bartender
     sentences:
-    - "This is a very long line of text \nto see if the letters are \nanimating correctly."
-    - test number 2
+
     - final test :3
 --- !u!60 &1543085274
 PolygonCollider2D:
@@ -9056,6 +9055,7 @@ MonoBehaviour:
   largeTumble: {fileID: 0}
   smallTumble: {fileID: 0}
   boss: {fileID: 1069991747}
+  spawnTest: {fileID: 0}
   enemyCounter: 0
   wave: 1
   wave1Enemies: 0
