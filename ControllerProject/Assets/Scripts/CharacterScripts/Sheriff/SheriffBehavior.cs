@@ -80,7 +80,8 @@ public class SheriffBehavior : MonoBehaviour
 
 
     private UIManagerBehavior uim;
-    private NPC npc;
+    private NPC npc1, npc2;
+    
     
 
     public float Playerhealth { get => playerhealth; set => playerhealth = value; }
@@ -129,7 +130,8 @@ public class SheriffBehavior : MonoBehaviour
        
         if (SceneManager.GetActiveScene().buildIndex == 4)
         {
-            npc = GameObject.Find("Bartender").GetComponent<NPC>();
+            npc1 = GameObject.Find("Bartender").GetComponent<NPC>();
+            npc2 = GameObject.Find("BigMouthStatue").GetComponent<NPC>();
         }
         /*
         if (instance != null && instance != this)
@@ -198,7 +200,9 @@ public class SheriffBehavior : MonoBehaviour
         switchPowerUp.Enable();
         pauseMenu.performed += contx => uim.PauseMenu();
         pauseMenu.Enable();
-        playerInteract.performed += contx => npc.TriggerDialogue();
+        playerInteract.performed += contx => npc1.TriggerDialogue();
+        playerInteract.Enable();
+        playerInteract.performed += contx => npc2.TriggerDialogue();
         playerInteract.Enable();
     }
 
@@ -225,7 +229,9 @@ public class SheriffBehavior : MonoBehaviour
         switchPowerUp.Disable();
         pauseMenu.performed -= contx => uim.PauseMenu();
         pauseMenu.Disable();
-        playerInteract.performed -= contx => npc.TriggerDialogue();
+        playerInteract.performed -= contx => npc1.TriggerDialogue();
+        playerInteract.Disable();
+        playerInteract.performed -= contx => npc2.TriggerDialogue();
         playerInteract.Disable();
     }
 
