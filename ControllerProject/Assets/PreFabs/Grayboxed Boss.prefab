@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shield: {fileID: 5204469853131220585, guid: f2d3f0f342ffe3c429baff5bdde45408, type: 3}
-  tower: {fileID: 3981518984779973386, guid: c50513576d220e246baf4b1720dcc8fb, type: 3}
+  tower: {fileID: 6070424891498368629, guid: 161ac0d2d9c5b784f8bc6e821dfc74e5, type: 3}
   pistolBullet: {fileID: 8809106737771665756, guid: ae1c34ad93e582e488c9ae8012241856, type: 3}
   shotgunBullet: {fileID: 5812975587884874350, guid: 4ca1c0d494a80184599bb8aec495812d, type: 3}
   revolverBullet: {fileID: 6654295249230590641, guid: 6e13fa98b814dc5419c4a97e987dbba5, type: 3}
@@ -134,7 +134,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!95 &-1888427857997220891
 Animator:
   serializedVersion: 4

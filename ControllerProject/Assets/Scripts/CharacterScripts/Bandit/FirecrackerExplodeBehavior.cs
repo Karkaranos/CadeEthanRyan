@@ -18,6 +18,7 @@ public class FirecrackerExplodeBehavior : FlashScript
     private int smallerExplosionsSpawned=5;
     public float fDamageDealt;
     GameObject destroyThisObject;
+
     Vector3 scale;
     Vector2 smallExplodePos;
     List<GameObject> smallExplosions = new List<GameObject>();
@@ -29,6 +30,11 @@ public class FirecrackerExplodeBehavior : FlashScript
     //Handles overrides for class FlashScript
     #region Function Overrides
 
+    private void Start()
+    {
+        shotByPlayer = fShotByPlayer;
+        damageDealt = fDamageDealt;
+    }
 
     public override IEnumerator Kaboom(float explodeCountdown)
     {

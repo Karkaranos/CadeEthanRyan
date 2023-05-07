@@ -828,8 +828,8 @@ MonoBehaviour:
   stenocerberus: {fileID: 872037931166735018, guid: a90028f1149871b45ace596758f5f39f, type: 3}
   largeTumble: {fileID: 5265950989721354524, guid: 19296eb0b24166c4886dc3d4e94fae60, type: 3}
   smallTumble: {fileID: 7129858497728827855, guid: 2f12e81c83786eb469248fc50f5ac3dd, type: 3}
-  boss: {fileID: 0}
-  spawnTest: {fileID: 0}
+  boss: {fileID: 6217047579522872382, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
+  spawnTest: {fileID: 86713797488954534, guid: c14b14830ab3cf74fb6f8dcd6d050005, type: 3}
   enemyCounter: 0
   wave: 1
   wave1Enemies: 3
@@ -856,7 +856,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &888764565
 GameObject:
@@ -1633,64 +1633,3 @@ PrefabInstance:
       objectReference: {fileID: 247291561}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3afe859b1e0f8248a6aab4ae21e251a, type: 3}
---- !u!1001 &6217047580389287253
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872376, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872382, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_Name
-      value: Grayboxed Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217047579522872382, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a6703095c0d730649a288b27ab2ac21d, type: 3}

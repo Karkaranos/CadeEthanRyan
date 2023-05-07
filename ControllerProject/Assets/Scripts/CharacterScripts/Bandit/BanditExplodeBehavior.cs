@@ -17,6 +17,12 @@ public class BanditExplodeBehavior : FlashScript
     public bool bShotByPlayer = true;
     [SerializeField] AudioClip basicBoom;
 
+    private void Start()
+    {
+        damageDealt = bDamageDealt;
+        shotByPlayer = bShotByPlayer;
+    }
+
     public override IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
