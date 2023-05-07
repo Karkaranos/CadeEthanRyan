@@ -203,9 +203,9 @@ public class SheriffBehavior : MonoBehaviour
         switchPowerUp.Enable();
         pauseMenu.performed += contx => uim.PauseMenu();
         pauseMenu.Enable();
-        playerInteract.performed += contx => npc1.TriggerDialogue();
-        playerInteract.Enable();
         playerInteract.performed += contx => npc2.TriggerDialogue();
+        playerInteract.Enable();
+        playerInteract.performed += contx => npc1.TriggerDialogue();
         playerInteract.Enable();
     }
 
@@ -232,9 +232,9 @@ public class SheriffBehavior : MonoBehaviour
         switchPowerUp.Disable();
         pauseMenu.performed -= contx => uim.PauseMenu();
         pauseMenu.Disable();
-        playerInteract.performed -= contx => npc1.TriggerDialogue();
-        playerInteract.Disable();
         playerInteract.performed -= contx => npc2.TriggerDialogue();
+        playerInteract.Disable();
+        playerInteract.performed -= contx => npc1.TriggerDialogue();
         playerInteract.Disable();
     }
 
