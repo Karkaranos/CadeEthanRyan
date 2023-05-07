@@ -14,7 +14,7 @@ public class DamageStoreExplodeBehavior : MonoBehaviour
 
     IEnumerator DeathTimer()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.75f);
         Destroy(gameObject);
     }
 }

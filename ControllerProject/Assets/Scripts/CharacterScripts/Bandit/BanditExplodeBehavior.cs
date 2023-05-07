@@ -25,8 +25,7 @@ public class BanditExplodeBehavior : FlashScript
             shotByPlayer;
         destroyThisObject.GetComponent<DamageStoreExplodeBehavior>().damageDealt =
             damageDealt;
-        yield return new WaitForSeconds(.1f);
-        Destroy(destroyThisObject);
+        yield return new WaitForSeconds(.2f);
         Destroy(gameObject);
     }
 }

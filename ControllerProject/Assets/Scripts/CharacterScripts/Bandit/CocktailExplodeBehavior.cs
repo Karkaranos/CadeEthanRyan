@@ -20,8 +20,6 @@ public class CocktailExplodeBehavior : MonoBehaviour
     public float cDamageDealt;
     GameObject temp;
     public bool shotByPlayer = true;
-
-
     public virtual IEnumerator Kaboom(float explodeCountdown)
     {
         yield return new WaitForSeconds(explodeCountdown);
