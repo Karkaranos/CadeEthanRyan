@@ -15,6 +15,7 @@ TagManager:
   - Shield
   - NPC
   - UIManager
+  - Bottle
   layers:
   - Default
   - TransparentFX
