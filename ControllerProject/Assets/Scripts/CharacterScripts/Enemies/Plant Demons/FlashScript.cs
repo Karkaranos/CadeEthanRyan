@@ -55,10 +55,14 @@ public class FlashScript : MonoBehaviour
             shotByPlayer;
         destroyMe.GetComponent<DamageStoreExplodeBehavior>().damageDealt = 
             damageDealt;
+
+        //Plays an explosion sound
         AudioSource.PlayClipAtPoint(explosion, transform.position, 3f);
-        //StartCoroutine(CheckForNull());
         yield return new WaitForSeconds(.2f);
+
+        //Sets scale to 0
         transform.localScale = Vector3.zero;
+
         //Spawns spikes that explode outward and sets their damage amount
         for(int i = 0; i < numSpikesSpawned; i++)
         {
@@ -86,20 +90,6 @@ public class FlashScript : MonoBehaviour
         GetComponent<Renderer>().material.color = flash1;
         c = 1;
         StartCoroutine(ExplodeFlash());
-    }
-
-
-    IEnumerator CheckForNull()
-    {
-        for(; ; )
-        {
-            if (spawnedBy == null)
-            {
-                //Destroy(destroyMe);
-            }
-            yield return new WaitForSeconds(.01f);
-        }
-
     }
 
     /// <summary>

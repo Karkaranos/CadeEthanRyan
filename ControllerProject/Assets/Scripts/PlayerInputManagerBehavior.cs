@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputManagerBehavior : MonoBehaviour
 {
-
+    #region Variables
     private PlayerInputManager inputManager;
     [SerializeField] 
     private GameObject sheriff;
@@ -20,9 +20,12 @@ public class PlayerInputManagerBehavior : MonoBehaviour
     private GameObject bandit;
     [SerializeField]
     private GameObject playerPrefabB;
+    #endregion
+
+    #region Functions
 
     /// <summary>
-    /// Sets the input Manager
+    /// Sets the input Manager reference
     /// </summary>
     private void Awake()
     {
@@ -31,21 +34,20 @@ public class PlayerInputManagerBehavior : MonoBehaviour
     }
 
     /// <summary>
-    /// Switches prefab ob player joining
+    /// Switches prefab on player joining
     /// </summary>
     /// <param name="input">New input</param>
     void OnPlayerJoined(PlayerInput input)
     {
         if (sheriff == null)
         {
-            //sheriff = input.gameObject;
             inputManager.playerPrefab = bandit;
         }
         else
         {
             print("bandito");
-            //bandit = input.gameObject;
             inputManager.playerPrefab = bandit;
         }
     }
+    #endregion
 }

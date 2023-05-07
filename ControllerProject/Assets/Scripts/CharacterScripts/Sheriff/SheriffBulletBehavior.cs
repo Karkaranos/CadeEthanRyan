@@ -39,6 +39,7 @@ public class SheriffBulletBehavior : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
+        //Sets the move force and speed
         moveForce.x = dir.x;
         moveForce.y = dir.y;
         moveForce *= speed;
@@ -77,6 +78,8 @@ public class SheriffBulletBehavior : MonoBehaviour
     /// <param name="collision">The object collided with</param>
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        //If colliding with enemy or world object (or player if not shot by player)
+        //destroy
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag ==
             "World Objects" || (collision.gameObject.tag == "player" &&
             !shotByPlayer && damageDealt > 0))
